@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NovaStackHub – Links</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --navy:   #1e3a8a;
+      --blue:   #3b82f6;
+      --cyan:   #00c4cc;
+      --light:  #f0f6ff;
+      --muted:  #64748b;
+      --border: #e2e8f0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fff;
+      color: var(--navy);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════════════
+       HERO HEADER
+    ══════════════════════════════════════ */
+    .hero-header {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      overflow: hidden;
+      background: #0b1432;
+    }
+
+    /* ── grid lines ── */
+    @keyframes gridPulse { 0%,100%{opacity:.05} 50%{opacity:.13} }
+    .grid-line { animation: gridPulse 3s ease-in-out infinite alternate; }
+
+    /* ── floating shapes ── */
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    @keyframes floatX {
+      0%,100% { transform: translateX(0); }
+      50%      { transform: translateX(10px); }
+    }
+
+    /* ── pulse rings ── */
+    @keyframes ringExpand {
+      0%   { opacity:.6; transform:scale(1); }
+      100% { opacity:0;  transform:scale(2.2); }
+    }
+    .ring   { transform-origin: center; animation: ringExpand 3.5s ease-out infinite; }
+    .ring-2 { animation-delay: 1.75s; }
+
+    /* ── dev character animations ── */
+    @keyframes headBob {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      30%      { transform: translateY(-3px) rotate(-2deg); }
+      60%      { transform: translateY(1px) rotate(1deg); }
+    }
+    @keyframes typingArm {
+      0%,100% { transform: rotate(0deg); }
+      50%      { transform: rotate(-6deg); }
+    }
+    @keyframes screenGlow {
+      0%,100% { opacity:.9; }
+      50%      { opacity:.5; }
+    }
+    @keyframes cursorBlink {
+      0%,49% { opacity:1; }
+      50%,100%{ opacity:0; }
+    }
+    @keyframes codeScroll {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-60px); }
+    }
+    @keyframes serverBlink {
+      0%,90%  { opacity:1; }
+      95%,100%{ opacity:.2; }
+    }
+    @keyframes dataFlow {
+      0%   { stroke-dashoffset: 120; opacity:0.8; }
+      100% { stroke-dashoffset: 0;   opacity:0; }
+    }
+    @keyframes terminalType {
+      0%   { width:0; }
+      100% { width:100%; }
+    }
+    @keyframes wifiPulse {
+      0%,100% { opacity:.3; r:5; }
+      50%      { opacity:.9; r:8; }
+    }
+
+    /* ══════════════════════════════════════
+       SCROLL ARROW
+    ══════════════════════════════════════ */
+    .scroll-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      z-index: 30;
+      cursor: pointer;
+      margin-top: 14px;
+      margin-bottom: 4px;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .15s;
+    }
+    }
+
+    .scroll-arrow span {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .arrow-chevrons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .arrow-chevrons i {
+      font-size: 14px;
+      color: var(--cyan);
+      animation: chevronDrop 1.4s ease-in-out infinite;
+      line-height: 1;
+    }
+
+    .arrow-chevrons i:nth-child(1) { animation-delay: 0s;    opacity: .4; }
+    .arrow-chevrons i:nth-child(2) { animation-delay: 0.2s;  opacity: .7; }
+    .arrow-chevrons i:nth-child(3) { animation-delay: 0.4s;  opacity: 1;  }
+
+    @keyframes chevronDrop {
+      0%,100% { transform: translateY(-4px); opacity: .3; }
+      50%      { transform: translateY(4px);  opacity: 1; }
+    }
+
+    /* ══════════════════════════════════════
+       LOGO
+    ══════════════════════════════════════ */
+    .logo-outer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -80px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .logo-ring {
+      position: relative;
+      width: 160px;
+      height: 160px;
+    }
+
+    .spin-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      animation: spinRing 8s linear infinite;
+    }
+
+    .spin-svg.rev { animation: spinRing 12s linear infinite reverse; }
+
+    @keyframes spinRing { to { transform: rotate(360deg); } }
+
+    .logo-circle {
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,196,204,0.25), 0 0 0 6px rgba(59,130,246,0.08);
+    }
+
+    .logo-circle img {
+      width: 108px;
+      height: 108px;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+
+    /* ══════════════════════════════════════
+       PAGE BODY
+    ══════════════════════════════════════ */
+    .page-body {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .brand-block {
+      text-align: center;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .1s;
+    }
+
+    .brand-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 25px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: 1px;
+    }
+
+    .brand-name span { color: var(--cyan); }
+
+    .brand-tagline {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 1.2px;
+    }
+
+    .about-pill {
+      width: 100%;
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 18px 0 22px;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .2s;
+    }
+
+    .about-pill strong { color: var(--navy); }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--blue), var(--navy));
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 10px 28px rgba(59,130,246,.32);
+      transition: transform .3s, box-shadow .3s;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .3s;
+    }
+
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(59,130,246,.45); }
+    .cta-btn i { transition: transform .3s; }
+    .cta-btn:hover i { transform: translateX(5px); }
+
+    /* stats */
+    .stats-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .4s;
+    }
+
+    .stat-box {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 10px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .stat-num span { color: var(--cyan); }
+    .stat-label { font-size: 10.5px; color: var(--muted); margin-top: 3px; line-height:1.4; }
+
+    /* section heading */
+    .sec-heading {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeUp .6s ease forwards;
+    }
+
+    .sec-heading span {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .sec-line { flex:1; height:1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+    /* link cards */
+    .links-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .link-card {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      text-decoration: none;
+      color: var(--navy);
+      box-shadow: 0 2px 10px rgba(30,58,138,.05);
+      transition: all .3s ease;
+      opacity: 0;
+      animation: fadeUp .5s ease forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-card::after {
+      content:'';
+      position: absolute;
+      left:0; top:20%; bottom:20%;
+      width: 3px;
+      border-radius: 3px;
+      background: linear-gradient(to bottom, var(--cyan), var(--blue));
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .link-card:hover { transform: translateX(6px); border-color: rgba(0,196,204,.35); box-shadow: 0 8px 28px rgba(30,58,138,.1); }
+    .link-card:hover::after { opacity:1; }
+    .link-card:hover .card-arrow { transform: translateX(4px); color: var(--cyan); }
+    .link-card:hover .card-icon  { transform: scale(1.08); }
+
+    .card-icon {
+      width: 42px; height: 42px;
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+      transition: transform .3s;
+    }
+
+    .card-text { flex:1; }
+    .card-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:var(--navy); }
+    .card-sub   { font-size:11.5px; color:var(--muted); margin-top:2px; }
+    .card-arrow { font-size:13px; color:#cbd5e1; transition: all .3s; }
+
+    .icon-website  { background: linear-gradient(135deg,#1e3a8a,#3b82f6); }
+    .icon-email    { background: linear-gradient(135deg,#1e3a8a,#00c4cc); }
+    .icon-whatsapp { background: linear-gradient(135deg,#075e54,#25d366); }
+    .icon-fb       { background: linear-gradient(135deg,#1877f2,#42a5f5); }
+    .icon-insta    { background: linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045); }
+    .icon-linkedin { background: linear-gradient(135deg,#0077b5,#00a0dc); }
+
+    .link-card:nth-child(1) { animation-delay:.25s; }
+    .link-card:nth-child(2) { animation-delay:.35s; }
+    .link-card:nth-child(3) { animation-delay:.45s; }
+    .link-card:nth-child(4) { animation-delay:.55s; }
+    .link-card:nth-child(5) { animation-delay:.65s; }
+    .link-card:nth-child(6) { animation-delay:.75s; }
+
+    .page-footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+      opacity: 0;
+      animation: fadeUp .7s ease forwards .9s;
+    }
+
+    .page-footer strong { color: var(--navy); }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(22px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    @media (max-width:480px) {
+      .hero-header { height: 320px; }
+      .logo-ring   { width:140px; height:140px; }
+      .logo-circle img { width:90px; height:90px; }
+      .logo-outer  { margin-top: -70px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HERO HEADER — Tech Scene SVG Animation
+═══════════════════════════════════════════ -->
+<div class="hero-header" id="top">
+  <svg viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg"
+       style="position:absolute;inset:0;width:100%;height:100%;">
+    <defs>
+      <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"  stop-color="#070d20"/>
+        <stop offset="60%" stop-color="#0f1f5c"/>
+        <stop offset="100%" stop-color="#0c3060"/>
+      </linearGradient>
+      <linearGradient id="cyanG" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#00c4cc"/>
+        <stop offset="100%" stop-color="#3b82f6"/>
+      </linearGradient>
+      <linearGradient id="screenG" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#0d2147"/>
+        <stop offset="100%" stop-color="#071530"/>
+      </linearGradient>
+      <linearGradient id="deskG" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1e2d5a"/>
+        <stop offset="100%" stop-color="#0f1a38"/>
+      </linearGradient>
+      <linearGradient id="serverG" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1a2550"/>
+        <stop offset="100%" stop-color="#0c1530"/>
+      </linearGradient>
+      <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="2.5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="softglow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <clipPath id="screenClip">
+        <rect x="197" y="168" width="86" height="56" rx="2"/>
+      </clipPath>
+      <clipPath id="termClip">
+        <rect x="22" y="192" width="110" height="66" rx="2"/>
+      </clipPath>
+    </defs>
+
+    <!-- BG -->
+    <rect width="480" height="380" fill="url(#bgG)"/>
+
+    <!-- ── GRID ── -->
+    <g class="grid-line" stroke="rgba(255,255,255,0.06)" stroke-width="0.5">
+      <line x1="0"   y1="76"  x2="480" y2="76"/>
+      <line x1="0"   y1="152" x2="480" y2="152"/>
+      <line x1="0"   y1="228" x2="480" y2="228"/>
+      <line x1="0"   y1="304" x2="480" y2="304"/>
+      <line x1="96"  y1="0"   x2="96"  y2="380"/>
+      <line x1="192" y1="0"   x2="192" y2="380"/>
+      <line x1="288" y1="0"   x2="288" y2="380"/>
+      <line x1="384" y1="0"   x2="384" y2="380"/>
+    </g>
+
+    <!-- ── STARS / dots ── -->
+    <circle cx="30"  cy="20"  r="1.2" fill="#fff" opacity=".5"/>
+    <circle cx="80"  cy="45"  r=".8"  fill="#fff" opacity=".3"/>
+    <circle cx="140" cy="15"  r="1"   fill="#fff" opacity=".4"/>
+    <circle cx="200" cy="35"  r=".7"  fill="#fff" opacity=".3"/>
+    <circle cx="310" cy="22"  r="1.1" fill="#fff" opacity=".5"/>
+    <circle cx="430" cy="40"  r=".9"  fill="#fff" opacity=".4"/>
+    <circle cx="460" cy="18"  r="1.3" fill="#fff" opacity=".3"/>
+    <circle cx="50"  cy="80"  r=".7"  fill="#fff" opacity=".3"/>
+    <circle cx="420" cy="90"  r="1"   fill="#fff" opacity=".4"/>
+
+    <!-- ══════════════════════════════════
+         LEFT: TERMINAL WINDOW
+    ══════════════════════════════════ -->
+    <g style="animation: floatY 5s ease-in-out infinite; animation-delay:0.5s">
+      <!-- terminal box -->
+      <rect x="18" y="165" width="118" height="98" rx="6" fill="url(#serverG)" stroke="rgba(0,196,204,0.35)" stroke-width="1"/>
+      <!-- title bar -->
+      <rect x="18" y="165" width="118" height="16" rx="6" fill="rgba(0,196,204,0.15)"/>
+      <rect x="18" y="173" width="118" height="8" fill="rgba(0,196,204,0.15)"/>
+      <!-- traffic lights -->
+      <circle cx="27" cy="173" r="3.5" fill="#ff5f57"/>
+      <circle cx="36" cy="173" r="3.5" fill="#febc2e"/>
+      <circle cx="45" cy="173" r="3.5" fill="#28c840"/>
+      <!-- terminal label -->
+      <text x="77" y="175.5" text-anchor="middle" font-size="5.5" fill="rgba(255,255,255,0.6)" font-family="monospace">terminal</text>
+
+      <!-- terminal content (animated scroll) -->
+      <clipPath id="tc"><rect x="22" y="183" width="110" height="76"/></clipPath>
+      <g clip-path="url(#tc)" style="animation: codeScroll 6s linear infinite">
+        <text x="26" y="193" font-size="5.5" fill="#00c4cc" font-family="monospace">$ npm run build</text>
+        <text x="26" y="202" font-size="5.5" fill="#64748b" font-family="monospace">› compiling...</text>
+        <text x="26" y="211" font-size="5.5" fill="#28c840" font-family="monospace">✓ compiled in 1.2s</text>
+        <text x="26" y="220" font-size="5.5" fill="#00c4cc" font-family="monospace">$ git push origin</text>
+        <text x="26" y="229" font-size="5.5" fill="#64748b" font-family="monospace">› uploading...</text>
+        <text x="26" y="238" font-size="5.5" fill="#28c840" font-family="monospace">✓ deployed!</text>
+        <text x="26" y="247" font-size="5.5" fill="#00c4cc" font-family="monospace">$ ping server</text>
+        <text x="26" y="256" font-size="5.5" fill="#28c840" font-family="monospace">64 bytes: OK</text>
+      </g>
+
+      <!-- blinking cursor -->
+      <rect x="26" y="252" width="5" height="7" rx="1" fill="#00c4cc" opacity="1">
+        <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+      </rect>
+
+      <!-- data flow line from terminal to center -->
+      <line x1="136" y1="214" x2="190" y2="214" stroke="rgba(0,196,204,0.3)" stroke-width="0.8" stroke-dasharray="4 3"/>
+      <circle cx="136" cy="214" r="2" fill="#00c4cc" opacity=".7" filter="url(#glow)"/>
+    </g>
+
+    <!-- ══════════════════════════════════
+         RIGHT: SERVER RACK
+    ══════════════════════════════════ -->
+    <g style="animation: floatY 6s ease-in-out infinite; animation-delay:1s">
+      <!-- rack frame -->
+      <rect x="342" y="148" width="122" height="148" rx="6" fill="url(#serverG)" stroke="rgba(59,130,246,0.35)" stroke-width="1"/>
+      <rect x="342" y="148" width="122" height="14" rx="6" fill="rgba(59,130,246,0.2)"/>
+      <rect x="342" y="155" width="122" height="7" fill="rgba(59,130,246,0.2)"/>
+      <text x="403" y="157.5" text-anchor="middle" font-size="5.5" fill="rgba(255,255,255,0.6)" font-family="monospace">SERVER RACK</text>
+
+      <!-- server units -->
+      <!-- unit 1 -->
+      <rect x="350" y="168" width="106" height="24" rx="3" fill="rgba(15,31,88,0.9)" stroke="rgba(0,196,204,0.3)" stroke-width=".8"/>
+      <rect x="354" y="174" width="52" height="5" rx="2" fill="rgba(0,196,204,0.15)"/>
+      <rect x="354" y="182" width="35" height="3" rx="1" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="440" cy="177" r="3" fill="#28c840" filter="url(#glow)">
+        <animate attributeName="opacity" values="1;0.2;1" dur="2.1s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="447" cy="177" r="3" fill="#00c4cc" filter="url(#glow)">
+        <animate attributeName="opacity" values="1;0.2;1" dur="1.7s" begin="0.4s" repeatCount="indefinite"/>
+      </circle>
+      <!-- unit 2 -->
+      <rect x="350" y="196" width="106" height="24" rx="3" fill="rgba(15,31,88,0.9)" stroke="rgba(59,130,246,0.3)" stroke-width=".8"/>
+      <rect x="354" y="202" width="45" height="5" rx="2" fill="rgba(59,130,246,0.15)"/>
+      <rect x="354" y="210" width="28" height="3" rx="1" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="440" cy="205" r="3" fill="#3b82f6" filter="url(#glow)">
+        <animate attributeName="opacity" values="1;0.2;1" dur="1.3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="447" cy="205" r="3" fill="#28c840" filter="url(#glow)">
+        <animate attributeName="opacity" values="1;0.3;1" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- unit 3 -->
+      <rect x="350" y="224" width="106" height="24" rx="3" fill="rgba(15,31,88,0.9)" stroke="rgba(0,196,204,0.25)" stroke-width=".8"/>
+      <rect x="354" y="230" width="60" height="5" rx="2" fill="rgba(0,196,204,0.1)"/>
+      <rect x="354" y="238" width="40" height="3" rx="1" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="440" cy="233" r="3" fill="#febc2e" filter="url(#glow)">
+        <animate attributeName="opacity" values="1;0.4;1" dur="0.9s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="447" cy="233" r="3" fill="#28c840" filter="url(#glow)">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- unit 4 -->
+      <rect x="350" y="252" width="106" height="24" rx="3" fill="rgba(15,31,88,0.9)" stroke="rgba(59,130,246,0.2)" stroke-width=".8"/>
+      <rect x="354" y="258" width="38" height="5" rx="2" fill="rgba(59,130,246,0.1)"/>
+      <rect x="354" y="266" width="50" height="3" rx="1" fill="rgba(255,255,255,0.08)"/>
+      <circle cx="440" cy="261" r="3" fill="#28c840" filter="url(#glow)">
+        <animate attributeName="opacity" values="1;0.2;1" dur="3s" begin="0.2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="447" cy="261" r="3" fill="#00c4cc" filter="url(#glow)">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- data flow line from server to center -->
+      <line x1="342" y1="222" x2="296" y2="222" stroke="rgba(59,130,246,0.3)" stroke-width="0.8" stroke-dasharray="4 3"/>
+      <circle cx="342" cy="222" r="2" fill="#3b82f6" opacity=".7" filter="url(#glow)"/>
+
+      <!-- wifi/signal icon above server -->
+      <g transform="translate(390,136)">
+        <path d="M-16,10 Q0,-6 16,10" fill="none" stroke="rgba(0,196,204,0.3)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M-10,16 Q0,6 10,16" fill="none" stroke="rgba(0,196,204,0.6)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M-5,22 Q0,16 5,22" fill="none" stroke="#00c4cc" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="0" cy="25" r="2.5" fill="#00c4cc">
+          <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+    </g>
+
+    <!-- ══════════════════════════════════
+         CENTER: DEV CHARACTER AT LAPTOP
+    ══════════════════════════════════ -->
+    <g transform="translate(240,155)">
+
+      <!-- DESK surface -->
+      <rect x="-70" y="108" width="140" height="8" rx="3" fill="url(#deskG)" stroke="rgba(59,130,246,0.3)" stroke-width=".8"/>
+      <rect x="-60" y="116" width="6" height="30" rx="2" fill="rgba(20,35,80,0.8)"/>
+      <rect x="54"  y="116" width="6" height="30" rx="2" fill="rgba(20,35,80,0.8)"/>
+
+      <!-- LAPTOP base -->
+      <rect x="-52" y="96" width="104" height="14" rx="3" fill="rgba(25,40,90,0.95)" stroke="rgba(59,130,246,0.4)" stroke-width=".8"/>
+      <!-- touchpad -->
+      <rect x="-10" y="100" width="20" height="8" rx="2" fill="rgba(0,196,204,0.1)" stroke="rgba(0,196,204,0.25)" stroke-width=".6"/>
+
+      <!-- LAPTOP SCREEN -->
+      <rect x="-52" y="34" width="104" height="64" rx="4" fill="rgba(20,35,85,0.95)" stroke="rgba(59,130,246,0.5)" stroke-width="1"/>
+      <rect x="-52" y="94" width="104" height="4" fill="rgba(15,25,60,0.9)"/>
+      <!-- screen glow bg -->
+      <rect x="-48" y="38" width="96" height="56" rx="2" fill="url(#screenG)">
+        <animate attributeName="opacity" values="0.9;0.6;0.9" dur="4s" repeatCount="indefinite"/>
+      </rect>
+
+      <!-- CODE on screen (clipped, scrolling) -->
+      <clipPath id="sc"><rect x="-48" y="38" width="96" height="56"/></clipPath>
+      <g clip-path="url(#sc)" style="animation: codeScroll 5s linear infinite">
+        <text x="-44" y="50"  font-size="5" fill="#00c4cc" font-family="monospace">const app = express();</text>
+        <text x="-44" y="58"  font-size="5" fill="#3b82f6" font-family="monospace">app.get('/api', (req,res)=></text>
+        <text x="-44" y="66"  font-size="5" fill="#fff"    font-family="monospace" opacity=".7">  res.json({status:200});</text>
+        <text x="-44" y="74"  font-size="5" fill="#3b82f6" font-family="monospace">});</text>
+        <text x="-44" y="82"  font-size="5" fill="#28c840" font-family="monospace">// server running ✓</text>
+        <text x="-44" y="90"  font-size="5" fill="#00c4cc" font-family="monospace">app.listen(3000);</text>
+        <text x="-44" y="98"  font-size="5" fill="#febc2e" font-family="monospace">import React from 'react'</text>
+        <text x="-44" y="106" font-size="5" fill="#fff"    font-family="monospace" opacity=".7">export default App;</text>
+      </g>
+
+      <!-- cursor blink on screen -->
+      <rect x="-44" y="85" width="4" height="6" rx="1" fill="#00c4cc">
+        <animate attributeName="opacity" values="1;0;1" dur="0.9s" repeatCount="indefinite"/>
+      </rect>
+
+      <!-- screen camera dot -->
+      <circle cx="0" cy="36" r="1.5" fill="rgba(0,196,204,0.5)">
+        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- ── PERSON ── -->
+      <!-- CHAIR back -->
+      <rect x="-18" y="60" width="36" height="40" rx="5" fill="rgba(12,22,55,0.8)" stroke="rgba(59,130,246,0.2)" stroke-width=".8"/>
+
+      <!-- BODY / torso -->
+      <rect x="-12" y="72" width="24" height="30" rx="6" fill="#1e3a8a" style="animation:headBob 3s ease-in-out infinite"/>
+
+      <!-- shirt detail -->
+      <rect x="-5" y="78" width="10" height="16" rx="2" fill="rgba(0,196,204,0.3)"/>
+
+      <!-- LEFT ARM (typing) -->
+      <g style="transform-origin: -10px 88px; animation: typingArm 0.4s ease-in-out infinite">
+        <rect x="-26" y="84" width="18" height="7" rx="4" fill="#1e3a8a"/>
+        <rect x="-30" y="89" width="10" height="5" rx="3" fill="#2a4db0"/>
+      </g>
+
+      <!-- RIGHT ARM (typing) -->
+      <g style="transform-origin: 10px 88px; animation: typingArm 0.4s ease-in-out infinite; animation-delay:0.2s">
+        <rect x="8"  y="84" width="18" height="7" rx="4" fill="#1e3a8a"/>
+        <rect x="20" y="89" width="10" height="5" rx="3" fill="#2a4db0"/>
+      </g>
+
+      <!-- NECK -->
+      <rect x="-5" y="64" width="10" height="10" rx="4" fill="#f5c5a0"/>
+
+      <!-- HEAD (bobbing) -->
+      <g style="animation: headBob 3s ease-in-out infinite">
+        <!-- head shape -->
+        <ellipse cx="0" cy="54" rx="14" ry="13" fill="#f5c5a0"/>
+        <!-- hair -->
+        <ellipse cx="0" cy="43" rx="14" ry="7" fill="#1a1a2e"/>
+        <rect x="-14" y="43" width="5" height="10" rx="3" fill="#1a1a2e"/>
+        <rect x="9"   y="43" width="5" height="10" rx="3" fill="#1a1a2e"/>
+        <!-- glasses -->
+        <rect x="-11" y="52" width="9" height="6" rx="2" fill="none" stroke="#00c4cc" stroke-width="1.2"/>
+        <rect x="2"   y="52" width="9" height="6" rx="2" fill="none" stroke="#00c4cc" stroke-width="1.2"/>
+        <line x1="-2" y1="55" x2="2" y2="55" stroke="#00c4cc" stroke-width="1"/>
+        <!-- eyes -->
+        <ellipse cx="-6" cy="55" rx="2" ry="2.5" fill="#1a1a2e"/>
+        <ellipse cx="6"  cy="55" rx="2" ry="2.5" fill="#1a1a2e"/>
+        <!-- eye shine -->
+        <circle cx="-5" cy="54" r=".8" fill="#fff" opacity=".7"/>
+        <circle cx="7"  cy="54" r=".8" fill="#fff" opacity=".7"/>
+        <!-- smile -->
+        <path d="M-4,62 Q0,66 4,62" fill="none" stroke="#c08060" stroke-width="1.2" stroke-linecap="round"/>
+        <!-- headphone -->
+        <path d="M-14,50 Q-16,42 -10,38" fill="none" stroke="#00c4cc" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="-14" cy="51" r="3.5" fill="#1e3a8a" stroke="#00c4cc" stroke-width="1"/>
+      </g>
+
+      <!-- floating code bubbles around character -->
+      <g style="animation: floatY 3s ease-in-out infinite; animation-delay:0s">
+        <rect x="58" y="45" width="38" height="16" rx="4" fill="rgba(0,196,204,0.12)" stroke="rgba(0,196,204,0.4)" stroke-width=".8"/>
+        <text x="62" y="55" font-size="5.5" fill="#00c4cc" font-family="monospace">&lt;/&gt; React</text>
+      </g>
+      <g style="animation: floatY 4s ease-in-out infinite; animation-delay:1s">
+        <rect x="-100" y="55" width="38" height="16" rx="4" fill="rgba(59,130,246,0.12)" stroke="rgba(59,130,246,0.4)" stroke-width=".8"/>
+        <text x="-96" y="65" font-size="5.5" fill="#3b82f6" font-family="monospace">{ } Node</text>
+      </g>
+      <g style="animation: floatY 3.5s ease-in-out infinite; animation-delay:0.5s">
+        <rect x="58" y="72" width="46" height="16" rx="4" fill="rgba(40,200,64,0.12)" stroke="rgba(40,200,64,0.4)" stroke-width=".8"/>
+        <text x="62" y="82" font-size="5.5" fill="#28c840" font-family="monospace">⚡ Deploy</text>
+      </g>
+    </g>
+
+    <!-- ── DATA FLOW LINES (center connections) ── -->
+    <!-- terminal → laptop data packet -->
+    <circle r="3" fill="#00c4cc" opacity=".8" filter="url(#glow)">
+      <animateMotion dur="2.5s" repeatCount="indefinite" begin="0s">
+        <mpath href="#pathL"/>
+      </animateMotion>
+    </circle>
+    <path id="pathL" d="M136,214 L188,222" fill="none"/>
+
+    <!-- server → laptop data packet -->
+    <circle r="3" fill="#3b82f6" opacity=".8" filter="url(#glow)">
+      <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s">
+        <mpath href="#pathR"/>
+      </animateMotion>
+    </circle>
+    <path id="pathR" d="M342,222 L292,222" fill="none"/>
+
+    <!-- ── FLOATING PARTICLES ── -->
+    <circle cx="170" cy="90" r="1.5" fill="#00c4cc" opacity=".4">
+      <animate attributeName="cy" values="90;80;90" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values=".4;.8;.4" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="320" cy="100" r="1.5" fill="#3b82f6" opacity=".4">
+      <animate attributeName="cy" values="100;88;100" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values=".4;.9;.4" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="240" cy="30" r="1.2" fill="#00c4cc" opacity=".5">
+      <animate attributeName="cy" values="30;20;30" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- ── BOTTOM WAVE ── -->
+    <path d="M0 350 Q120 330 240 342 Q360 354 480 332 L480 380 L0 380 Z" fill="rgba(255,255,255,0.04)"/>
+    <path d="M0 362 Q120 348 240 358 Q360 368 480 350 L480 380 L0 380 Z" fill="rgba(255,255,255,0.06)"/>
+  </svg>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     LOGO (overlaps header)
+═══════════════════════════════════════════ -->
+<div style="display:flex;flex-direction:column;align-items:center;" id="content">
+  <div class="logo-outer">
+    <div class="logo-ring">
+      <svg class="spin-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#00c4cc"/>
+            <stop offset="100%" stop-color="#3b82f6"/>
+          </linearGradient>
+        </defs>
+        <circle cx="80" cy="80" r="74" fill="none" stroke="url(#rg1)" stroke-width="1.5" stroke-dasharray="10 7" opacity=".8"/>
+      </svg>
+      <svg class="spin-svg rev" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="80" cy="80" r="67" fill="none" stroke="rgba(59,130,246,0.35)" stroke-width="1" stroke-dasharray="3 12"/>
+      </svg>
+      <div class="logo-circle">
+        <img src="LOGO 2.png" alt="NovaStackHub">
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BODY ═══ -->
+  <div class="page-body">
+
+    <div class="brand-block">
+      <div class="brand-name">Novastackhub</div>
+      <div class="brand-tagline">Empowering Digital Vision</div>
+    </div>
+
+    <!-- SCROLL ARROW in white area -->
+    <div class="scroll-arrow" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+      <span>scroll</span>
+      <div class="arrow-chevrons">
+        <i class="fas fa-chevron-down"></i>
+        <i class="fas fa-chevron-down"></i>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+
+    <div class="about-pill" id="about">
+      We build <strong>high-performance websites</strong> &amp; digital products
+      for businesses that mean something. From design to deployment — we've got you covered.
+    </div>
+
+    <a class="cta-btn" href="https://novastackhub.com" target="_blank">
+      Visit Our Website <i class="fas fa-arrow-right"></i>
+    </a>
+
+    <!-- <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num">4<span>+</span></div>
+        <div class="stat-label">Projects Delivered</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">4<span>+</span></div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">4<span>+</span></div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+    </div> -->
+
+    <!-- Connect -->
+    <div class="sec-heading" style="animation-delay:.35s">
+      <span>Connect</span><div class="sec-line"></div>
+    </div>
+    <div class="links-group">
+      <!-- <a class="link-card" href="https://novastackhub.com" target="_blank">
+        <div class="card-icon icon-website"><i class="fas fa-globe" style="color:#fff"></i></div>
+        <div class="card-text">
+          <div class="card-title">Official Website</div>
+          <div class="card-sub">novastackhub.com</div>
+        </div>
+        <i class="fas fa-chevron-right card-arrow"></i>
+      </a> -->
+      <a class="link-card" href="mailto:info@novastackhub.com">
+        <div class="card-icon icon-email"><i class="fas fa-envelope" style="color:#fff"></i></div>
+        <div class="card-text">
+          <div class="card-title">Email Us</div>
+          <div class="card-sub">info@novastackhub.com</div>
+        </div>
+        <i class="fas fa-chevron-right card-arrow"></i>
+      </a>
+      <a class="link-card" href="https://wa.me/923168738819" target="_blank">
+        <div class="card-icon icon-whatsapp"><i class="fab fa-whatsapp" style="color:#fff"></i></div>
+        <div class="card-text">
+          <div class="card-title">WhatsApp</div>
+          <div class="card-sub">Chat with us directly</div>
+        </div>
+        <i class="fas fa-chevron-right card-arrow"></i>
+      </a>
+    </div>
+
+    <!-- Social -->
+    <div class="sec-heading" style="animation-delay:.5s">
+      <span>Social Media</span><div class="sec-line"></div>
+    </div>
+    <div class="links-group">
+      <a class="link-card" href="https://facebook.com/novastackhub" target="_blank">
+        <div class="card-icon icon-fb"><i class="fab fa-facebook-f" style="color:#fff"></i></div>
+        <div class="card-text">
+          <div class="card-title">Facebook</div>
+          <div class="card-sub">@novastackhub</div>
+        </div>
+        <i class="fas fa-chevron-right card-arrow"></i>
+      </a>
+      <a class="link-card" href="https://instagram.com/novastackhub" target="_blank">
+        <div class="card-icon icon-insta"><i class="fab fa-instagram" style="color:#fff"></i></div>
+        <div class="card-text">
+          <div class="card-title">Instagram</div>
+          <div class="card-sub">@novastackhub</div>
+        </div>
+        <i class="fas fa-chevron-right card-arrow"></i>
+      </a>
+      <a class="link-card" href="https://linkedin.com/company/novastackhub" target="_blank">
+        <div class="card-icon icon-linkedin"><i class="fab fa-linkedin-in" style="color:#fff"></i></div>
+        <div class="card-text">
+          <div class="card-title">LinkedIn</div>
+          <div class="card-sub">NovaStack Hub</div>
+        </div>
+        <i class="fas fa-chevron-right card-arrow"></i>
+      </a>
+    </div>
+
+    <div class="page-footer">
+      © 2026 <strong>NovaStackHub</strong>. All rights reserved.<br>
+      Empowering Digital Vision 🚀
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
