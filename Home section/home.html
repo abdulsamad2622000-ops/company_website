@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaStackhub – NextGen Software Innovators</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.2.0/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="loader-ring">
+            <svg width="96" height="96" viewBox="0 0 96 96">
+                <defs>
+                    <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#00c8ff" />
+                        <stop offset="100%" stop-color="#00c8ff" stop-opacity="0" />
+                    </linearGradient>
+                </defs>
+                <circle cx="48" cy="48" r="43" fill="none" stroke="#1a2e42" stroke-width="3" />
+                <path d="M 48 5 A 43 43 0 0 1 91 48" fill="none" stroke="url(#rg)" stroke-width="3"
+                    stroke-linecap="round" />
+            </svg>
+            <div class="loader-logo">
+                <i class="ti ti-bolt"></i>
+                <img src="logo.png" alt="NovaStackhub Logo" style="height: 75px; width: 75px; object-fit: contain;">
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDE ICONS -->
+    <div class="side-icons">
+        <a href="#" class="side-icon-btn"><i class="ti ti-book"></i></a>
+        <a href="#" class="side-icon-btn"><i class="ti ti-wifi"></i></a>
+        <a href="#" class="side-icon-btn"><i class="ti ti-layout-grid"></i></a>
+        <a href="#" class="side-icon-btn"><i class="ti ti-message-circle"></i></a>
+    </div>
+
+    <!-- TOP BAR -->
+    <div id="topbar">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="d-flex gap-4 flex-wrap">
+                    <span><i class="ti ti-map-pin me-1"></i>55 Main Street, Karachi, Pakistan</span>
+                    <a href="https://infonovastackhub.com"><i class="ti ti-mail me-1"></i>infonovastackhub@gmail.com</a>
+                    <a href="tel:+11234568899"><i class="ti ti-phone me-1"></i>+1 (123) 456 889</a>
+                </div>
+                <div class="d-flex gap-3 align-items-center">
+                    <a href="#">Help</a><a href="#">Support</a><a href="#">FAQs</a>
+                    <a href="#"><i class="ti ti-brand-facebook"></i></a>
+                    <a href="#"><i class="ti ti-brand-x"></i></a>
+                    <a href="#"><i class="ti ti-brand-linkedin"></i></a>
+                    <a href="#"><i class="ti ti-brand-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" alt="NovaStackhub Logo"
+                    style="height: 100px; width: auto; object-fit: contain; margin-right: 10px;">
+                <span class="brand-text">NovaStackhub</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#services" data-bs-toggle="dropdown">Services</a>
+                        <ul class="dropdown-menu" style="background:#0d1f2d;border:1px solid #1a2e42;">
+                            <li><a class="dropdown-item" href="#" style="color:#ccd;font-size:14px;">Web Development</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" style="color:#ccd;font-size:14px;">Mobile Apps</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" style="color:#ccd;font-size:14px;">Cloud Solutions</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" style="color:#ccd;font-size:14px;">Cybersecurity</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cta">Contact Us</a></li>
+                </ul>
+                <a href="#cta" class="btn-quote nav-link px-4">CONTACT US &rarr;</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-bg-img"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-right-img"></div>
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="hero-eyebrow fade-up">Welcome to NovaStackhub</p>
+                    <h1 class="hero-title fade-up" style="transition-delay:.1s">
+                        NextGen Software Innovators<br>and <span class="highlight">DIGITAL SOFT</span> Solutions
+                    </h1>
+                    <p class="hero-desc fade-up" style="transition-delay:.2s">We build powerful, scalable software
+                        products that help businesses transform, grow, and lead in the digital age.</p>
+                    <div class="hero-btns fade-up" style="transition-delay:.3s">
+                        <button class="btn-primary-c">Explore Services &rarr;</button>
+                        <button class="btn-outline-c"><i class="ti ti-player-play me-2"></i>Watch Demo</button>
+                    </div>
+                    <div class="hero-stats fade-up" style="transition-delay:.4s">
+                        <div>
+                            <div class="hero-stat-num" id="cnt1">0+</div>
+                            <div class="hero-stat-label">Projects Delivered</div>
+                        </div>
+                        <div>
+                            <div class="hero-stat-num" id="cnt2">0+</div>
+                            <div class="hero-stat-label">Happy Clients</div>
+                        </div>
+                        <div>
+                            <div class="hero-stat-num" id="cnt3">0+</div>
+                            <div class="hero-stat-label">Team Experts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCROLLING HEADLINE + ROTATING CIRCLE -->
+    <div style="background:#0d1f2d; padding:60px 40px 70px; overflow:hidden;">
+
+        <!-- Marquee Headline -->
+        <div
+            style="overflow:hidden; white-space:nowrap; border-top:1px solid #1a3050; border-bottom:1px solid #1a3050; padding:10px 0; margin-bottom:60px;">
+            <span
+                style="display:inline-block; animation:marquee 20s linear infinite; font-size:clamp(52px,9vw,100px); font-weight:900; color:#fff; letter-spacing:-2px;">
+                Software Development <span style="color:#00c8ff; margin:0 24px;">●</span> Digital Solutions <span
+                    style="color:#00c8ff; margin:0 24px;">●</span> NextGen Technology <span
+                    style="color:#00c8ff; margin:0 24px;">●</span> Software Development <span
+                    style="color:#00c8ff; margin:0 24px;">●</span> Digital Solutions <span
+                    style="color:#00c8ff; margin:0 24px;">●</span> NextGen Technology <span
+                    style="color:#00c8ff; margin:0 24px;">●</span>
+            </span>
+        </div>
+
+        <!-- Circle + Text -->
+        <div style="display:flex; align-items:center; gap:40px; flex-wrap:wrap;">
+            <div style="position:relative; width:140px; height:140px; flex-shrink:0;">
+                <div style="position:absolute; inset:0; animation:spin 9s linear infinite;">
+                    <svg width="140" height="140" viewBox="0 0 140 140">
+                        <defs>
+                            <path id="cp" d="M 70,70 m -52,0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0" />
+                        </defs>
+                        <text font-size="11.2" font-family="Inter,sans-serif" font-weight="700" fill="#ffffff"
+                            letter-spacing="3.2">
+                            <textPath href="#cp">Digital · Software · Solutions · Agency · </textPath>
+                        </text>
+                    </svg>
+                </div>
+                <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+                    <a href="#"
+                        style="width:56px; height:56px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; color:#0d1f2d; text-decoration:none;">↗</a>
+                </div>
+            </div>
+            <div style="flex:1; min-width:220px;">
+                <div
+                    style="font-size:13px; font-weight:700; color:#00c8ff; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">
+                    We Are Teckko Company</div>
+                <div
+                    style="font-size:clamp(26px,4vw,42px); font-weight:900; color:#fff; line-height:1.15; margin-bottom:16px;">
+                    Innovate Soft Solutions<br>to <span style="color:#00c8ff;">Grow Tech</span> Business</div>
+                <div style="font-size:15px; color:#8899aa; line-height:1.7;">With a portfolio of successful projects
+                    spanning various industries, our team has consistently demonstrated the ability to transform ideas
+                    into high-performing applications.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLIENTS
+    <div id="clients">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-4">
+                <img src="https://assets.streamlinehq.com/image/private/w_50,h_50,ar_1/f_auto/v1/icons/3/google-hxlxemrfsog5qd3gy7ykml.png/google-ap7owd7tyqa9kklany80e.png?_a=DATAiZAAZAA0"
+                    class="client-logo" alt="Google">
+                <img src="https://assets.streamlinehq.com/image/private/w_50,h_50,ar_1/f_auto/v1/icons/1/aws-p6uhslxapkcul44oz9p9c.png/aws-gbjt9gv5a2k6sa2slac0u.png?_a=DATAiZAAZAA0"
+                    class="client-logo" alt="Amazon">
+                <img src="https://assets.streamlinehq.com/image/private/w_50,h_50,ar_1/f_auto/v1/icons/4/microsoft-84ereg2icvdy6lij6v9sm.png/microsoft-jby4c80zpsasr3r6lzf22b.png?_a=DATAiZAAZAA0"
+                    class="client-logo" alt="Microsoft" style="height: 70px;">
+                <img src=""
+                    class="client-logo" alt="Netflix">
+                <img src=""
+                    class="client-logo" alt="IBM">
+                <img src=""
+                    class="client-logo" style="height:50px;" alt="Apple">
+            </div>
+        </div>
+    </div> -->
+
+    <!-- SERVICES -->
+    <section id="services">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-7 fade-up">
+                    <p class="section-eyebrow">What We Offer</p>
+                    <h2 class="section-title">Powerful Software Services<br>Built for Growth</h2>
+                    <p class="section-desc">From web apps to cloud infrastructure, we deliver end-to-end digital
+                        solutions tailored to your needs.</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4 fade-up">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80"
+                            class="service-card-img" alt="Web Development">
+                        <div class="service-card-body">
+                            <div class="service-icon"><i class="ti ti-code"></i></div>
+                            <div class="service-title">Web Development</div>
+                            <div class="service-desc">High-performance websites and web apps built with modern
+                                frameworks and best practices.</div>
+                            <a href="#" class="service-link">Learn More <i class="ti ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.1s">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80"
+                            class="service-card-img" alt="Mobile Apps">
+                        <div class="service-card-body">
+                            <div class="service-icon"><i class="ti ti-device-mobile"></i></div>
+                            <div class="service-title">Mobile Applications</div>
+                            <div class="service-desc">Native and cross-platform apps for iOS and Android that deliver
+                                seamless user experiences.</div>
+                            <a href="#" class="service-link">Learn More <i class="ti ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.2s">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80"
+                            class="service-card-img" alt="Cloud">
+                        <div class="service-card-body">
+                            <div class="service-icon"><i class="ti ti-cloud"></i></div>
+                            <div class="service-title">Cloud Solutions</div>
+                            <div class="service-desc">Scalable cloud architecture on AWS, Azure, and GCP to power your
+                                digital infrastructure.</div>
+                            <a href="#" class="service-link">Learn More <i class="ti ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.1s">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&q=80"
+                            class="service-card-img" alt="Security">
+                        <div class="service-card-body">
+                            <div class="service-icon"><i class="ti ti-shield-lock"></i></div>
+                            <div class="service-title">Cybersecurity</div>
+                            <div class="service-desc">Comprehensive security audits, penetration testing, and ongoing
+                                threat monitoring.</div>
+                            <a href="#" class="service-link">Learn More <i class="ti ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.2s">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80"
+                            class="service-card-img" alt="AI ML">
+                        <div class="service-card-body">
+                            <div class="service-icon"><i class="ti ti-cpu"></i></div>
+                            <div class="service-title">AI & Machine Learning</div>
+                            <div class="service-desc">Custom AI models and intelligent automation solutions that drive
+                                real business value.</div>
+                            <a href="#" class="service-link">Learn More <i class="ti ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 fade-up" style="transition-delay:.3s">
+                    <div class="service-card">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80"
+                            class="service-card-img" alt="Data">
+                        <div class="service-card-body">
+                            <div class="service-icon"><i class="ti ti-database"></i></div>
+                            <div class="service-title">Data Engineering</div>
+                            <div class="service-desc">Robust data pipelines, warehousing, and analytics platforms for
+                                data-driven decisions.</div>
+                            <a href="#" class="service-link">Learn More <i class="ti ti-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- SCROLL PROGRESS BUTTON -->
+<div id="scrollProgressBtn" style="position:fixed; bottom:28px; right:28px; width:54px; height:54px; cursor:pointer; z-index:999; display:none;" onclick="handleScrollBtn()">
+  <svg width="54" height="54" viewBox="0 0 54 54" style="transform:rotate(-90deg);">
+    <circle cx="27" cy="27" r="23" fill="none" stroke="#1a3050" stroke-width="3"/>
+    <circle id="pgRing" cx="27" cy="23" r="23" fill="none" stroke="#00c8ff" stroke-width="3"
+      stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="144.5"
+      style="transition:stroke-dashoffset .1s linear;"/>
+    <circle cx="27" cy="27" r="18" fill="#1a2e42"/>
+    <path id="pgArrow" d="M27 20 L27 34 M21 26 L27 20 L33 26"
+      stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"
+      style="transform-origin:center; transform:rotate(90deg);"/>
+  </svg>
+</div>
+
+<script>
+  const pgRing = document.getElementById('pgRing');
+  const pgArrow = document.getElementById('pgArrow');
+  const pgBtn = document.getElementById('scrollProgressBtn');
+  const circ = 144.5;
+  let pgPct = 0;
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    pgPct = Math.round((scrollTop / maxScroll) * 100);
+    pgBtn.style.display = scrollTop > 100 ? 'block' : 'none';
+    pgRing.style.strokeDashoffset = circ - (pgPct / 100) * circ;
+    pgArrow.setAttribute('d', pgPct >= 95
+      ? 'M27 34 L27 20 M21 28 L27 34 L33 28'
+      : 'M27 20 L27 34 M21 26 L27 20 L33 26');
+  });
+
+  function handleScrollBtn() {
+    window.scrollTo({ top: pgPct >= 95 ? 0 : window.scrollY + 400, behavior: 'smooth' });
+  }
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="home.js"></script>
+</body>
+
+</html>
