@@ -21,26 +21,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.5 });
   nums.forEach(n => observer.observe(n));
 });
- const pgRing = document.getElementById('pgRing');
-  const pgArrow = document.getElementById('pgArrow');
-  const pgBtn = document.getElementById('scrollProgressBtn');
-  const circ = 144.5;
-  let pgPct = 0;
+const pgRing  = document.getElementById('pgRing');
+const pgPctEl = document.getElementById('pgPct');
+const pgBtn   = document.getElementById('scrollProgressBtn');
+const CIRC    = 188.5;   /* 2 * π * 30 */
+let   pgPct   = 0;
 
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    pgPct = Math.round((scrollTop / maxScroll) * 100);
-    pgBtn.style.display = scrollTop > 100 ? 'block' : 'none';
-    pgRing.style.strokeDashoffset = circ - (pgPct / 100) * circ;
-    pgArrow.setAttribute('d', pgPct >= 95
-      ? 'M27 34 L27 20 M21 28 L27 34 L33 28'
-      : 'M27 20 L27 34 M21 26 L27 20 L33 26');
-  });
+window.addEventListener('scroll', () => {
+  const scrollTop  = window.scrollY;
+  const maxScroll  = document.body.scrollHeight - window.innerHeight;
+  pgPct = maxScroll > 0 ? Math.round((scrollTop / maxScroll) * 100) : 0;
 
-  function handleScrollBtn() {
-    window.scrollTo({ top: pgPct >= 95 ? 0 : window.scrollY + 400, behavior: 'smooth' });
-  }
+  pgBtn.style.display = scrollTop > 120 ? 'block' : 'none';
+  pgRing.style.strokeDashoffset = CIRC - (pgPct / 100) * CIRC;
+  if (pgPctEl) pgPctEl.textContent = pgPct + '%';
+});
+
+function handleScrollBtn() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
   window.addEventListener('load', () => {
     setTimeout(() => {
       document.getElementById('loader').classList.add('hidden');
@@ -97,4 +96,155 @@ document.addEventListener('DOMContentLoaded', () => {
     section.classList.add('scroll-animate');
     scrollAnimateObserver.observe(section);
   });
+/* ============================================
+   TECKKO - MAIN JAVASCRIPT
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* ---------- Preloader ---------- */
+  window.addEventListener('load', function () {
+    const preloader = document.getElementById('preloader');
+    setTimeout(() => {
+      preloader.classList.add('loaded');
+    }, 400);
+  });
+
+  /* ---------- AOS Init ---------- */
+  if (window.AOS) {
+    AOS.init({
+      duration: 900,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 80
+    });
+  }
+
+  /* ---------- Sticky Navbar on Scroll ---------- */
+  const mainNav = document.getElementById('mainNav');
+  function handleNavScroll() {
+    if (window.scrollY > 60) {
+      mainNav.classList.add('scrolled');
+    } else {
+      mainNav.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', handleNavScroll);
+  handleNavScroll();
+
+  /* ---------- Back To Top ---------- */
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 400) {
+      backToTop.classList.add('show');
+    } else {
+      backToTop.classList.remove('show');
+    }
+  });
+  backToTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ---------- Smooth Scroll for nav links ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId.length > 1) {
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          const offset = 90;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+          // collapse mobile nav after click
+          const navMenu = document.getElementById('navMenu');
+          if (navMenu.classList.contains('show')) {
+            bootstrap.Collapse.getOrCreateInstance(navMenu).hide();
+          }
+        }
+      }
+    });
+  });
+
+  /* ---------- Animated Counters (stat cards) ---------- */
+  const counters = document.querySelectorAll('.counter');
+  let countersStarted = false;
+
+  function animateCounters() {
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      const duration = 1500;
+      const startTime = performance.now();
+
+      function updateCount(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease-out
+        const eased = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = Math.floor(eased * target);
+        if (progress < 1) {
+          requestAnimationFrame(updateCount);
+        } else {
+          counter.textContent = target;
+        }
+      }
+      requestAnimationFrame(updateCount);
+    });
+  }
+
+  const statSection = document.querySelector('.hero-section');
+  if (statSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !countersStarted) {
+          countersStarted = true;
+          animateCounters();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(statSection);
+  }
+
+  /* ---------- Close Promo Strip ---------- */
+  const closePromo = document.getElementById('closePromo');
+  const promoStrip = document.getElementById('promoStrip');
+  if (closePromo) {
+    closePromo.addEventListener('click', function () {
+      promoStrip.classList.add('hide');
+    });
+  }
+
+  /* ---------- Team Slider Arrows (visual feedback + scroll carousel of cards) ---------- */
+  const teamPrev = document.getElementById('teamPrev');
+  const teamNext = document.getElementById('teamNext');
+  if (teamPrev && teamNext) {
+    teamNext.addEventListener('click', function () {
+      teamNext.classList.add('active');
+      teamPrev.classList.remove('active');
+    });
+    teamPrev.addEventListener('click', function () {
+      teamPrev.classList.add('active');
+      teamNext.classList.remove('active');
+    });
+  }
+
+  /* ---------- Contact Form Submit (demo) ---------- */
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const btn = contactForm.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="bi bi-check-lg"></i> Message Sent!';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        contactForm.reset();
+      }, 2500);
+    });
+  }
+
+});
 

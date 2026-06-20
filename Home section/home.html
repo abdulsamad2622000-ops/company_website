@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NovaStackhub – NextGen Software Innovators</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.2.0/tabler-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="assets/css/aos.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -38,10 +41,33 @@
 
     <!-- SIDE ICONS -->
     <div class="side-icons">
-        <a href="#" class="side-icon-btn"><i class="ti ti-book"></i></a>
-        <a href="#" class="side-icon-btn"><i class="ti ti-wifi"></i></a>
-        <a href="#" class="side-icon-btn"><i class="ti ti-layout-grid"></i></a>
-        <a href="#" class="side-icon-btn"><i class="ti ti-message-circle"></i></a>
+      <a href="#about" class="side-icon-btn" data-label="About">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+      </a>
+      <a href="#services" class="side-icon-btn" data-label="Services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+        </svg>
+      </a>
+      <a href="#team" class="side-icon-btn" data-label="Team">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </a>
+      <a href="#contact" class="side-icon-btn" data-label="Contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </a>
+      <a href="#blog" class="side-icon-btn" data-label="Blog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+      </a>
     </div>
 
     <!-- TOP BAR -->
@@ -330,7 +356,7 @@
             <div style="flex:1; min-width:220px;">
                 <div
                     style="font-size:13px; font-weight:700; color:#00c8ff; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">
-                    We Are Teckko Company</div>
+                    We Are NovaStack Hub</div>
                 <div
                     style="font-size:clamp(26px,4vw,42px); font-weight:900; color:#fff; line-height:1.15; margin-bottom:16px;">
                     Innovate Soft Solutions<br>to <span style="color:#00c8ff;">Grow Tech</span> Business</div>
@@ -455,17 +481,34 @@
         </div>
     </section>
 <!-- SCROLL PROGRESS BUTTON -->
-<div id="scrollProgressBtn" style="position:fixed; bottom:28px; right:28px; width:54px; height:54px; cursor:pointer; z-index:999; display:none;" onclick="handleScrollBtn()">
-  <svg width="54" height="54" viewBox="0 0 54 54" style="transform:rotate(-90deg);">
-    <circle cx="27" cy="27" r="23" fill="none" stroke="#1a3050" stroke-width="3"/>
-    <circle id="pgRing" cx="27" cy="23" r="23" fill="none" stroke="#00c8ff" stroke-width="3"
-      stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="144.5"
-      style="transition:stroke-dashoffset .1s linear;"/>
-    <circle cx="27" cy="27" r="18" fill="#1a2e42"/>
-    <path id="pgArrow" d="M27 20 L27 34 M21 26 L27 20 L33 26"
-      stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"
-      style="transform-origin:center; transform:rotate(90deg);"/>
+<div id="scrollProgressBtn" onclick="handleScrollBtn()">
+  <div class="spb-glow"></div>
+  <div class="spb-tooltip"><i class="ti ti-arrow-bar-to-up"></i> Back to Top</div>
+  <svg class="spb-svg" viewBox="0 0 72 72">
+    <defs>
+      <linearGradient id="spbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00c8ff"/>
+        <stop offset="100%" stop-color="#0044ff"/>
+      </linearGradient>
+      <filter id="spbGlowFx" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="2.5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <circle class="spb-track" cx="36" cy="36" r="30"/>
+    <circle class="spb-inner-ring" cx="36" cy="36" r="22"/>
+    <circle id="pgRing" class="spb-fill" cx="36" cy="36" r="30" filter="url(#spbGlowFx)"/>
+    <g class="spb-ticks" transform="translate(36,36)">
+      <line x1="0" y1="-33" x2="0" y2="-30" transform="rotate(0)"/>
+      <line x1="0" y1="-33" x2="0" y2="-30" transform="rotate(90)"/>
+      <line x1="0" y1="-33" x2="0" y2="-30" transform="rotate(180)"/>
+      <line x1="0" y1="-33" x2="0" y2="-30" transform="rotate(270)"/>
+    </g>
   </svg>
+  <div class="spb-center">
+    <i class="ti ti-arrow-up spb-icon"></i>
+    <span id="pgPct" class="spb-pct">0%</span>
+  </div>
 </div>
 <section class="hero-section">
  
@@ -541,8 +584,521 @@
   </div>
  
 </section>
+<!-- ============ ABOUT / GROW SECTION ============ -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6" data-aos="fade-right">
+        <span class="eyebrow"><i class="bi bi-asterisk"></i> Grow &amp; Development</span>
+        <h2 class="section-title">Modern Technology and <span>Advancement Incentives</span></h2>
+
+        <div class="accordion teckko-accordion mt-4" id="aboutAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#missionBox">
+                Learn Our Company Mission
+              </button>
+            </h2>
+            <div id="missionBox" class="accordion-collapse collapse show" data-bs-parent="#aboutAccordion">
+              <div class="accordion-body">
+                <div class="d-flex gap-3 align-items-start mb-3">
+                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&q=80" class="mission-thumb" alt="Mission">
+                  <p class="mb-0">Our mission is to revolutionize the digital landscape delivering innovative software solutions to empower businesses to achieve their full potential.</p>
+                </div>
+                <ul class="check-list">
+                  <li><i class="bi bi-asterisk"></i> Premier Tech Innovations</li>
+                  <li><i class="bi bi-asterisk"></i> Nexus Tech Systems</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#visionBox">
+                Our Company Vision
+              </button>
+            </h2>
+            <div id="visionBox" class="accordion-collapse collapse" data-bs-parent="#aboutAccordion">
+              <div class="accordion-body">
+                <p class="mb-0">We envision becoming the leading global software partner, recognized for building technology that genuinely transforms how businesses operate and grow.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#philoBox">
+                Our Philosophy
+              </button>
+            </h2>
+            <div id="philoBox" class="accordion-collapse collapse" data-bs-parent="#aboutAccordion">
+              <div class="accordion-body">
+                <p class="mb-0">We believe great software is built on collaboration, transparency, and relentless attention to detail at every stage of development.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#strategyBox">
+                Our Strategy
+              </button>
+            </h2>
+            <div id="strategyBox" class="accordion-collapse collapse" data-bs-parent="#aboutAccordion">
+              <div class="accordion-body">
+                <p class="mb-0">A data-driven, client-first approach that combines modern engineering practices with measurable business outcomes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="about-img-wrap">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" alt="About NovaStack Hub" class="rounded-4 w-100">
+        </div>
+      </div>
+    </div>
+
+    <!-- marquee strip -->
+    <div class="marquee-wrap mt-5">
+      <div class="marquee-track">
+        <span>Innovation <i class="bi bi-asterisk"></i></span>
+        <span>Design <i class="bi bi-asterisk"></i></span>
+        <span>Development <i class="bi bi-asterisk"></i></span>
+        <span>Strategy <i class="bi bi-asterisk"></i></span>
+        <span>Innovation <i class="bi bi-asterisk"></i></span>
+        <span>Design <i class="bi bi-asterisk"></i></span>
+        <span>Development <i class="bi bi-asterisk"></i></span>
+        <span>Strategy <i class="bi bi-asterisk"></i></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES SECTION ============ -->
+<section class="services-section" id="services">
+  <div class="big-bg-text">Our Popular Service</div>
+  <div class="container position-relative">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="eyebrow justify-content-center"><i class="bi bi-asterisk"></i> Our Popular Services</span>
+      <h2 class="section-title">We Run All kinds <span>Of IT Services</span><br>that vow Your <span>Success</span></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/>
+            </svg>
+          </div>
+          <h4>Custom Software Development</h4>
+          <p>We specialize delivering bespoke software applications perfectly aligned with your operational needs.</p>
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80" class="service-img" alt="Custom Software Development">
+          <a href="#" class="service-plus">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h4>Outsourcing Development</h4>
+          <p>We specialize delivering bespoke software applications perfectly aligned with your operational needs.</p>
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80" class="service-img" alt="Outsourcing Development">
+          <a href="#" class="service-plus">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <h4>Software Product Development</h4>
+          <p>We specialize delivering bespoke software applications perfectly aligned with your operational needs.</p>
+          <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=600&q=80" class="service-img" alt="Software Product Development">
+          <a href="#" class="service-plus">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROMO STRIP ============ -->
+<div class="promo-strip" id="promoStrip">
+  <div class="container d-flex flex-wrap justify-content-between align-items-center">
+    <div class="promo-left">
+      <i class="bi bi-chat-dots-fill"></i>
+      Let's <strong><em>Discuss &amp; Start</em></strong> IT Consultations
+      <a href="#contact" class="ms-2">Let's Talk <i class="bi bi-arrow-right"></i></a>
+    </div>
+    <div class="promo-right d-flex align-items-center gap-2">
+      <div class="avatar-stack small-stack">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&q=80" alt="Client">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80" alt="Client">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="Client">
+        <span class="avatar-plus">+</span>
+      </div>
+      <strong>1.8 million+</strong> Trusted Clients
+      <button class="btn-close-promo" id="closePromo"><i class="bi bi-x-lg"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TEAM SECTION ============ -->
+<section class="team-section" id="team">
+  <div class="container">
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-7" data-aos="fade-right">
+        <span class="eyebrow"><i class="bi bi-asterisk"></i> Our Professionals</span>
+        <h2 class="section-title">Meet Our Experience <span>Members</span></h2>
+      </div>
+      <div class="col-lg-5 d-flex justify-content-lg-end gap-2 mt-3 mt-lg-0" data-aos="fade-left">
+        <button class="slider-arrow" id="teamPrev">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        </button>
+        <button class="slider-arrow active" id="teamNext">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="row g-4" id="teamRow">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+        <div class="team-card">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80" alt="Micheal R. Shannon">
+          <span class="team-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          <h5>Micheal R. Shannon</h5>
+          <p>Software Developer</p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
+        <div class="team-card">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80" alt="William J. Alexander">
+          <span class="team-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          <h5>William J. Alexander</h5>
+          <p>App Developer</p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="team-card">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500&q=80" alt="Donnie O. Goldsmith">
+          <span class="team-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          <h5>Donnie O. Goldsmith</h5>
+          <p>Software Developer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES / WHAT WE DO SLIDER ============ -->
+<section class="features-section">
+  <div class="container">
+    <div id="featuresCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-4">
+              <h3 class="feature-title">Mobile Application <span>Design</span></h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque seeney laudantium totam</p>
+              <a href="#" class="feature-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></a>
+            </div>
+            <div class="col-lg-4">
+              <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80" class="rounded-4 w-100 feature-img" alt="Mobile Design">
+            </div>
+            <div class="col-lg-4">
+              <h3 class="feature-title">UI/UX <span>Design</span></h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque seeney laudantium totam</p>
+              <a href="#" class="feature-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-4">
+              <h3 class="feature-title">Cloud <span>Computing</span></h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque seeney laudantium totam</p>
+              <a href="#" class="feature-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></a>
+            </div>
+            <div class="col-lg-4">
+              <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80" class="rounded-4 w-100 feature-img" alt="Cloud Computing">
+            </div>
+            <div class="col-lg-4">
+              <h3 class="feature-title">Cyber <span>Security</span></h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque seeney laudantium totam</p>
+              <a href="#" class="feature-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-4">
+              <h3 class="feature-title">Web <span>Development</span></h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque seeney laudantium totam</p>
+              <a href="#" class="feature-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></a>
+            </div>
+            <div class="col-lg-4">
+              <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80" class="rounded-4 w-100 feature-img" alt="Web Development">
+            </div>
+            <div class="col-lg-4">
+              <h3 class="feature-title">Machine Learning <span>&amp; AI</span></h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque seeney laudantium totam</p>
+              <a href="#" class="feature-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-4">
+              <h3 class="feature-title">Analytic &amp; <span>Engineering</span></h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque seeney laudantium totam</p>
+              <a href="#" class="feature-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></a>
+            </div>
+            <div class="col-lg-4">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" class="rounded-4 w-100 feature-img" alt="AI Analytics">
+            </div>
+            <div class="col-lg-4">
+              <h3 class="feature-title">IT <span>Consulting</span></h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque seeney laudantium totam</p>
+              <a href="#" class="feature-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-dots">
+        <button data-bs-target="#featuresCarousel" data-bs-slide-to="0" class="active"></button>
+        <button data-bs-target="#featuresCarousel" data-bs-slide-to="1"></button>
+        <button data-bs-target="#featuresCarousel" data-bs-slide-to="2"></button>
+        <button data-bs-target="#featuresCarousel" data-bs-slide-to="3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonial-section" id="testimonials">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6" data-aos="fade-right">
+        <h2 class="section-title">1250+ People Say <span>About Us</span></h2>
+        <div id="testiCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><path d="M10 11H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4H4v-2h2a2 2 0 0 0 2-2v-1zm10 0h-4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4h-2v-2h2a2 2 0 0 0 2-2v-1z"/></svg>
+              <p class="testi-text">Climb the mountain not to plant your flag but to embrace the ways challenge, enjoy the air, and behold the. Climb it see the world, not so the world can see you.</p>
+              <h6 class="mb-0">Richard T. Simmons</h6>
+              <span class="testi-role">Graphics Designer</span>
+            </div>
+            <div class="carousel-item">
+              <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><path d="M10 11H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4H4v-2h2a2 2 0 0 0 2-2v-1zm10 0h-4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4h-2v-2h2a2 2 0 0 0 2-2v-1z"/></svg>
+              <p class="testi-text">NovaStack Hub transformed our entire workflow. Their team delivered beyond expectations with clean code, fast turnarounds, and constant communication throughout the project.</p>
+              <h6 class="mb-0">Angela M. Ford</h6>
+              <span class="testi-role">Product Manager</span>
+            </div>
+            <div class="carousel-item">
+              <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><path d="M10 11H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4H4v-2h2a2 2 0 0 0 2-2v-1zm10 0h-4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4h-2v-2h2a2 2 0 0 0 2-2v-1z"/></svg>
+              <p class="testi-text">Professional, reliable, and incredibly talented. Working with NovaStack Hub felt like having an in-house dev team that genuinely cared about our success.</p>
+              <h6 class="mb-0">David K. Owen</h6>
+              <span class="testi-role">Startup Founder</span>
+            </div>
+            <div class="carousel-item">
+              <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor" width="48" height="48"><path d="M10 11H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4H4v-2h2a2 2 0 0 0 2-2v-1zm10 0h-4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4h-2v-2h2a2 2 0 0 0 2-2v-1z"/></svg>
+              <p class="testi-text">From planning to deployment, every step was smooth. NovaStack Hub's attention to detail and design sense really set them apart from other agencies we tried.</p>
+              <h6 class="mb-0">Sara L. Whitman</h6>
+              <span class="testi-role">Marketing Head</span>
+            </div>
+          </div>
+          <div class="carousel-dots dark-dots">
+            <button data-bs-target="#testiCarousel" data-bs-slide-to="0" class="active"></button>
+            <button data-bs-target="#testiCarousel" data-bs-slide-to="1"></button>
+            <button data-bs-target="#testiCarousel" data-bs-slide-to="2"></button>
+            <button data-bs-target="#testiCarousel" data-bs-slide-to="3"></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left">
+        <div class="row g-3 testi-grid">
+          <div class="col-6">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" class="testi-avatar big" alt="Client">
+          </div>
+          <div class="col-6">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&q=80" class="testi-avatar big offset-img" alt="Client">
+          </div>
+          <div class="col-6">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80" class="testi-avatar small" alt="Client">
+          </div>
+          <div class="col-6">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&q=80" class="testi-avatar small offset-img" alt="Client">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / WORK INQUIRY ============ -->
+<section class="contact-section" id="contact">
+  <div class="row g-0">
+    <div class="col-lg-6 contact-img-col" data-aos="fade-right">
+      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80" alt="Work with us">
+      <div class="contact-overlay">
+        <span class="eyebrow">Work Inquiry</span>
+        <h2>Let's Work For your Next Projects ?</h2>
+        <a href="#contact" class="btn btn-dark-outline rounded-pill mt-3">Contact Us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+      </div>
+    </div>
+    <div class="col-lg-6 contact-form-col" data-aos="fade-left">
+      <div class="contact-form-wrap">
+        <h2>Need Help For Project!</h2>
+        <p>We are ready to help your next projects, let's work together</p>
+        <form id="contactForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="input-icon-group">
+                <input type="text" class="form-control" placeholder="Name" required>
+                <i class="bi bi-person"></i>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="input-icon-group">
+                <input type="email" class="form-control" placeholder="Email" required>
+                <i class="bi bi-envelope"></i>
+              </div>
+            </div>
+            <div class="col-12">
+              <select class="form-select">
+                <option selected>Choose Services</option>
+                <option>Web Development</option>
+                <option>UI/UX Design</option>
+                <option>Cloud Computing</option>
+                <option>Cyber Security</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <textarea class="form-control" rows="4" placeholder="Message"></textarea>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-cyan rounded-pill px-4">Send Message Us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOG SECTION ============ -->
+<section class="blog-section" id="blog">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="eyebrow justify-content-center"><i class="bi bi-asterisk"></i> Latest News &amp; Blog</span>
+      <h2 class="section-title">Read Our Latest <span>News &amp; Blog</span></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80" alt="AI Software Development">
+          <div class="blog-body">
+            <span class="blog-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> June 12, 2026</span>
+            <h5>How AI is Reshaping Modern Software Development</h5>
+            <a href="#" class="blog-readmore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80" alt="UI UX Design Trends">
+          <div class="blog-body">
+            <span class="blog-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> June 05, 2026</span>
+            <h5>Top 5 UI/UX Trends Every Agency Should Know</h5>
+            <a href="#" class="blog-readmore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="Cloud Computing Startups">
+          <div class="blog-body">
+            <span class="blog-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> May 28, 2026</span>
+            <h5>Why Cloud Computing is the Backbone of Scaling Startups</h5>
+            <a href="#" class="blog-readmore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer-section">
+  <div class="big-bg-text light-text">Get In Touch</div>
+  <div class="container position-relative">
+    <div class="row gy-5">
+      <div class="col-lg-4" data-aos="fade-up">
+        <h3>Subscribe <em>Newsletter</em></h3>
+        <p>We understand that every challenge is an opportunity we are here seize a team of dedicated professionals and a culture</p>
+        <form class="subscribe-form d-flex flex-wrap gap-2">
+          <div class="input-icon-group flex-grow-1">
+            <input type="email" class="form-control" placeholder="Email Address">
+            <i class="bi bi-envelope"></i>
+          </div>
+          <button type="submit" class="btn btn-cyan rounded-pill px-4">Sign Up <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+        </form>
+        <p class="small mt-3 mb-0">By subscribing, you're accept <a href="#">Privacy Policy</a></p>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="150">
+        <h5>Services</h5>
+        <ul class="footer-links">
+          <li><a href="#">Web (UX/UI) Design</a></li>
+          <li><a href="#">Machine Learning &amp; AI</a></li>
+          <li><a href="#">Web Development</a></li>
+          <li><a href="#">IT Cyber Security</a></li>
+          <li><a href="#">Cloud Computing</a></li>
+          <li><a href="#">Analytic &amp; Engineering</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+        <h5>Locations</h5>
+        <p>55 Main Street, Karachi<br>Pakistan</p>
+        <h5 class="mt-4">Contact</h5>
+        <p class="mb-1">infonovastackhub@gmail.com</p>
+        <p class="fw-bold fs-5">+1 (123) 456 889</p>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="row align-items-center pb-2">
+      <div class="col-md-6">
+        <p class="mb-0">&copy; 2026 <strong>NovaStack Hub</strong> - IT Services. All rights reserved.</p>
+      </div>
+      <div class="col-md-6">
+        <ul class="footer-bottom-links justify-content-md-end">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="backToTop">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/aos.js"></script>
     <script src="home.js"></script>
 </body>
 
