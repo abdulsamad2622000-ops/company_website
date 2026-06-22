@@ -67,7 +67,7 @@ function handleScrollBtn() {
   window.addEventListener('scroll', () => {
     let cur='';
     secs.forEach(s => { if(window.scrollY >= s.offsetTop-110) cur=s.id; });
-    document.querySelectorAll('.nav-link').forEach(l => {
+    document.querySelectorAll('.nav-link:not(.dropdown-toggle)').forEach(l => {
       l.classList.toggle('active', l.getAttribute('href')==='#'+cur);
     });
   });
@@ -245,6 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 2500);
     });
   }
+
 
 });
 

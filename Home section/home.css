@@ -129,7 +129,7 @@
       color: var(--cyan) !important;
   }
 
-  .nav-link.active::after {
+  .nav-link.active:not(.dropdown-toggle)::after {
       content: '';
       position: absolute;
       bottom: 0;
@@ -441,6 +441,11 @@
       border-bottom: 1px solid rgba(0, 198, 255, 0.08);
   }
 
+  /* Navbar container is the positioning reference for mega menus */
+  .navbar .container {
+      position: relative;
+  }
+
   /* ─── BRAND ─── */
   .brand-text {
       font-size: 1.25rem;
@@ -491,21 +496,23 @@
   .navbar-nav .nav-link.dropdown-toggle::after {
       display: inline-block;
       position: relative;
+      top: auto;
       bottom: auto;
       left: auto;
+      right: auto;
       transform: none;
-      width: auto;
-      height: auto;
-      background: none;
+      width: 0;
+      height: 0;
+      background: none !important;
       border-top: 4px solid currentColor;
       border-right: 4px solid transparent;
       border-left: 4px solid transparent;
       border-bottom: 0;
+      border-radius: 0 !important;
       margin-left: 5px;
       vertical-align: middle;
       opacity: 0.6;
       transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
-      /* reset the underline pseudo that Bootstrap might still try to render */
       content: '';
   }
 
@@ -562,19 +569,29 @@
           visibility 0s linear 0s;
   }
 
-  /* bridge gap between nav-link and dropdown so hover doesn't break */
-  .nav-item.dropdown {
-      position: relative;
+  /* Mega-menu parents: position static so menus anchor to .navbar .container */
+  .nav-item.dropdown:has(> .mega-menu),
+  .nav-item.dropdown:has(> .industries-mega) {
+      position: static;
   }
 
+  /* Hide the nav-item::after bridge entirely — no gap since mega-menu top = navbar bottom */
   .nav-item.dropdown::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 100%;
-      height: 8px;
-      /* invisible bridge fills the gap */
+      display: none !important;
+  }
+
+  /* ── DEFINITIVE LINE FIX ──
+     Forces all ::after on dropdown nav-links to be invisible (no bg, no height, no absolute).
+     Only the CSS-border caret (border-top/left/right) remains — those are untouched here. */
+  .navbar-nav .nav-item.dropdown .nav-link::after {
+      background: transparent !important;
+      background-color: transparent !important;
+      position: relative !important;
+      bottom: auto !important;
+      left: auto !important;
+      right: auto !important;
+      width: 0 !important;
+      height: 0 !important;
   }
 
   /* ─── DROPDOWN ITEMS ─── */
@@ -632,19 +649,23 @@
       margin: 5px 12px;
   }
 
-  /* ─── SERVICES MEGA (3 col) ─── */
+  /* ─── SERVICES MEGA (3 col) — full container width, content centered ─── */
   .mega-menu {
-      min-width: 740px;
-      left: 50%;
-      margin-left: -370px;
-      /* center it */
+      left: 0;
+      right: 0;
+      width: 100%;
+      margin-left: 0;
       padding: 14px 0 12px;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
   }
 
   .mega-cols {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       padding: 0 8px;
+      max-width: 760px;
+      margin: 0 auto;
   }
 
   .mega-col {
@@ -656,12 +677,15 @@
       border-right: none;
   }
 
-  /* ─── INDUSTRIES MEGA (4 col) ─── */
+  /* ─── INDUSTRIES MEGA (4 col) — full container width, content centered ─── */
   .industries-mega {
-      min-width: 700px;
-      left: 50%;
-      margin-left: -350px;
+      left: 0;
+      right: 0;
+      width: 100%;
+      margin-left: 0;
       padding: 14px 0 12px;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
   }
 
   .mega-top-label {
@@ -677,12 +701,17 @@
       display: flex;
       align-items: center;
       gap: 7px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
   }
 
   .ind-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       padding: 0 8px;
+      max-width: 900px;
+      margin: 0 auto;
   }
 
   .ind-grid .dropdown-item {
@@ -2590,4 +2619,513 @@ ul{list-style:none; margin:0; padding:0;}
 
 #scrollProgressBtn:hover .spb-pct {
   color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════
+   FULL RESPONSIVE OVERRIDES
+═══════════════════════════════════════════════════ */
+
+/* ── Tablet landscape / small desktop (992px–1199px) ── */
+@media (max-width: 1199px) {
+  .navbar-nav .nav-link {
+    padding: 1.5rem 0.55rem;
+    font-size: 0.82rem;
+  }
+  .btn-quote {
+    padding: 0.42rem 0.9rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* ── Topbar responsive ── */
+@media (max-width: 767px) {
+  #topbar .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start !important;
+  }
+  #topbar .d-flex.gap-4 {
+    flex-wrap: wrap;
+    gap: 8px !important;
+  }
+  #topbar .d-flex.gap-3 {
+    flex-wrap: wrap;
+    gap: 6px !important;
+  }
+  #topbar {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 575px) {
+  #topbar {
+    display: none;
+  }
+}
+
+/* ── Marquee section ── */
+@media (max-width: 575px) {
+  [style*="padding:60px 40px"] {
+    padding: 40px 16px 50px !important;
+  }
+}
+
+/* ── About section image ── */
+@media (max-width: 991px) {
+  .about-img-wrap img {
+    height: 360px;
+  }
+}
+@media (max-width: 575px) {
+  .about-img-wrap img {
+    height: 260px;
+  }
+  .section-title {
+    font-size: 1.65rem;
+  }
+  .teckko-accordion .accordion-button {
+    font-size: 1rem;
+  }
+}
+
+/* ── Services section ── */
+@media (max-width: 767px) {
+  .services-section {
+    padding: 4rem 0;
+  }
+  .big-bg-text {
+    font-size: 3rem;
+  }
+  .service-card {
+    padding: 1.6rem;
+  }
+  .service-img {
+    height: 150px;
+  }
+}
+
+/* ── Promo strip ── */
+@media (max-width: 767px) {
+  .promo-strip .d-flex.flex-wrap {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start !important;
+  }
+  .promo-left {
+    font-size: 0.9rem;
+  }
+}
+
+/* ── Team section ── */
+@media (max-width: 575px) {
+  .team-section {
+    padding: 4rem 0;
+  }
+  .team-card img {
+    height: 250px;
+  }
+  .team-plus {
+    top: 215px;
+  }
+}
+
+/* ── Features carousel ── */
+@media (max-width: 767px) {
+  .features-section {
+    padding: 4rem 0;
+  }
+  .feature-img {
+    height: 220px;
+    margin-bottom: 1.5rem;
+  }
+  .feature-title {
+    font-size: 1.3rem;
+  }
+}
+@media (max-width: 575px) {
+  .carousel-dots {
+    margin-top: 1.5rem;
+  }
+}
+
+/* ── Testimonial section ── */
+@media (max-width: 767px) {
+  .testi-text {
+    font-size: 1.05rem;
+  }
+  .testi-avatar.big {
+    height: 160px;
+  }
+  .testi-avatar.small {
+    height: 130px;
+  }
+}
+
+/* ── Contact section ── */
+@media (max-width: 991px) {
+  .contact-section {
+    min-height: 0;
+  }
+  .contact-form-wrap {
+    padding: 2.5rem 1.5rem;
+  }
+  .contact-overlay h2 {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 575px) {
+  .contact-form-wrap {
+    padding: 2rem 1rem;
+  }
+  .contact-form-wrap h2 {
+    font-size: 1.6rem;
+  }
+  .contact-img-col {
+    min-height: 280px;
+  }
+}
+
+/* ── Blog section ── */
+@media (max-width: 767px) {
+  .blog-section {
+    padding: 4rem 0;
+  }
+  .blog-card img {
+    height: 180px;
+  }
+}
+
+/* ── Footer adjustments ── */
+@media (max-width: 767px) {
+  .footer-section, .about-footer {
+    padding: 3rem 0 0;
+  }
+  .footer-brand-name {
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 575px) {
+  .footer-bottom-bar {
+    text-align: center;
+  }
+  .footer-col-title {
+    margin-top: 1rem;
+  }
+}
+
+/* ── Side icons: hide on touch screens ── */
+@media (max-width: 991px) {
+  .side-icons {
+    display: none;
+  }
+}
+
+/* ── Scroll progress button: shrink on mobile ── */
+@media (max-width: 575px) {
+  #scrollProgressBtn {
+    width: 56px;
+    height: 56px;
+    bottom: 20px;
+    right: 16px;
+  }
+  #backToTop {
+    right: 16px;
+    bottom: 16px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* ── Mega menu on medium screens (992px–1199px): limit height and add scroll ── */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .mega-menu,
+  .industries-mega {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .mega-cols {
+    max-width: 680px;
+  }
+  .ind-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 720px;
+  }
+}
+
+/* ── Mobile mega-menu: reset position and make full-width ── */
+@media (max-width: 991.98px) {
+  .nav-item.dropdown:has(> .mega-menu),
+  .nav-item.dropdown:has(> .industries-mega) {
+    position: relative !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SERVICE ENQUIRY MODAL
+═══════════════════════════════════════════════════════════ */
+
+.svc-modal-dialog {
+  max-width: 720px;
+}
+
+.svc-modal-content {
+  background: #061120;
+  border: 1px solid rgba(0, 198, 255, 0.18);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 198, 255, 0.06);
+}
+
+/* ── Header ── */
+.svc-modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 28px 28px 24px;
+  background: linear-gradient(135deg, #0a1f40 0%, #061120 60%);
+  border-bottom: 1px solid rgba(0, 198, 255, 0.12);
+  position: relative;
+}
+
+.svc-modal-icon-wrap {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(0, 198, 255, 0.18) 0%, rgba(0, 114, 255, 0.12) 100%);
+  border: 1px solid rgba(0, 198, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #00c6ff;
+  box-shadow: 0 4px 20px rgba(0, 198, 255, 0.15);
+  margin-top: 2px;
+}
+
+.svc-modal-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.svc-modal-category {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #00c6ff;
+  background: rgba(0, 198, 255, 0.1);
+  border: 1px solid rgba(0, 198, 255, 0.2);
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-bottom: 8px;
+}
+
+.svc-modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.svc-modal-desc {
+  font-size: 0.875rem;
+  color: #94a8bc;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.svc-modal-close {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a8bc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 2px;
+}
+.svc-modal-close:hover {
+  background: rgba(255, 80, 80, 0.15);
+  border-color: rgba(255, 80, 80, 0.3);
+  color: #ff6b6b;
+}
+
+/* ── Body / Form ── */
+.svc-modal-body {
+  padding: 24px 28px 28px;
+}
+
+.svc-form-label-top {
+  font-size: 0.8rem;
+  color: #6b8299;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.svc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.svc-field-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #c8d8e8;
+  letter-spacing: 0.03em;
+}
+.svc-field-label span {
+  color: #00c6ff;
+}
+
+.svc-field-wrap {
+  position: relative;
+}
+
+.svc-field-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4a6a85;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.svc-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #e0eaf4;
+  font-size: 0.875rem;
+  padding: 11px 14px 11px 38px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.svc-input::placeholder {
+  color: #3a5269;
+}
+.svc-input:focus {
+  border-color: rgba(0, 198, 255, 0.5);
+  background: rgba(0, 198, 255, 0.05);
+  box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.08);
+  color: #fff;
+}
+.svc-input:focus + .svc-field-icon,
+.svc-field-wrap:focus-within .svc-field-icon {
+  color: #00c6ff;
+}
+
+.svc-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234a6a85' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.svc-select option {
+  background: #061120;
+  color: #e0eaf4;
+}
+
+.svc-textarea {
+  padding: 11px 14px;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  line-height: 1.6;
+}
+.svc-field:has(.svc-textarea) .svc-field-wrap .svc-field-icon {
+  display: none;
+}
+
+/* ── Submit Button ── */
+.svc-submit-btn {
+  width: 100%;
+  padding: 13px 24px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 6px 24px rgba(0, 114, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.svc-submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: background 0.2s;
+}
+.svc-submit-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 32px rgba(0, 114, 255, 0.45);
+}
+.svc-submit-btn:active {
+  transform: translateY(0);
+}
+.svc-submit-btn.sending {
+  opacity: 0.7;
+  pointer-events: none;
+}
+.svc-submit-btn.sent {
+  background: linear-gradient(135deg, #00c084 0%, #00a86b 100%);
+  box-shadow: 0 6px 24px rgba(0, 160, 107, 0.35);
+}
+
+/* ── Modal backdrop tweak ── */
+.modal-backdrop {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 575.98px) {
+  .svc-modal-dialog {
+    margin: 12px;
+  }
+  .svc-modal-header {
+    padding: 20px 18px 18px;
+    gap: 14px;
+  }
+  .svc-modal-body {
+    padding: 18px 18px 22px;
+  }
+  .svc-modal-icon-wrap {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+  .svc-modal-title {
+    font-size: 1.05rem;
+  }
+  .svc-input {
+    font-size: 16px; /* prevent iOS zoom */
+  }
 }

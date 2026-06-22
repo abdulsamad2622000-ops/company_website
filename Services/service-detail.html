@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Service Detail – NovaStackhub</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../Home section/assets/css/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.2.0/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../Home section/home.css">
+  <link rel="stylesheet" href="service-detail.css">
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="../Home section/home.html">
+      <img src="../Home section/logo.png" alt="NovaStackhub" style="height:54px;width:auto;object-fit:contain;margin-right:10px;">
+      <span class="brand-text">NovaStackhub</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#svcNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="svcNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="../Home section/home.html#hero"><i class="ti ti-home me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="../About section/about.html"><i class="ti ti-info-circle me-1"></i>About Us</a></li>
+        <li class="nav-item"><a class="nav-link active" href="../Home section/home.html#services"><i class="ti ti-briefcase me-1"></i>Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Home section/home.html#portfolio"><i class="ti ti-layout-grid me-1"></i>Portfolio</a></li>
+        <li class="nav-item"><a class="nav-link" href="../Home section/home.html#blog"><i class="ti ti-article me-1"></i>Blog</a></li>
+      </ul>
+      <a href="../Home section/home.html#cta" class="btn-quote nav-link px-4">CONTACT US &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="sd-hero">
+  <div class="sd-hero-glow"></div>
+  <div class="container">
+    <div class="sd-breadcrumb">
+      <a href="../Home section/home.html">Home</a>
+      <i class="ti ti-chevron-right"></i>
+      <a href="../Home section/home.html#services">Services</a>
+      <i class="ti ti-chevron-right"></i>
+      <span id="breadcrumbService">Loading…</span>
+    </div>
+    <div class="sd-hero-content">
+      <div class="sd-hero-badge">
+        <span class="sd-hero-icon-wrap"><i id="heroIcon" class="ti ti-code"></i></span>
+        <span id="heroCategory" class="sd-hero-cat">Software Development</span>
+      </div>
+      <h1 class="sd-hero-title" id="heroTitle">Loading Service…</h1>
+      <p class="sd-hero-desc" id="heroDesc">Please wait while we load the service details.</p>
+      <div class="sd-hero-cta">
+        <a href="#enquiry-form" class="sd-btn-primary">
+          <i class="ti ti-send me-2"></i>Request This Service
+        </a>
+        <a href="#service-info" class="sd-btn-outline">
+          <i class="ti ti-info-circle me-2"></i>Learn More
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<main class="sd-main" id="service-info">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+
+      <!-- LEFT: Service Info -->
+      <div class="col-lg-7">
+
+        <!-- Description -->
+        <div class="sd-card sd-info-card">
+          <h2 class="sd-section-title"><i class="ti ti-file-description me-2"></i>What We Offer</h2>
+          <p class="sd-full-desc" id="fullDesc">Loading…</p>
+        </div>
+
+        <!-- Features -->
+        <div class="sd-card sd-features-card">
+          <h2 class="sd-section-title"><i class="ti ti-list-check me-2"></i>Key Features &amp; Deliverables</h2>
+          <ul class="sd-features-list" id="featuresList"></ul>
+        </div>
+
+        <!-- Who Benefits -->
+        <div class="sd-card sd-benefits-card">
+          <h2 class="sd-section-title"><i class="ti ti-users me-2"></i>Who Benefits</h2>
+          <div class="sd-benefits-grid" id="benefitsGrid"></div>
+        </div>
+
+        <!-- Why Choose Us -->
+        <div class="sd-card sd-why-card">
+          <h2 class="sd-section-title"><i class="ti ti-award me-2"></i>Why Choose NovaStackhub</h2>
+          <ul class="sd-why-list" id="whyList"></ul>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Inquiry Form -->
+      <div class="col-lg-5" id="enquiry-form">
+        <div class="sd-form-card sticky-top" style="top: 90px;">
+          <div class="sd-form-header">
+            <i class="ti ti-clipboard-text sd-form-header-icon"></i>
+            <div>
+              <h3 class="sd-form-title">Request This Service</h3>
+              <p class="sd-form-subtitle">Fill out the form — we'll respond within 24 hours.</p>
+            </div>
+          </div>
+
+          <!-- Success Message (hidden by default) -->
+          <div class="sd-success-box" id="successBox" style="display:none">
+            <div class="sd-success-icon"><i class="ti ti-circle-check"></i></div>
+            <h4>Request Submitted!</h4>
+            <p>Thank you! Our team will contact you within 24 hours.</p>
+            <button class="sd-success-close" onclick="resetForm()">Submit Another Request</button>
+          </div>
+
+          <form id="enquiryForm" novalidate>
+            <div class="sd-field">
+              <label class="sd-label">Full Name <span class="req">*</span></label>
+              <div class="sd-input-wrap">
+                <i class="ti ti-user sd-input-icon"></i>
+                <input type="text" class="sd-input" id="f-name" name="name" placeholder="John Doe" required>
+              </div>
+              <span class="sd-error" id="err-name"></span>
+            </div>
+
+            <div class="sd-field">
+              <label class="sd-label">Email Address <span class="req">*</span></label>
+              <div class="sd-input-wrap">
+                <i class="ti ti-mail sd-input-icon"></i>
+                <input type="email" class="sd-input" id="f-email" name="email" placeholder="john@company.com" required>
+              </div>
+              <span class="sd-error" id="err-email"></span>
+            </div>
+
+            <div class="sd-field">
+              <label class="sd-label">Phone / WhatsApp <span class="req">*</span></label>
+              <div class="sd-input-wrap">
+                <i class="ti ti-phone sd-input-icon"></i>
+                <input type="tel" class="sd-input" id="f-phone" name="phone" placeholder="+92 300 0000000" required>
+              </div>
+              <span class="sd-error" id="err-phone"></span>
+            </div>
+
+            <div class="sd-field">
+              <label class="sd-label">Company / Business Name</label>
+              <div class="sd-input-wrap">
+                <i class="ti ti-building sd-input-icon"></i>
+                <input type="text" class="sd-input" name="company" placeholder="Your Company (Optional)">
+              </div>
+            </div>
+
+            <div class="sd-field">
+              <label class="sd-label">Service <span class="req">*</span></label>
+              <div class="sd-input-wrap">
+                <i class="ti ti-briefcase sd-input-icon"></i>
+                <input type="text" class="sd-input sd-input-readonly" id="f-service" name="service" readonly>
+              </div>
+            </div>
+
+            <div class="sd-field">
+              <label class="sd-label">Budget Range</label>
+              <div class="sd-input-wrap">
+                <i class="ti ti-currency-dollar sd-input-icon"></i>
+                <select class="sd-input sd-select" name="budget">
+                  <option value="">Select budget (Optional)</option>
+                  <option>Under $1,000</option>
+                  <option>$1,000 – $5,000</option>
+                  <option>$5,000 – $20,000</option>
+                  <option>$20,000 – $50,000</option>
+                  <option>$50,000 – $100,000</option>
+                  <option>$100,000+</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="sd-field">
+              <label class="sd-label">Project Details <span class="req">*</span></label>
+              <textarea class="sd-input sd-textarea" id="f-message" name="message" rows="5"
+                placeholder="Describe your project, goals, timeline, and any specific requirements…" required></textarea>
+              <span class="sd-error" id="err-message"></span>
+            </div>
+
+            <button type="submit" class="sd-submit-btn" id="submitBtn">
+              <span class="btn-default-text"><i class="ti ti-send me-2"></i>Submit Request</span>
+              <span class="btn-loading-text" style="display:none"><i class="ti ti-loader-2 me-2 spin"></i>Sending…</span>
+            </button>
+
+            <p class="sd-form-note"><i class="ti ti-lock-filled me-1"></i>Your information is confidential and never shared.</p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="sd-footer">
+  <div class="container text-center">
+    <p class="sd-footer-brand"><strong>Nova<span>Stack</span>hub</strong></p>
+    <p class="sd-footer-copy">&copy; 2025 NovaStackhub. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="service-detail.js"></script>
+</body>
+</html>
