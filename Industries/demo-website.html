@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Industry Demo Website — NovaStackhub</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.2.0/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ind: #3b82f6;
+      --ind-dark: #1d4ed8;
+      --ind-rgb: 59,130,246;
+      --ind-light: rgba(59,130,246,0.10);
+    }
+
+    /* ── NOVASTACK TOPBAR ─────────────────────────────────────── */
+    #ns-topbar {
+      background:#080f17; font-size:13px; color:#8899aa; padding:8px 0;
+      border-bottom:1px solid #1a2e42; position:sticky; top:0; z-index:9998;
+    }
+    #ns-topbar a { color:#8899aa; text-decoration:none; }
+    #ns-topbar a:hover { color:#00c8ff; }
+
+    /* ── NOVASTACK NAVBAR ─────────────────────────────────────── */
+    .ns-navbar {
+      background:#0b1a26 !important; border-bottom:1px solid #1a2e42;
+      padding:0; position:sticky; top:37px; z-index:9997;
+    }
+    .ns-navbar .navbar-brand img { height:52px; width:auto; object-fit:contain; margin-right:10px; }
+    .ns-navbar .brand-text { font-size:20px; font-weight:800; color:#fff; letter-spacing:-.3px; }
+    .ns-navbar .nav-link { color:rgba(255,255,255,.75) !important; font-size:14px; font-weight:600; padding:18px 14px !important; transition:.2s; }
+    .ns-navbar .nav-link:hover { color:#00c8ff !important; }
+    .ns-navbar .nav-link.active { color:#00c8ff !important; }
+    .ns-navbar .navbar-toggler { border-color:rgba(255,255,255,.2); }
+    .ns-navbar .navbar-toggler-icon { filter:invert(1); }
+
+    /* mega-menu shared */
+    .ns-navbar .dropdown-menu { background:#0d1f2d; border:1px solid #1a3050; border-radius:12px; padding:8px; margin-top:1px; }
+    .ns-navbar .dropdown-item { color:rgba(255,255,255,.7); font-size:13.5px; border-radius:7px; padding:7px 12px; transition:.15s; }
+    .ns-navbar .dropdown-item:hover { background:rgba(0,200,255,.1); color:#00c8ff; }
+    .ns-navbar .dropdown-item i { margin-right:8px; font-size:15px; width:16px; text-align:center; }
+    .ns-navbar .dropdown-header { color:#00c8ff; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:8px 12px 4px; }
+
+    /* Services mega-menu */
+    .ns-navbar .mega-menu { min-width:760px; padding:16px; }
+    .ns-navbar .mega-cols { display:flex; gap:8px; }
+    .ns-navbar .mega-col { flex:1; min-width:0; }
+
+    /* Industries mega-menu */
+    .ns-navbar .industries-mega { min-width:700px; padding:16px; }
+    .ns-navbar .mega-top-label { font-size:11px; font-weight:700; color:#00c8ff; letter-spacing:1.5px; text-transform:uppercase; padding:0 8px 12px; display:flex; align-items:center; gap:6px; border-bottom:1px solid #1a3050; margin-bottom:10px; }
+    .ns-navbar .ind-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; }
+    .ns-navbar .ind-grid .dropdown-item { font-size:12.5px; padding:6px 10px; }
+    .ns-navbar .ind-grid .dropdown-item i { font-size:14px; }
+
+    .btn-ns-cta {
+      background:#00c8ff; color:#0d1f2d !important; border-radius:8px !important;
+      padding:8px 20px !important; font-weight:800 !important; font-size:13.5px !important;
+      transition:.2s !important; white-space:nowrap;
+    }
+    .btn-ns-cta:hover { background:#00a8d4 !important; color:#fff !important; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; color: #1a1a2e; }
+
+    /* ── DEMO BANNER ───────────────────────────────────────────── */
+    .demo-banner {
+      background: linear-gradient(90deg, #0d1f2d, #0f3460);
+      color: #fff; font-size: 13px; font-weight: 600; letter-spacing:.4px;
+      text-align: center; padding: 9px 16px; position: sticky; top: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .demo-banner .badge-demo {
+      background: var(--ind); color:#fff; border-radius:4px;
+      padding: 2px 8px; font-size: 11px; text-transform: uppercase; letter-spacing:1px;
+    }
+    .demo-banner a {
+      color: #00c8ff; text-decoration: none; font-weight: 700; margin-left: 6px;
+    }
+    .demo-banner a:hover { text-decoration: underline; }
+
+    /* ── NAVBAR ────────────────────────────────────────────────── */
+    .site-nav {
+      background: #fff; border-bottom: 1px solid #e9ecf0;
+      padding: 0 0; position: sticky; top: 40px; z-index: 1000;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    .site-nav .container { display:flex; align-items:center; justify-content:space-between; height:68px; }
+    .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .nav-brand-icon {
+      width:40px; height:40px; border-radius:10px; background:var(--ind);
+      display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px;
+    }
+    .nav-brand-name { font-size:18px; font-weight:800; color:#1a1a2e; }
+    .nav-brand-name span { color: var(--ind); }
+    .nav-links { display:flex; align-items:center; gap:6px; list-style:none; }
+    .nav-links a {
+      color: #444; font-size:14px; font-weight:600; padding:8px 14px; border-radius:8px;
+      text-decoration:none; transition:.2s;
+    }
+    .nav-links a:hover { color: var(--ind); background: var(--ind-light); }
+    .nav-links a.active { color: var(--ind); }
+    .btn-nav-cta {
+      background: var(--ind); color: #fff !important; border-radius: 8px !important;
+      padding: 9px 20px !important;
+    }
+    .btn-nav-cta:hover { background: var(--ind-dark) !important; color:#fff !important; }
+    .nav-toggler {
+      display:none; border:none; background:none; font-size:22px; cursor:pointer; color:#333;
+    }
+    @media(max-width:768px){
+      .nav-links { display:none; flex-direction:column; position:absolute; top:68px; left:0; right:0;
+        background:#fff; border-top:1px solid #eee; padding:12px 0; }
+      .nav-links.open { display:flex; }
+      .nav-toggler { display:block; }
+    }
+
+    /* ── HERO ──────────────────────────────────────────────────── */
+    .hero-section {
+      min-height: calc(100vh - 108px);
+      background: linear-gradient(135deg, #0a1628 0%, #0d2040 40%, #0a1628 100%);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center;
+    }
+    .hero-section::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(var(--ind-rgb),.18) 0%, transparent 70%);
+    }
+    .hero-particles span {
+      position:absolute; border-radius:50%; opacity:.18; animation: float 6s ease-in-out infinite;
+    }
+    .hero-particles span:nth-child(1){width:80px;height:80px;background:var(--ind);top:10%;left:75%;animation-delay:0s;}
+    .hero-particles span:nth-child(2){width:40px;height:40px;background:#fff;top:60%;left:85%;animation-delay:1s;}
+    .hero-particles span:nth-child(3){width:120px;height:120px;background:var(--ind);top:25%;left:55%;animation-delay:2s;}
+    .hero-particles span:nth-child(4){width:20px;height:20px;background:#fff;top:75%;left:65%;animation-delay:.5s;}
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      background: rgba(var(--ind-rgb),.15); border:1px solid rgba(var(--ind-rgb),.3);
+      color: var(--ind); font-size:13px; font-weight:700; letter-spacing:1.2px;
+      text-transform:uppercase; padding:6px 16px; border-radius:100px; margin-bottom:24px;
+    }
+    .hero-eyebrow i { font-size:15px; }
+    .hero-title {
+      font-size: clamp(36px, 5.5vw, 72px); font-weight: 900; line-height: 1.1;
+      color: #fff; margin-bottom: 22px;
+    }
+    .hero-title .hl { color: var(--ind); }
+    .hero-desc {
+      font-size:17px; color:rgba(255,255,255,.7); line-height:1.8; margin-bottom:36px; max-width:560px;
+    }
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:48px; }
+    .btn-hero-primary {
+      background: var(--ind); color:#fff; font-weight:700; font-size:15px;
+      padding:14px 28px; border-radius:10px; border:none; cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px; transition:.25s;
+      text-decoration:none;
+    }
+    .btn-hero-primary:hover { background: var(--ind-dark); color:#fff; transform:translateY(-2px); }
+    .btn-hero-outline {
+      background:transparent; color:#fff; font-weight:700; font-size:15px;
+      padding:14px 28px; border-radius:10px; border:1px solid rgba(255,255,255,.3); cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px; transition:.25s; text-decoration:none;
+    }
+    .btn-hero-outline:hover { background:rgba(255,255,255,.08); color:#fff; }
+    .hero-stats {
+      display:flex; gap:36px; flex-wrap:wrap;
+      border-top:1px solid rgba(255,255,255,.1); padding-top:32px;
+    }
+    .hero-stat-num { font-size:32px; font-weight:900; color:#fff; }
+    .hero-stat-num span { color: var(--ind); }
+    .hero-stat-label { font-size:13px; color:rgba(255,255,255,.5); margin-top:2px; }
+
+    /* ── ABOUT SECTION ─────────────────────────────────────────── */
+    .about-section { padding:96px 0; background:#fff; }
+    .section-eyebrow {
+      display:inline-flex; align-items:center; gap:8px; color:var(--ind);
+      font-size:13px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+      margin-bottom:14px;
+    }
+    .section-eyebrow::before {
+      content:''; display:inline-block; width:28px; height:3px; background:var(--ind); border-radius:2px;
+    }
+    .section-title {
+      font-size:clamp(28px,4vw,46px); font-weight:800; line-height:1.2;
+      color:#1a1a2e; margin-bottom:18px;
+    }
+    .section-title span { color: var(--ind); }
+    .section-desc { font-size:16px; color:#6b7280; line-height:1.8; }
+
+    .about-img-wrap { position:relative; }
+    .about-img-wrap img { border-radius:20px; width:100%; object-fit:cover; height:420px; }
+    .about-badge {
+      position:absolute; bottom:-20px; right:-20px;
+      background:#fff; border-radius:16px; padding:16px 20px;
+      box-shadow:0 12px 40px rgba(0,0,0,.12); display:flex; align-items:center; gap:12px;
+    }
+    .about-badge-icon { width:48px;height:48px;border-radius:12px;background:var(--ind-light);
+      display:flex;align-items:center;justify-content:center;color:var(--ind);font-size:22px; }
+    .about-badge-num { font-size:24px; font-weight:900; color:#1a1a2e; line-height:1; }
+    .about-badge-label { font-size:12px; color:#6b7280; }
+
+    .about-features { display:flex; flex-direction:column; gap:18px; margin-top:32px; }
+    .about-feature { display:flex; align-items:flex-start; gap:14px; }
+    .about-feature-icon {
+      width:44px; height:44px; border-radius:10px; background:var(--ind-light);
+      display:flex; align-items:center; justify-content:center; color:var(--ind); font-size:20px; flex-shrink:0;
+    }
+    .about-feature-title { font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:3px; }
+    .about-feature-desc { font-size:13.5px; color:#6b7280; line-height:1.6; }
+
+    /* ── SERVICES SECTION ──────────────────────────────────────── */
+    .services-section { padding:96px 0; background:#f8fafc; }
+    .svc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; margin-top:48px; }
+    .svc-card {
+      background:#fff; border-radius:16px; padding:32px 28px;
+      border:1px solid #e9ecf0; transition:.3s; position:relative; overflow:hidden;
+    }
+    .svc-card::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,rgba(var(--ind-rgb),.04),transparent);
+      opacity:0; transition:.3s;
+    }
+    .svc-card:hover { border-color:rgba(var(--ind-rgb),.4); box-shadow:0 8px 32px rgba(var(--ind-rgb),.12); transform:translateY(-4px); }
+    .svc-card:hover::before { opacity:1; }
+    .svc-card-icon {
+      width:54px; height:54px; border-radius:14px; background:var(--ind-light);
+      display:flex; align-items:center; justify-content:center; color:var(--ind); font-size:24px;
+      margin-bottom:20px;
+    }
+    .svc-card-num { font-size:11px; font-weight:800; color:rgba(var(--ind-rgb),.35);
+      letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+    .svc-card-title { font-size:18px; font-weight:700; color:#1a1a2e; margin-bottom:10px; }
+    .svc-card-desc { font-size:14px; color:#6b7280; line-height:1.7; }
+    .svc-card-arrow {
+      display:inline-flex; align-items:center; gap:6px; margin-top:18px;
+      color:var(--ind); font-size:13px; font-weight:700; text-decoration:none; cursor:pointer;
+    }
+    .svc-card-arrow i { transition:.2s; }
+    .svc-card:hover .svc-card-arrow i { transform:translateX(4px); }
+
+    /* ── STATS STRIP ───────────────────────────────────────────── */
+    .stats-strip {
+      background: linear-gradient(135deg, var(--ind), var(--ind-dark));
+      padding:64px 0;
+    }
+    .stat-item { text-align:center; padding:16px; }
+    .stat-item-num { font-size:clamp(32px,4vw,52px); font-weight:900; color:#fff; line-height:1; }
+    .stat-item-label { font-size:14px; color:rgba(255,255,255,.75); margin-top:6px; font-weight:500; }
+
+    /* ── TESTIMONIALS ──────────────────────────────────────────── */
+    .testi-section { padding:96px 0; background:#fff; }
+    .testi-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-top:48px; }
+    .testi-card {
+      background:#f8fafc; border-radius:16px; padding:28px;
+      border:1px solid #e9ecf0; transition:.3s;
+    }
+    .testi-card:hover { box-shadow:0 8px 32px rgba(0,0,0,.08); }
+    .testi-stars { color:#f59e0b; font-size:16px; margin-bottom:14px; letter-spacing:2px; }
+    .testi-text { font-size:15px; color:#374151; line-height:1.8; font-style:italic; margin-bottom:20px; }
+    .testi-author { display:flex; align-items:center; gap:12px; }
+    .testi-avatar {
+      width:44px; height:44px; border-radius:50%; background:var(--ind);
+      display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; font-weight:700;
+    }
+    .testi-name { font-size:14px; font-weight:700; color:#1a1a2e; }
+    .testi-role { font-size:12px; color:#6b7280; }
+
+    /* ── CONTACT / CTA SECTION ─────────────────────────────────── */
+    .contact-section { padding:96px 0; background:#f8fafc; }
+    .contact-card {
+      background:#fff; border-radius:20px; overflow:hidden;
+      box-shadow:0 12px 48px rgba(0,0,0,.08); display:grid; grid-template-columns:1fr 1fr;
+    }
+    @media(max-width:768px){ .contact-card { grid-template-columns:1fr; } }
+    .contact-left {
+      background: linear-gradient(135deg, #0a1628, #0d2040);
+      padding:52px 44px; position:relative; overflow:hidden;
+    }
+    .contact-left::before {
+      content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px;
+      border-radius:50%; background:rgba(var(--ind-rgb),.15);
+    }
+    .contact-left h2 { font-size:32px; font-weight:800; color:#fff; margin-bottom:16px; line-height:1.25; }
+    .contact-left h2 span { color:var(--ind); }
+    .contact-left p { font-size:15px; color:rgba(255,255,255,.65); line-height:1.8; margin-bottom:28px; }
+    .contact-info-item { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .contact-info-item i { color:var(--ind); font-size:18px; }
+    .contact-info-item span { font-size:14px; color:rgba(255,255,255,.75); }
+    .contact-right { padding:52px 44px; }
+    .contact-right h3 { font-size:24px; font-weight:800; color:#1a1a2e; margin-bottom:6px; }
+    .contact-right p { font-size:14px; color:#6b7280; margin-bottom:28px; }
+    .form-field { margin-bottom:16px; }
+    .form-field label { font-size:13px; font-weight:600; color:#374151; margin-bottom:6px; display:block; }
+    .form-field input, .form-field textarea, .form-field select {
+      width:100%; padding:11px 14px; border:1px solid #d1d5db; border-radius:9px;
+      font-family:inherit; font-size:14px; color:#1a1a2e; background:#fff;
+      transition:.2s; outline:none;
+    }
+    .form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+      border-color:var(--ind); box-shadow:0 0 0 3px rgba(var(--ind-rgb),.12);
+    }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    @media(max-width:500px){ .form-row { grid-template-columns:1fr; } }
+    .btn-submit {
+      width:100%; padding:13px; background:var(--ind); color:#fff; font-family:inherit;
+      font-size:15px; font-weight:700; border:none; border-radius:9px; cursor:pointer;
+      transition:.25s; margin-top:6px;
+    }
+    .btn-submit:hover { background:var(--ind-dark); }
+
+    /* ── FOOTER ────────────────────────────────────────────────── */
+    .site-footer {
+      background:#0a1628; padding:64px 0 28px; color:rgba(255,255,255,.6);
+    }
+    .footer-brand { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+    .footer-brand-icon {
+      width:38px; height:38px; border-radius:9px; background:var(--ind);
+      display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px;
+    }
+    .footer-brand-name { font-size:17px; font-weight:800; color:#fff; }
+    .footer-tagline { font-size:13.5px; line-height:1.7; max-width:300px; margin-bottom:20px; }
+    .footer-socials { display:flex; gap:10px; }
+    .footer-socials a {
+      width:36px; height:36px; border-radius:8px; background:rgba(255,255,255,.08);
+      display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.6);
+      font-size:16px; text-decoration:none; transition:.2s;
+    }
+    .footer-socials a:hover { background:var(--ind); color:#fff; }
+    .footer-heading { font-size:14px; font-weight:700; color:#fff; margin-bottom:16px; }
+    .footer-links { list-style:none; display:flex; flex-direction:column; gap:9px; }
+    .footer-links a { color:rgba(255,255,255,.55); text-decoration:none; font-size:13.5px; transition:.2s; }
+    .footer-links a:hover { color:var(--ind); }
+    .footer-bottom {
+      border-top:1px solid rgba(255,255,255,.08); margin-top:48px; padding-top:24px;
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+      font-size:13px;
+    }
+    .powered-by {
+      background:rgba(var(--ind-rgb),.12); border:1px solid rgba(var(--ind-rgb),.25);
+      padding:5px 14px; border-radius:100px; color:rgba(255,255,255,.7); font-size:12px;
+    }
+    .powered-by strong { color:var(--ind); }
+  </style>
+</head>
+<body>
+
+  <!-- DEMO BANNER (sticky, highest z-index) -->
+  <div class="demo-banner" id="demoBanner">
+    <span class="badge-demo">DEMO</span>
+    You are viewing a <strong id="bannerIndName">Industry</strong> sample website powered by
+    <strong>NovaStackhub ERP</strong>
+    <a href="../Home section/home.html">← Back to Main Site</a>
+    <a href="demo-erp.html" id="bannerErpLink">View ERP Demo →</a>
+  </div>
+
+  <!-- NOVASTACK TOPBAR -->
+  <div id="ns-topbar">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="d-flex gap-4 flex-wrap">
+          <span><i class="ti ti-map-pin me-1"></i>55 Main Street, Karachi, Pakistan</span>
+          <a href="mailto:infonovastackhub@gmail.com"><i class="ti ti-mail me-1"></i>infonovastackhub@gmail.com</a>
+          <a href="tel:+11234568899"><i class="ti ti-phone me-1"></i>+1 (123) 456 889</a>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
+          <a href="#">Help</a><a href="#">Support</a><a href="#">FAQs</a>
+          <a href="#" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+          <a href="#" aria-label="X / Twitter"><i class="ti ti-brand-x"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+          <a href="#" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOVASTACK NAVBAR (full — same as home.html) -->
+  <nav class="navbar navbar-expand-lg ns-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="../Home section/home.html">
+        <img src="../Home section/logo.png" alt="NovaStackhub Logo">
+        <span class="brand-text">NovaStackhub</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nsNavMenu"
+        aria-controls="nsNavMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nsNavMenu">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="../Home section/home.html"><i class="ti ti-home me-1"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="../About section/about.html"><i class="ti ti-info-circle me-1"></i>About Us</a></li>
+          <!-- SERVICES mega-menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="ti ti-briefcase me-1"></i>Services</a>
+            <ul class="dropdown-menu mega-menu">
+              <div class="mega-cols">
+                <div class="mega-col">
+                  <li><h6 class="dropdown-header">💻 Software Development</h6></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=custom-software-development"><i class="ti ti-code"></i>Custom Software Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=erp-development"><i class="ti ti-building-factory"></i>ERP Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=crm-development"><i class="ti ti-users"></i>CRM Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=saas-product-development"><i class="ti ti-cloud"></i>SaaS Product Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=mvp-development"><i class="ti ti-rocket"></i>MVP Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=enterprise-software"><i class="ti ti-server"></i>Enterprise Software</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=business-process-automation"><i class="ti ti-robot"></i>Business Process Automation</a></li>
+                  <li><hr class="dropdown-divider" style="border-color:#1a3050;"></li>
+                  <li><h6 class="dropdown-header">🎨 Design</h6></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=ui-ux-design"><i class="ti ti-palette"></i>UI/UX Design</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=mobile-app-ui-ux"><i class="ti ti-device-mobile"></i>Mobile App UI/UX</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=accessibility-services"><i class="ti ti-accessible"></i>Accessibility Services</a></li>
+                </div>
+                <div class="mega-col">
+                  <li><h6 class="dropdown-header">🌐 Web &amp; E-Commerce</h6></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=web-application-development"><i class="ti ti-world"></i>Web Application Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=frontend-development"><i class="ti ti-layout"></i>Frontend Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=backend-development"><i class="ti ti-database"></i>Backend Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=e-commerce-solutions"><i class="ti ti-shopping-cart"></i>E-Commerce Solutions</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=api-development-integration"><i class="ti ti-api"></i>API Development &amp; Integration</a></li>
+                  <li><hr class="dropdown-divider" style="border-color:#1a3050;"></li>
+                  <li><h6 class="dropdown-header">☁️ Cloud &amp; IT Ops</h6></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=cloud-solutions"><i class="ti ti-cloud-upload"></i>Cloud Solutions</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=devops-services"><i class="ti ti-settings"></i>DevOps Services</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=cybersecurity"><i class="ti ti-shield-lock"></i>Cybersecurity</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=infrastructure-design"><i class="ti ti-topology-star"></i>Infrastructure Design</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=it-consulting"><i class="ti ti-headset"></i>IT Consulting</a></li>
+                </div>
+                <div class="mega-col">
+                  <li><h6 class="dropdown-header">📱 Mobile Apps</h6></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=android-app-development"><i class="ti ti-brand-android"></i>Android App Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=ios-app-development"><i class="ti ti-brand-apple"></i>iOS App Development</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=cross-platform-flutter-rn"><i class="ti ti-devices"></i>Cross-Platform (Flutter/RN)</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=enterprise-mobile-apps"><i class="ti ti-building"></i>Enterprise Mobile Apps</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=on-demand-service-apps"><i class="ti ti-truck-delivery"></i>On-Demand Service Apps</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=fintech-banking-apps"><i class="ti ti-coin"></i>FinTech &amp; Banking Apps</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=healthcare-mobile-apps"><i class="ti ti-heart-rate-monitor"></i>Healthcare Mobile Apps</a></li>
+                  <li><hr class="dropdown-divider" style="border-color:#1a3050;"></li>
+                  <li><h6 class="dropdown-header">🔧 Support &amp; Quality</h6></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=maintenance-support"><i class="ti ti-tool"></i>Maintenance &amp; Support</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=qa-testing"><i class="ti ti-checkup-list"></i>QA &amp; Testing</a></li>
+                  <li><a class="dropdown-item" href="../Services/service-detail.html?service=app-store-deployment"><i class="ti ti-brand-google-play"></i>App Store Deployment</a></li>
+                </div>
+              </div>
+            </ul>
+          </li>
+          <!-- INDUSTRIES mega-menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="ti ti-building-skyscraper me-1"></i>Industries</a>
+            <ul class="dropdown-menu industries-mega">
+              <div class="mega-top-label"><i class="ti ti-grid-dots"></i>40 Industries We Serve</div>
+              <div class="ind-grid">
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="retail-and-e-commerce" data-ind-name="Retail &amp; E-Commerce" data-ind-icon="ti ti-shopping-bag"><i class="ti ti-shopping-bag"></i>Retail &amp; E-Commerce</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="healthcare-and-medical" data-ind-name="Healthcare &amp; Medical" data-ind-icon="ti ti-stethoscope"><i class="ti ti-stethoscope"></i>Healthcare &amp; Medical</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="real-estate-and-property" data-ind-name="Real Estate &amp; Property" data-ind-icon="ti ti-home"><i class="ti ti-home"></i>Real Estate &amp; Property</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="finance-and-banking" data-ind-name="Finance &amp; Banking" data-ind-icon="ti ti-building-bank"><i class="ti ti-building-bank"></i>Finance &amp; Banking</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="education-and-e-learning" data-ind-name="Education &amp; E-Learning" data-ind-icon="ti ti-school"><i class="ti ti-school"></i>Education &amp; E-Learning</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="manufacturing-and-production" data-ind-name="Manufacturing &amp; Production" data-ind-icon="ti ti-tools"><i class="ti ti-tools"></i>Manufacturing &amp; Production</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="logistics-and-supply-chain" data-ind-name="Logistics &amp; Supply Chain" data-ind-icon="ti ti-truck"><i class="ti ti-truck"></i>Logistics &amp; Supply Chain</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="restaurant-and-food" data-ind-name="Restaurant &amp; Food" data-ind-icon="ti ti-chef-hat"><i class="ti ti-chef-hat"></i>Restaurant &amp; Food</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="gold-and-jewelry-trading" data-ind-name="Gold &amp; Jewelry Trading" data-ind-icon="ti ti-diamond"><i class="ti ti-diamond"></i>Gold &amp; Jewelry Trading</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="hotel-and-hospitality" data-ind-name="Hotel &amp; Hospitality" data-ind-icon="ti ti-bed"><i class="ti ti-bed"></i>Hotel &amp; Hospitality</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="construction-and-engineering" data-ind-name="Construction &amp; Engineering" data-ind-icon="ti ti-crane"><i class="ti ti-crane"></i>Construction &amp; Engineering</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="hr-and-recruitment" data-ind-name="HR &amp; Recruitment" data-ind-icon="ti ti-users"><i class="ti ti-users"></i>HR &amp; Recruitment</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="legal-and-law-firms" data-ind-name="Legal &amp; Law Firms" data-ind-icon="ti ti-gavel"><i class="ti ti-gavel"></i>Legal &amp; Law Firms</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="non-profit-and-ngo" data-ind-name="Non-Profit &amp; NGO" data-ind-icon="ti ti-heart"><i class="ti ti-heart"></i>Non-Profit &amp; NGO</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="government-and-public-sector" data-ind-name="Government &amp; Public Sector" data-ind-icon="ti ti-building"><i class="ti ti-building"></i>Government &amp; Public Sector</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="insurance" data-ind-name="Insurance" data-ind-icon="ti ti-shield"><i class="ti ti-shield"></i>Insurance</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="automotive" data-ind-name="Automotive" data-ind-icon="ti ti-car"><i class="ti ti-car"></i>Automotive</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="agriculture-and-farming" data-ind-name="Agriculture &amp; Farming" data-ind-icon="ti ti-plant"><i class="ti ti-plant"></i>Agriculture &amp; Farming</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="fitness-and-wellness" data-ind-name="Fitness &amp; Wellness" data-ind-icon="ti ti-barbell"><i class="ti ti-barbell"></i>Fitness &amp; Wellness</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="media-and-entertainment" data-ind-name="Media &amp; Entertainment" data-ind-icon="ti ti-movie"><i class="ti ti-movie"></i>Media &amp; Entertainment</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="telecom-and-it" data-ind-name="Telecom &amp; IT" data-ind-icon="ti ti-wifi"><i class="ti ti-wifi"></i>Telecom &amp; IT</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="oil-and-gas" data-ind-name="Oil &amp; Gas" data-ind-icon="ti ti-flame"><i class="ti ti-flame"></i>Oil &amp; Gas</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="textile-and-apparel" data-ind-name="Textile &amp; Apparel" data-ind-icon="ti ti-shirt"><i class="ti ti-shirt"></i>Textile &amp; Apparel</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="pharmacy-and-drug-store" data-ind-name="Pharmacy &amp; Drug Store" data-ind-icon="ti ti-pill"><i class="ti ti-pill"></i>Pharmacy &amp; Drug Store</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="beauty-and-salon" data-ind-name="Beauty &amp; Salon" data-ind-icon="ti ti-sparkles"><i class="ti ti-sparkles"></i>Beauty &amp; Salon</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="travel-and-tourism" data-ind-name="Travel &amp; Tourism" data-ind-icon="ti ti-plane"><i class="ti ti-plane"></i>Travel &amp; Tourism</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="event-management" data-ind-name="Event Management" data-ind-icon="ti ti-confetti"><i class="ti ti-confetti"></i>Event Management</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="security-and-surveillance" data-ind-name="Security &amp; Surveillance" data-ind-icon="ti ti-camera"><i class="ti ti-camera"></i>Security &amp; Surveillance</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="printing-and-publishing" data-ind-name="Printing &amp; Publishing" data-ind-icon="ti ti-printer"><i class="ti ti-printer"></i>Printing &amp; Publishing</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="interior-design-and-architecture" data-ind-name="Interior Design &amp; Architecture" data-ind-icon="ti ti-ruler"><i class="ti ti-ruler"></i>Interior Design &amp; Architecture</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="accounting-and-tax-firms" data-ind-name="Accounting &amp; Tax Firms" data-ind-icon="ti ti-calculator"><i class="ti ti-calculator"></i>Accounting &amp; Tax Firms</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="wholesale-and-distribution" data-ind-name="Wholesale &amp; Distribution" data-ind-icon="ti ti-package"><i class="ti ti-package"></i>Wholesale &amp; Distribution</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="import-and-export" data-ind-name="Import &amp; Export" data-ind-icon="ti ti-ship"><i class="ti ti-ship"></i>Import &amp; Export</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="courier-and-delivery" data-ind-name="Courier &amp; Delivery" data-ind-icon="ti ti-bike"><i class="ti ti-bike"></i>Courier &amp; Delivery</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="supermarket-and-grocery" data-ind-name="Supermarket &amp; Grocery" data-ind-icon="ti ti-basket"><i class="ti ti-basket"></i>Supermarket &amp; Grocery</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="gym-and-sports" data-ind-name="Gym &amp; Sports" data-ind-icon="ti ti-run"><i class="ti ti-run"></i>Gym &amp; Sports</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="clinic-and-diagnostic-labs" data-ind-name="Clinic &amp; Diagnostic Labs" data-ind-icon="ti ti-microscope"><i class="ti ti-microscope"></i>Clinic &amp; Diagnostic Labs</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="school-and-university" data-ind-name="School &amp; University" data-ind-icon="ti ti-certificate"><i class="ti ti-certificate"></i>School &amp; University</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="car-rental-and-fleet" data-ind-name="Car Rental &amp; Fleet" data-ind-icon="ti ti-steering-wheel"><i class="ti ti-steering-wheel"></i>Car Rental &amp; Fleet</a></li>
+                <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="charity-and-social-welfare" data-ind-name="Charity &amp; Social Welfare" data-ind-icon="ti ti-hand-heart"><i class="ti ti-hand-heart"></i>Charity &amp; Social Welfare</a></li>
+              </div>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="../Home section/home.html#case-studio"><i class="ti ti-report-analytics me-1"></i>Case Studio</a></li>
+        </ul>
+        <a href="#contact" class="btn-ns-cta nav-link px-4">CONTACT US &rarr;</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-section" id="hero">
+    <div class="hero-particles">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <div class="hero-eyebrow"><i class="ti ti-sparkles" id="heroIcon"></i> <span id="heroEyebrow">Industry Solutions</span></div>
+          <h1 class="hero-title" id="heroTitle">Powering Your<br><span class="hl">Business Forward</span></h1>
+          <p class="hero-desc" id="heroDesc">A world-class platform designed specifically for your industry's needs.</p>
+          <div class="hero-btns">
+            <a href="#services" class="btn-hero-primary"><i class="ti ti-rocket"></i> Explore Services</a>
+            <a href="#contact" class="btn-hero-outline"><i class="ti ti-phone"></i> Talk to Us</a>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-num" id="heroStat1">500<span>+</span></div>
+              <div class="hero-stat-label">Happy Clients</div>
+            </div>
+            <div>
+              <div class="hero-stat-num" id="heroStat2">12<span>yr</span></div>
+              <div class="hero-stat-label">Years Experience</div>
+            </div>
+            <div>
+              <div class="hero-stat-num" id="heroStat3">99<span>%</span></div>
+              <div class="hero-stat-label">Client Satisfaction</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+          <div style="width:420px;height:360px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px;" id="heroPreviewCard">
+            <!-- dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="about-img-wrap">
+            <img id="aboutImg" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" alt="About">
+            <div class="about-badge">
+              <div class="about-badge-icon" id="aboutBadgeIcon"><i class="ti ti-star"></i></div>
+              <div>
+                <div class="about-badge-num" id="aboutBadgeNum">4.9</div>
+                <div class="about-badge-label">Average Rating</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="section-eyebrow">About Our Solution</div>
+          <h2 class="section-title" id="aboutTitle">The Smart Way to Run <span id="aboutTitleInd">Your Business</span></h2>
+          <p class="section-desc" id="aboutDesc">Our platform is built for modern businesses in your sector.</p>
+          <div class="about-features" id="aboutFeatures">
+            <!-- dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7">
+          <div class="section-eyebrow">What We Offer</div>
+          <h2 class="section-title">Our Core <span>Services</span></h2>
+          <p class="section-desc">Comprehensive solutions tailored specifically to your industry's demands.</p>
+        </div>
+      </div>
+      <div class="svc-grid" id="servicesGrid">
+        <!-- dynamically populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="row g-0" id="statsRow">
+        <!-- dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <section class="testi-section" id="testimonials">
+    <div class="container">
+      <div class="text-center">
+        <div class="section-eyebrow justify-content-center" style="display:flex;">Client Testimonials</div>
+        <h2 class="section-title">What Our Clients <span>Say</span></h2>
+      </div>
+      <div class="testi-cards" id="testiCards">
+        <!-- dynamically populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <div class="contact-left">
+          <h2>Ready to <span>Transform</span> Your Business?</h2>
+          <p id="contactLeftDesc">Get in touch and discover how our ERP platform can streamline your operations.</p>
+          <div class="contact-info-item"><i class="ti ti-map-pin"></i><span>55 Main Street, Karachi, Pakistan</span></div>
+          <div class="contact-info-item"><i class="ti ti-mail"></i><span>infonovastackhub@gmail.com</span></div>
+          <div class="contact-info-item"><i class="ti ti-phone"></i><span>+1 (123) 456 889</span></div>
+          <div class="contact-info-item"><i class="ti ti-clock"></i><span>Mon–Fri: 9am – 6pm</span></div>
+        </div>
+        <div class="contact-right">
+          <h3>Send Us a Message</h3>
+          <p>We'll respond within 24 hours.</p>
+          <form onsubmit="handleContactSubmit(event)">
+            <div class="form-row">
+              <div class="form-field"><label>First Name</label><input type="text" placeholder="John"></div>
+              <div class="form-field"><label>Last Name</label><input type="text" placeholder="Doe"></div>
+            </div>
+            <div class="form-field"><label>Email</label><input type="email" placeholder="john@company.com"></div>
+            <div class="form-field"><label>Company</label><input type="text" placeholder="Company Name"></div>
+            <div class="form-field">
+              <label for="contactService">Interested In</label>
+              <select id="contactService" title="Select a service you are interested in">
+                <option>Select a service</option>
+              </select>
+            </div>
+            <div class="form-field"><label>Message</label><textarea rows="3" placeholder="Tell us about your needs..."></textarea></div>
+            <button type="submit" class="btn-submit">Send Message <i class="ti ti-send"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="footer-brand">
+            <div class="footer-brand-icon" id="footerIcon"><i class="ti ti-briefcase"></i></div>
+            <span class="footer-brand-name" id="footerBrandName">Industry Solutions</span>
+          </div>
+          <p class="footer-tagline" id="footerTagline">Empowering businesses with modern ERP solutions.</p>
+          <div class="footer-socials">
+            <a href="#"><i class="ti ti-brand-facebook"></i></a>
+            <a href="#"><i class="ti ti-brand-x"></i></a>
+            <a href="#"><i class="ti ti-brand-linkedin"></i></a>
+            <a href="#"><i class="ti ti-brand-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="footer-heading">Quick Links</p>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="footer-heading" id="footerServicesHeading">Services</p>
+          <ul class="footer-links" id="footerServicesList"></ul>
+        </div>
+        <div class="col-lg-4">
+          <p class="footer-heading">Powered by NovaStackhub</p>
+          <p style="font-size:13px;line-height:1.7;margin-bottom:14px;">This is a demo website generated by the NovaStackhub ERP platform — your one-stop solution for 40+ industries.</p>
+          <a href="../Home section/home.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--ind);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;">
+            <i class="ti ti-home"></i> Visit NovaStackhub
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 <strong id="footerCompany">Industry Solutions</strong>. Powered by NovaStackhub.</span>
+        <span class="powered-by">Demo site by <strong>NovaStackhub ERP</strong></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SUCCESS TOAST -->
+  <div id="toastMsg" style="display:none;position:fixed;bottom:28px;right:28px;background:#10b981;color:#fff;padding:14px 22px;border-radius:10px;font-size:14px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.2);">
+    <i class="ti ti-check me-2"></i> Message sent successfully! We'll get back to you soon.
+  </div>
+
+  <!-- INDUSTRY CHOICE MODAL -->
+  <div class="modal fade" id="industryChoiceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:480px;">
+      <div class="modal-content" style="background:#0d1f2d;border:1px solid #1a3050;border-radius:18px;overflow:hidden;">
+        <div class="modal-header" style="background:#080f17;border-bottom:1px solid #1a3050;padding:20px 24px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div id="modalIndIconWrap" style="width:46px;height:46px;border-radius:12px;background:rgba(0,200,255,.1);display:flex;align-items:center;justify-content:center;font-size:22px;color:#00c8ff;"></div>
+            <div>
+              <h5 class="modal-title mb-0" style="color:#fff;font-weight:800;font-size:17px;" id="modalIndTitle">Industry Name</h5>
+              <small style="color:rgba(255,255,255,.45);font-size:12px;">Choose what you'd like to explore</small>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="padding:28px 24px;">
+          <p style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:22px;text-align:center;">
+            What would you like to check for <strong style="color:#00c8ff;" id="modalIndNameInline">this industry</strong>?
+          </p>
+          <div class="row g-3">
+            <div class="col-6">
+              <a id="choiceWebsiteBtn" href="#" title="Demo Website" style="text-decoration:none;">
+                <div class="nsi-choice-card">
+                  <div class="nsi-choice-icon"><i class="ti ti-world-www"></i></div>
+                  <h6 style="color:#fff;font-weight:700;margin-bottom:6px;">Demo Website</h6>
+                  <p style="color:rgba(255,255,255,.45);font-size:12.5px;line-height:1.5;margin:0;">Full sample website — homepage, about, services &amp; contact</p>
+                  <div style="margin-top:14px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#00c8ff;">Explore <i class="ti ti-arrow-right" style="font-size:13px;"></i></div>
+                </div>
+              </a>
+            </div>
+            <div class="col-6">
+              <a id="choiceErpBtn" href="#" title="ERP System Demo" style="text-decoration:none;">
+                <div class="nsi-choice-card nsi-choice-card--accent">
+                  <div class="nsi-choice-icon"><i class="ti ti-layout-dashboard"></i></div>
+                  <h6 style="color:#fff;font-weight:700;margin-bottom:6px;">ERP System Demo</h6>
+                  <p style="color:rgba(255,255,255,.45);font-size:12.5px;line-height:1.5;margin:0;">Live ERP dashboard with modules, charts &amp; dummy data</p>
+                  <div style="margin-top:14px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#00c8ff;">Launch ERP <i class="ti ti-arrow-right" style="font-size:13px;"></i></div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <p style="text-align:center;margin-top:18px;font-size:12px;color:rgba(255,255,255,.3);"><i class="ti ti-info-circle me-1"></i>Powered by <strong style="color:rgba(255,255,255,.5);">NovaStackhub ERP Platform</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .nsi-choice-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:20px 16px; cursor:pointer; transition:all .25s ease; height:100%; display:flex; flex-direction:column; }
+    .nsi-choice-card:hover { background:rgba(0,200,255,.07); border-color:rgba(0,200,255,.35); transform:translateY(-3px); box-shadow:0 8px 28px rgba(0,0,0,.3); }
+    .nsi-choice-card--accent { background:rgba(0,200,255,.06); border-color:rgba(0,200,255,.2); }
+    .nsi-choice-card--accent:hover { background:rgba(0,200,255,.12); border-color:#00c8ff; }
+    .nsi-choice-icon { width:46px; height:46px; border-radius:12px; background:rgba(0,200,255,.1); display:flex; align-items:center; justify-content:center; font-size:22px; color:#00c8ff; margin-bottom:14px; }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="industries-data.js"></script>
+  <script>
+  (function () {
+    /* ── read query param ──────────────────────────────────────── */
+    var params = new URLSearchParams(window.location.search);
+    var slug   = params.get('industry') || 'retail-and-e-commerce';
+    var ind    = getIndustry(slug);
+
+    if (!ind) {
+      document.body.innerHTML = '<div style="text-align:center;padding:80px 20px;font-family:sans-serif;">' +
+        '<h2>Industry not found</h2><p><a href="../Home section/home.html">← Back to main site</a></p></div>';
+      return;
+    }
+
+    /* ── apply CSS variable for the industry colour ─────────────── */
+    function hexToRgb(hex) {
+      hex = hex.replace('#','');
+      if (hex.length === 3) hex = hex.split('').map(function(c){return c+c;}).join('');
+      var n = parseInt(hex, 16);
+      return [(n>>16)&255,(n>>8)&255,n&255].join(',');
+    }
+    var root = document.documentElement;
+    root.style.setProperty('--ind', ind.color);
+    root.style.setProperty('--ind-dark', shadeColor(ind.color, -20));
+    root.style.setProperty('--ind-rgb', hexToRgb(ind.color));
+    root.style.setProperty('--ind-light', 'rgba(' + hexToRgb(ind.color) + ',0.10)');
+
+    function shadeColor(hex, pct) {
+      var f = parseInt(hex.slice(1),16), t = pct < 0 ? 0 : 255, p = pct < 0 ? pct * -1 : pct;
+      var R = f>>16, G = f>>8&0x00FF, B = f&0x0000FF;
+      return '#'+(0x1000000+(Math.round((t-R)*p/100)+R)*0x10000+
+        (Math.round((t-G)*p/100)+G)*0x100+(Math.round((t-B)*p/100)+B)).toString(16).slice(1);
+    }
+
+    /* ── helper icons per service name ─────────────────────────── */
+    var svcIcons = [
+      'ti ti-rocket','ti ti-settings-automation','ti ti-chart-bar',
+      'ti ti-users','ti ti-shield-check','ti ti-world','ti ti-cpu',
+      'ti ti-database','ti ti-cash','ti ti-truck-delivery'
+    ];
+
+    var aboutImages = {
+      'retail-and-e-commerce': 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80',
+      'healthcare-and-medical': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
+      'real-estate-and-property': 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80',
+      'finance-and-banking': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80',
+      'education-and-e-learning': 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80',
+      'manufacturing-and-production': 'https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80',
+      'logistics-and-supply-chain': 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80',
+      'restaurant-and-food': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80',
+      'hotel-and-hospitality': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+      'construction-and-engineering': 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+      'automotive': 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80',
+      'agriculture-and-farming': 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&q=80',
+      'travel-and-tourism': 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80',
+      'media-and-entertainment': 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80',
+    };
+
+    var heroImgs = {
+      default: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80'
+    };
+
+    /* ── demo stats per industry (just for variation) ─────────── */
+    var statsPool = [
+      { num:'500+', label:'Happy Clients' },
+      { num:'12yr', label:'Years Experience' },
+      { num:'99%', label:'Satisfaction Rate' },
+    ];
+
+    /* ── populate page title & meta ─────────────────────────────── */
+    document.title = ind.name + ' ERP Demo — NovaStackhub';
+
+    /* ── banner ─────────────────────────────────────────────────── */
+    document.getElementById('bannerIndName').textContent = ind.name;
+    document.getElementById('bannerErpLink').href = 'demo-erp.html?industry=' + ind.slug;
+
+    /* ── navbar ─────────────────────────────────────────────────── */
+    document.getElementById('navBrandIcon').innerHTML = '<i class="' + ind.icon + '"></i>';
+    document.getElementById('navBrandName').innerHTML = ind.name.split(' ')[0] + ' <span>' + (ind.name.split(' ').slice(1).join(' ') || 'Solutions') + '</span>';
+
+    /* ── hero ───────────────────────────────────────────────────── */
+    document.getElementById('heroIcon').className = ind.icon;
+    document.getElementById('heroEyebrow').textContent = ind.name;
+    document.getElementById('heroTitle').innerHTML = ind.tagline.split(',')[0] + ',<br><span class="hl">' + (ind.tagline.split(',')[1] || 'Powered by NovaStackhub').trim() + '</span>';
+    document.getElementById('heroDesc').textContent = ind.blurb;
+
+    /* hero preview card */
+    var card = document.getElementById('heroPreviewCard');
+    card.innerHTML = '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">' +
+      '<div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;">' +
+      '<i class="' + ind.icon + '" style="color:var(--ind);font-size:18px;"></i></div>' +
+      '<span style="color:#fff;font-weight:700;font-size:14px;">' + ind.name + ' ERP</span>' +
+      '<span style="margin-left:auto;background:rgba(16,185,129,.2);color:#10b981;font-size:11px;padding:3px 9px;border-radius:100px;font-weight:700;">LIVE</span>' +
+      '</div>' +
+      '<div style="background:rgba(255,255,255,.06);border-radius:10px;padding:14px;margin-bottom:8px;">' +
+      '<div style="font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Active Modules</div>' +
+      ind.modules.slice(0,5).map(function(m){
+        return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
+          '<i class="' + m.icon + '" style="color:var(--ind);font-size:15px;width:18px;"></i>' +
+          '<span style="color:rgba(255,255,255,.75);font-size:13px;">' + m.name + '</span>' +
+          '<span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#10b981;"></span>' +
+          '</div>';
+      }).join('') +
+      '</div>' +
+      '<div style="background:rgba(var(--ind-rgb),.15);border:1px solid rgba(var(--ind-rgb),.25);border-radius:10px;padding:12px;font-size:12px;color:rgba(255,255,255,.6);">' +
+      '<i class="ti ti-info-circle" style="color:var(--ind);margin-right:6px;"></i>This is a NovaStackhub demo — click ERP Demo above to explore the full dashboard' +
+      '</div>';
+
+    /* ── about ──────────────────────────────────────────────────── */
+    if (aboutImages[ind.slug]) {
+      document.getElementById('aboutImg').src = aboutImages[ind.slug];
+    }
+    document.getElementById('aboutImg').alt = ind.name;
+    document.getElementById('aboutBadgeIcon').innerHTML = '<i class="' + ind.icon + '"></i>';
+    document.getElementById('aboutTitle').innerHTML = 'The Smart Way to Run <span>' + ind.name + '</span>';
+    document.getElementById('aboutDesc').textContent = ind.blurb;
+
+    var features = [
+      { icon: 'ti ti-bolt', title: 'Lightning Fast Setup', desc: 'Get up and running in hours, not weeks, with guided onboarding.' },
+      { icon: 'ti ti-shield-lock', title: 'Enterprise Security', desc: 'Bank-grade encryption and role-based access for every user.' },
+      { icon: 'ti ti-chart-line', title: 'Real-Time Analytics', desc: 'Live dashboards and reports to keep every decision data-driven.' },
+    ];
+    document.getElementById('aboutFeatures').innerHTML = features.map(function(f){
+      return '<div class="about-feature">' +
+        '<div class="about-feature-icon"><i class="' + f.icon + '"></i></div>' +
+        '<div><div class="about-feature-title">' + f.title + '</div>' +
+        '<div class="about-feature-desc">' + f.desc + '</div></div></div>';
+    }).join('');
+
+    /* ── services ───────────────────────────────────────────────── */
+    document.getElementById('servicesGrid').innerHTML = ind.services.map(function(svc, i){
+      var descriptions = {
+        'Online Store Setup': 'Launch your store with a fully integrated storefront and inventory sync.',
+        'POS Integration': 'Connect physical and online sales into one seamless point-of-sale.',
+        'Appointment Booking': 'Let clients book online with automated reminders and calendar sync.',
+        'Patient Records': 'Secure, searchable patient history accessible from any device.',
+        'Property Listings': 'Publish and manage listings with rich media and lead capture.',
+        'Production Planning': 'Schedule production runs, allocate resources and track progress live.',
+        'Fleet Tracking': 'Real-time GPS visibility across every vehicle in your fleet.',
+        'Table Booking': 'Accept reservations online and manage seating effortlessly.',
+        'Room Booking': 'Full reservation system with channel management and dynamic pricing.',
+        'Crop Planning': 'Plan planting schedules, input usage and harvest timelines with ease.',
+        'Membership Plans': 'Flexible recurring plans with automated billing and renewals.',
+        'Content Library': 'Organise, tag and distribute content across platforms in one place.',
+        'Policy Management': 'Issue policies, track renewals and manage endorsements digitally.',
+        'Vehicle Sales': 'Manage leads, test drives, financing and delivery in one workflow.',
+        'Parcel Booking': 'Book, label and dispatch parcels with live tracking for customers.',
+        'Test Orders': 'Receive lab orders digitally, track samples and auto-generate results.',
+        'Rental Booking': 'Manage reservations, check-in/out and driver assignments in real time.',
+      };
+      var defaultDesc = 'A powerful module designed to streamline this key area of your ' + ind.name + ' operations.';
+      return '<div class="svc-card">' +
+        '<div class="svc-card-icon"><i class="' + svcIcons[i % svcIcons.length] + '"></i></div>' +
+        '<div class="svc-card-num">0' + (i+1) + '</div>' +
+        '<div class="svc-card-title">' + svc + '</div>' +
+        '<div class="svc-card-desc">' + (descriptions[svc] || defaultDesc) + '</div>' +
+        '<span class="svc-card-arrow">Learn More <i class="ti ti-arrow-right"></i></span>' +
+        '</div>';
+    }).join('');
+
+    /* ── stats strip ────────────────────────────────────────────── */
+    var stats = [
+      { num:'500+', label:'Businesses Served' },
+      { num:'99.9%', label:'Uptime SLA' },
+      { num:'40+', label:'Industry Verticals' },
+      { num:'24/7', label:'Expert Support' },
+    ];
+    document.getElementById('statsRow').innerHTML = stats.map(function(s){
+      return '<div class="col-6 col-md-3"><div class="stat-item">' +
+        '<div class="stat-item-num">' + s.num + '</div>' +
+        '<div class="stat-item-label">' + s.label + '</div>' +
+        '</div></div>';
+    }).join('');
+
+    /* ── testimonials ───────────────────────────────────────────── */
+    var testis = [
+      { name:'Sarah M.', role: ind.name + ' Manager', text:'"Our operations are 10× smoother since adopting this platform. The ' + ind.services[0] + ' module alone saved us hundreds of hours."', avatar:'SM' },
+      { name:'James K.', role: 'Operations Director', text:'"Switching to this ERP was the best decision we made. Real-time dashboards changed how we make every business decision."', avatar:'JK' },
+      { name:'Linda W.', role: 'CEO, ' + ind.name.split('&')[0].trim(), text:'"Outstanding support team and a platform that genuinely understands the unique challenges of our industry."', avatar:'LW' },
+    ];
+    document.getElementById('testiCards').innerHTML = testis.map(function(t){
+      return '<div class="testi-card">' +
+        '<div class="testi-stars">★★★★★</div>' +
+        '<p class="testi-text">' + t.text + '</p>' +
+        '<div class="testi-author">' +
+        '<div class="testi-avatar">' + t.avatar + '</div>' +
+        '<div><div class="testi-name">' + t.name + '</div>' +
+        '<div class="testi-role">' + t.role + '</div></div>' +
+        '</div></div>';
+    }).join('');
+
+    /* ── contact service select ──────────────────────────────────── */
+    var sel = document.getElementById('contactService');
+    ind.services.forEach(function(s){
+      var o = document.createElement('option'); o.textContent = s; sel.appendChild(o);
+    });
+    document.getElementById('contactLeftDesc').textContent =
+      'Get in touch to learn how our ' + ind.name + ' ERP can transform your operations today.';
+
+    /* ── footer ─────────────────────────────────────────────────── */
+    document.getElementById('footerIcon').innerHTML = '<i class="' + ind.icon + '"></i>';
+    document.getElementById('footerBrandName').textContent = ind.name + ' Solutions';
+    document.getElementById('footerTagline').textContent = ind.blurb.split('.')[0] + '.';
+    document.getElementById('footerCompany').textContent = ind.name + ' Solutions';
+    document.getElementById('footerServicesList').innerHTML = ind.services.map(function(s){
+      return '<li><a href="#services">' + s + '</a></li>';
+    }).join('');
+
+  }());
+
+  function handleContactSubmit(e) {
+    e.preventDefault();
+    var toast = document.getElementById('toastMsg');
+    toast.style.display = 'block';
+    setTimeout(function(){ toast.style.display = 'none'; }, 4000);
+  }
+  </script>
+
+  <script>
+  (function () {
+    var choiceModal = new bootstrap.Modal(document.getElementById('industryChoiceModal'), { backdrop: true, keyboard: true });
+    document.querySelectorAll('.ind-link').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var slug = link.getAttribute('data-ind-slug');
+        var name = link.getAttribute('data-ind-name').replace(/&amp;/g, '&');
+        var icon = link.getAttribute('data-ind-icon');
+        document.getElementById('modalIndIconWrap').innerHTML = '<i class="' + icon + '"></i>';
+        document.getElementById('modalIndTitle').textContent = name;
+        document.getElementById('modalIndNameInline').textContent = name;
+        document.getElementById('choiceWebsiteBtn').href = 'demo-website.html?industry=' + slug;
+        document.getElementById('choiceErpBtn').href     = 'demo-erp.html?industry=' + slug;
+        var openDd = document.querySelector('.dropdown-menu.show');
+        if (openDd && openDd.previousElementSibling) {
+          bootstrap.Dropdown.getOrCreateInstance(openDd.previousElementSibling).hide();
+        }
+        choiceModal.show();
+      });
+    });
+  }());
+  </script>
+</body>
+</html>

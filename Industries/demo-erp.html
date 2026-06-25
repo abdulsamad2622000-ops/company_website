@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">ERP Dashboard — NovaStackhub</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.2.0/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --ind: #3b82f6;
+      --ind-dark: #1d4ed8;
+      --ind-rgb: 59,130,246;
+      --ind-light: rgba(59,130,246,0.10);
+      --sidebar-w: 250px;
+      --topbar-h: 62px;
+      --banner-h: 38px;
+      --main-nav-h: 58px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: #f1f5f9; color: #1e293b; display: flex; flex-direction: column; overflow-x: hidden; }
+
+    /* ── NOVASTACK NAVBAR (top of page) ──────────────────────── */
+    .ns-main-nav {
+      background: #0b1a26; border-bottom: 1px solid #1a2e42;
+      height: var(--main-nav-h); position: fixed; top: 0; left: 0; right: 0; z-index: 99999;
+      display: flex; align-items: center; padding: 0 20px; gap: 16px;
+    }
+    .ns-main-nav .ns-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .ns-main-nav .ns-logo img { height: 38px; width: auto; object-fit: contain; }
+    .ns-main-nav .ns-logo-text { font-size: 17px; font-weight: 800; color: #fff; letter-spacing: -.3px; }
+    .ns-main-nav .ns-nav-links { display: flex; align-items: center; gap: 2px; margin-left: 24px; flex: 1; }
+    .ns-main-nav .ns-nav-link {
+      color: rgba(255,255,255,.65); font-size: 13.5px; font-weight: 600; padding: 8px 14px;
+      border-radius: 8px; text-decoration: none; transition: .18s; white-space: nowrap;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .ns-main-nav .ns-nav-link:hover { color: #00c8ff; background: rgba(0,200,255,.08); }
+    .ns-main-nav .ns-nav-link.active { color: #00c8ff; }
+    .ns-main-nav .ns-nav-dropdown { position: relative; }
+    .ns-main-nav .ns-dropdown-btn {
+      color: rgba(255,255,255,.65); font-size: 13.5px; font-weight: 600; padding: 8px 14px;
+      border-radius: 8px; background: none; border: none; cursor: pointer; transition: .18s;
+      display: flex; align-items: center; gap: 6px; white-space: nowrap;
+    }
+    .ns-main-nav .ns-dropdown-btn:hover { color: #00c8ff; background: rgba(0,200,255,.08); }
+    .ns-main-nav .ns-dropdown-menu {
+      position: absolute; top: calc(100% + 8px); left: 0; min-width: 640px;
+      background: #0d1f2d; border: 1px solid #1a3050; border-radius: 14px; padding: 14px;
+      box-shadow: 0 16px 48px rgba(0,0,0,.5); z-index: 10000; display: none;
+    }
+    .ns-main-nav .ns-dropdown-menu.open { display: block; }
+    .ns-main-nav .ns-ind-menu { min-width: 680px; }
+    .ns-dropdown-label { font-size: 10.5px; font-weight: 700; color: #00c8ff; letter-spacing: 1.5px; text-transform: uppercase; padding: 0 4px 10px; border-bottom: 1px solid #1a3050; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .ns-ind-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 2px; }
+    .ns-ind-item {
+      display: flex; align-items: center; gap: 7px; padding: 7px 9px; border-radius: 7px;
+      color: rgba(255,255,255,.65); font-size: 12px; font-weight: 600; cursor: pointer;
+      text-decoration: none; transition: .15s; white-space: nowrap;
+    }
+    .ns-ind-item:hover { background: rgba(0,200,255,.1); color: #00c8ff; }
+    .ns-ind-item i { font-size: 14px; flex-shrink: 0; }
+    .ns-main-nav .ns-cta {
+      margin-left: auto; background: #00c8ff; color: #0d1f2d; font-size: 13px; font-weight: 800;
+      padding: 7px 18px; border-radius: 8px; text-decoration: none; white-space: nowrap; transition: .2s;
+      flex-shrink: 0;
+    }
+    .ns-main-nav .ns-cta:hover { background: #00a8d4; color: #fff; }
+
+    /* ── DEMO BANNER ─────────────────────────────────────────── */
+    .demo-banner {
+      height: var(--banner-h); background: linear-gradient(90deg,#0d1f2d,#0f3460);
+      color: #fff; font-size: 12.5px; font-weight: 600; letter-spacing: .3px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      position: fixed; top: var(--main-nav-h); left: 0; right: 0; z-index: 9000; flex-shrink: 0;
+    }
+    .demo-banner .badge-demo { background: var(--ind); color:#fff; border-radius:4px; padding:2px 8px; font-size:11px; text-transform:uppercase; letter-spacing:1px; }
+    .demo-banner a { color:#00c8ff; text-decoration:none; font-weight:700; }
+    .demo-banner a:hover { text-decoration:underline; }
+
+    /* ── LAYOUT SHELL ────────────────────────────────────────── */
+    .erp-shell {
+      display: flex; flex: 1; min-height: 0;
+      margin-top: calc(var(--main-nav-h) + var(--banner-h) + var(--topbar-h));
+    }
+
+    /* ── ERP TOPBAR ──────────────────────────────────────────── */
+    .erp-topbar {
+      height: var(--topbar-h); background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      position: fixed; top: calc(var(--main-nav-h) + var(--banner-h)); left: 0; right: 0; z-index: 8500;
+      display: flex; align-items: center; padding: 0 20px; gap: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .topbar-toggle { width:36px;height:36px;border-radius:8px;border:1px solid #e2e8f0; background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:#64748b;transition:.2s;flex-shrink:0; }
+    .topbar-toggle:hover { background:var(--ind-light);color:var(--ind); }
+    .topbar-breadcrumb { display:flex;align-items:center;gap:6px;font-size:13px;color:#64748b; }
+    .topbar-breadcrumb .ind-icon { width:28px;height:28px;border-radius:7px;background:var(--ind-light);display:flex;align-items:center;justify-content:center;color:var(--ind);font-size:15px; }
+    .topbar-breadcrumb strong { color:#1e293b;font-weight:700; }
+    .topbar-breadcrumb i.ti-chevron-right { font-size:12px; }
+    .topbar-datetime { font-size:12px;color:#94a3b8;font-weight:500;margin-left:6px; }
+    .topbar-right { margin-left:auto;display:flex;align-items:center;gap:8px; }
+    .topbar-search-wrap { display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:7px 14px;font-size:13px;color:#94a3b8;cursor:pointer;transition:.2s; }
+    .topbar-search-wrap:hover { border-color:var(--ind); }
+    .topbar-search-wrap span { width:160px;color:#94a3b8; }
+    .topbar-icon-btn { width:36px;height:36px;border-radius:9px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;color:#64748b;position:relative;transition:.2s;text-decoration:none; }
+    .topbar-icon-btn:hover { background:var(--ind-light);color:var(--ind);border-color:var(--ind); }
+    .topbar-notif-dot { position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:#ef4444;border:1.5px solid #fff; }
+    .topbar-profile { display:flex;align-items:center;gap:8px;cursor:pointer;position:relative;padding:4px 10px;border-radius:9px;transition:.2s; }
+    .topbar-profile:hover { background:#f8fafc; }
+    .topbar-avatar { width:34px;height:34px;border-radius:50%;background:var(--ind);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700; }
+    .topbar-user-name { font-size:13px;font-weight:700;color:#1e293b;line-height:1.2; }
+    .topbar-user-role { color:#94a3b8;font-size:11px; }
+
+    /* profile dropdown */
+    .profile-dropdown {
+      position:absolute;top:calc(100% + 8px);right:0;min-width:220px;
+      background:#fff;border:1px solid #e2e8f0;border-radius:12px;
+      box-shadow:0 12px 40px rgba(0,0,0,.12);padding:8px;z-index:10001;display:none;
+    }
+    .profile-dropdown.open { display:block; }
+    .profile-header { padding:12px;border-bottom:1px solid #f1f5f9;margin-bottom:6px; }
+    .profile-header-name { font-size:14px;font-weight:700;color:#1e293b; }
+    .profile-header-email { font-size:12px;color:#94a3b8; }
+    .profile-item { display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;font-size:13px;color:#374151;cursor:pointer;transition:.15s;text-decoration:none; }
+    .profile-item:hover { background:#f8fafc;color:var(--ind); }
+    .profile-item i { font-size:16px;width:18px;color:#94a3b8; }
+    .profile-item:hover i { color:var(--ind); }
+    .profile-divider { border-top:1px solid #f1f5f9;margin:6px 0; }
+    .profile-logout { color:#ef4444 !important; }
+    .profile-logout i { color:#ef4444 !important; }
+
+    /* ── NOTIFICATION DRAWER ─────────────────────────────────── */
+    .notif-overlay { position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:9500;display:none; }
+    .notif-overlay.open { display:block; }
+    .notif-drawer {
+      position:fixed;top:0;right:-380px;width:380px;height:100%;
+      background:#fff;z-index:9501;transition:.3s ease;box-shadow:-8px 0 32px rgba(0,0,0,.12);
+      display:flex;flex-direction:column;
+    }
+    .notif-drawer.open { right:0; }
+    .notif-drawer-header { padding:20px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between; }
+    .notif-drawer-title { font-size:16px;font-weight:800;color:#1e293b; }
+    .notif-close { width:32px;height:32px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#64748b; }
+    .notif-close:hover { background:#f8fafc;color:#ef4444; }
+    .notif-list { flex:1;overflow-y:auto;padding:12px; }
+    .notif-item { display:flex;gap:12px;padding:12px;border-radius:10px;margin-bottom:6px;cursor:pointer;transition:.15s;border:1px solid transparent; }
+    .notif-item:hover { background:#f8fafc;border-color:#e2e8f0; }
+    .notif-item.unread { background:rgba(var(--ind-rgb),.04);border-color:rgba(var(--ind-rgb),.15); }
+    .notif-icon { width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0; }
+    .notif-icon.green { background:rgba(16,185,129,.1);color:#10b981; }
+    .notif-icon.blue { background:rgba(59,130,246,.1);color:#3b82f6; }
+    .notif-icon.orange { background:rgba(245,158,11,.1);color:#f59e0b; }
+    .notif-icon.red { background:rgba(239,68,68,.1);color:#ef4444; }
+    .notif-title { font-size:13px;font-weight:700;color:#1e293b;margin-bottom:2px; }
+    .notif-desc { font-size:12px;color:#64748b;line-height:1.5; }
+    .notif-time { font-size:11px;color:#94a3b8;margin-top:4px; }
+    .notif-badge { display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;border-radius:100px;background:var(--ind);color:#fff;font-size:10px;font-weight:700;padding:0 5px; }
+
+    /* ── SEARCH OVERLAY ──────────────────────────────────────── */
+    .search-overlay { position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10002;display:none;align-items:flex-start;justify-content:center;padding-top:80px; }
+    .search-overlay.open { display:flex; }
+    .search-box { background:#fff;border-radius:16px;width:100%;max-width:580px;box-shadow:0 24px 64px rgba(0,0,0,.3);overflow:hidden; }
+    .search-input-wrap { display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid #f1f5f9; }
+    .search-input-wrap i { font-size:20px;color:#94a3b8; }
+    .search-input-wrap input { flex:1;border:none;outline:none;font-size:16px;font-family:inherit;color:#1e293b; }
+    .search-results { padding:12px; max-height:320px;overflow-y:auto; }
+    .search-result-item { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:.15s; }
+    .search-result-item:hover { background:#f8fafc; }
+    .search-result-icon { width:32px;height:32px;border-radius:8px;background:var(--ind-light);display:flex;align-items:center;justify-content:center;color:var(--ind);font-size:15px; }
+    .search-result-label { font-size:13.5px;font-weight:600;color:#1e293b; }
+    .search-result-sub { font-size:12px;color:#94a3b8; }
+
+    /* ── SIDEBAR ─────────────────────────────────────────────── */
+    .erp-sidebar {
+      width: var(--sidebar-w); background: #0f172a; flex-shrink: 0;
+      display: flex; flex-direction: column; overflow-y: auto;
+      transition: width .25s ease; position: fixed;
+      top: calc(var(--main-nav-h) + var(--banner-h) + var(--topbar-h));
+      bottom: 0; left: 0; z-index: 8000;
+    }
+    .erp-sidebar.collapsed { width: 64px; }
+    .erp-sidebar::-webkit-scrollbar { width: 4px; }
+    .erp-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 4px; }
+
+    .sidebar-brand { padding:18px 16px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06); }
+    .sidebar-brand-icon { width:36px;height:36px;border-radius:9px;background:var(--ind);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px; }
+    .sidebar-brand-text { overflow:hidden; }
+    .sidebar-brand-name { font-size:13px;font-weight:800;color:#fff;white-space:nowrap; }
+    .sidebar-brand-sub { font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.5px; }
+
+    .sidebar-section { padding:14px 10px 6px; }
+    .sidebar-section-label { font-size:10px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:1.5px;text-transform:uppercase;padding:0 8px;margin-bottom:4px;white-space:nowrap;overflow:hidden; }
+    .sidebar-nav { list-style:none;display:flex;flex-direction:column;gap:2px; }
+    .sidebar-nav li a { display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;text-decoration:none;font-size:13.5px;font-weight:600;color:rgba(255,255,255,.55);transition:.2s;cursor:pointer;white-space:nowrap; }
+    .sidebar-nav li a i { font-size:18px;flex-shrink:0;width:20px;text-align:center; }
+    .sidebar-nav li a:hover { background:rgba(255,255,255,.07);color:rgba(255,255,255,.9); }
+    .sidebar-nav li a.active { background:rgba(var(--ind-rgb),.18);color:#fff;border-left:3px solid var(--ind);padding-left:9px; }
+    .sidebar-nav li a.active i { color:var(--ind); }
+    .sidebar-footer { margin-top:auto;padding:12px 10px;border-top:1px solid rgba(255,255,255,.06); }
+    .sidebar-user { display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;cursor:pointer;transition:.2s; }
+    .sidebar-user:hover { background:rgba(255,255,255,.06); }
+    .sidebar-user-avatar { width:32px;height:32px;border-radius:50%;background:var(--ind);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700; }
+    .sidebar-user-name { font-size:13px;font-weight:700;color:rgba(255,255,255,.85);white-space:nowrap; }
+    .sidebar-user-role { font-size:11px;color:rgba(255,255,255,.35);white-space:nowrap; }
+
+    .erp-sidebar.collapsed .sidebar-brand-text,
+    .erp-sidebar.collapsed .sidebar-section-label,
+    .erp-sidebar.collapsed .sidebar-nav li a span,
+    .erp-sidebar.collapsed .sidebar-user-name,
+    .erp-sidebar.collapsed .sidebar-user-role { display:none; }
+    .erp-sidebar.collapsed .sidebar-nav li a { justify-content:center;padding:10px; }
+    .erp-sidebar.collapsed .sidebar-nav li a.active { padding-left:10px;border-left:none;border-bottom:2px solid var(--ind); }
+
+    /* ── MAIN CONTENT ────────────────────────────────────────── */
+    .erp-main { flex:1;padding:26px 24px;margin-left:var(--sidebar-w);min-width:0;overflow-y:auto;transition:margin-left .25s ease; }
+    .erp-main.expanded { margin-left:64px; }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────── */
+    .page-header { margin-bottom:22px; }
+    .page-header-top { display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px; }
+    .page-title { font-size:22px;font-weight:800;color:#1e293b; }
+    .page-subtitle { font-size:13.5px;color:#64748b;margin-top:2px; }
+    .page-actions { display:flex;gap:8px; }
+    .btn-erp-primary { background:var(--ind);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.2s; }
+    .btn-erp-primary:hover { background:var(--ind-dark); }
+    .btn-erp-outline { background:#fff;color:#374151;border:1px solid #e2e8f0;padding:9px 18px;border-radius:8px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.2s; }
+    .btn-erp-outline:hover { border-color:var(--ind);color:var(--ind); }
+
+    /* ── MODULE TABS ─────────────────────────────────────────── */
+    .module-tabs { display:flex;gap:4px;background:#f1f5f9;padding:4px;border-radius:10px;margin-bottom:22px;width:fit-content; }
+    .module-tab { padding:7px 18px;border-radius:7px;font-size:13px;font-weight:600;color:#64748b;cursor:pointer;transition:.2s;border:none;background:transparent;font-family:inherit;display:flex;align-items:center;gap:6px; }
+    .module-tab.active { background:#fff;color:var(--ind);box-shadow:0 1px 4px rgba(0,0,0,.08); }
+    .module-tab:hover:not(.active) { color:#1e293b; }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+
+    /* ── WELCOME CARD ────────────────────────────────────────── */
+    .welcome-card {
+      background: linear-gradient(135deg, var(--ind), var(--ind-dark));
+      border-radius: 16px; padding: 24px 28px; margin-bottom: 22px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      position: relative; overflow: hidden;
+    }
+    .welcome-card::before { content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.06); }
+    .welcome-card::after { content:'';position:absolute;bottom:-60px;right:80px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.04); }
+    .welcome-greeting { font-size:22px;font-weight:800;color:#fff;margin-bottom:4px; }
+    .welcome-sub { font-size:14px;color:rgba(255,255,255,.75); }
+    .welcome-modules-pill { display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:8px 16px;border-radius:100px; }
+    .welcome-modules-pill i { color:#fff;font-size:18px; }
+    .welcome-modules-pill span { font-size:13px;font-weight:700;color:#fff; }
+
+    /* ── QUICK MODULE CARDS ──────────────────────────────────── */
+    .quick-modules-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:22px; }
+    .quick-mod-card { background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px 12px;cursor:pointer;transition:.2s;text-align:center; }
+    .quick-mod-card:hover { border-color:var(--ind);box-shadow:0 4px 16px rgba(var(--ind-rgb),.1);transform:translateY(-2px); }
+    .quick-mod-card.active { border-color:var(--ind);background:var(--ind-light); }
+    .quick-mod-icon { width:40px;height:40px;border-radius:10px;background:var(--ind-light);display:flex;align-items:center;justify-content:center;color:var(--ind);font-size:20px;margin:0 auto 8px; }
+    .quick-mod-name { font-size:12px;font-weight:700;color:#1e293b; }
+    .quick-mod-card.active .quick-mod-name { color:var(--ind); }
+
+    /* ── KPI CARDS ───────────────────────────────────────────── */
+    .kpi-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px; }
+    @media(max-width:900px){ .kpi-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:500px){ .kpi-grid { grid-template-columns:1fr; } }
+    .kpi-card { background:#fff;border-radius:14px;padding:20px 18px;border:1px solid #e2e8f0;position:relative;overflow:hidden;transition:.25s; }
+    .kpi-card:hover { box-shadow:0 6px 24px rgba(0,0,0,.07);transform:translateY(-2px); }
+    .kpi-card-accent { position:absolute;top:0;right:0;width:72px;height:72px;border-radius:0 14px 0 72px;background:var(--ind-light); }
+    .kpi-icon { width:40px;height:40px;border-radius:10px;background:var(--ind-light);display:flex;align-items:center;justify-content:center;color:var(--ind);font-size:19px;margin-bottom:14px; }
+    .kpi-label { font-size:12.5px;font-weight:600;color:#94a3b8;letter-spacing:.3px;margin-bottom:4px; }
+    .kpi-value { font-size:26px;font-weight:900;color:#1e293b;line-height:1;margin-bottom:8px; }
+    .kpi-trend { font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:100px; }
+    .kpi-trend.up { background:rgba(16,185,129,.1);color:#10b981; }
+    .kpi-trend.down { background:rgba(239,68,68,.1);color:#ef4444; }
+    .kpi-trend.flat { background:rgba(100,116,139,.1);color:#64748b; }
+
+    /* ── CHART + ACTIVITY ROW ────────────────────────────────── */
+    .charts-row { display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:22px; }
+    @media(max-width:800px){ .charts-row { grid-template-columns:1fr; } }
+    .chart-card { background:#fff;border-radius:14px;padding:20px;border:1px solid #e2e8f0; }
+    .chart-card-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:16px; }
+    .chart-card-title { font-size:14px;font-weight:700;color:#1e293b; }
+    .chart-card-sub { font-size:12px;color:#94a3b8;margin-top:1px; }
+    .chart-period-btns { display:flex;gap:4px; }
+    .chart-period-btn { padding:4px 10px;border-radius:6px;border:1px solid #e2e8f0;font-size:11px;font-weight:600;cursor:pointer;background:#fff;color:#64748b;transition:.15s; }
+    .chart-period-btn.active { background:var(--ind);color:#fff;border-color:var(--ind); }
+
+    /* Activity timeline */
+    .activity-card { background:#fff;border-radius:14px;padding:20px;border:1px solid #e2e8f0;display:flex;flex-direction:column;max-height:360px; }
+    .activity-title { font-size:14px;font-weight:700;color:#1e293b;margin-bottom:16px; }
+    .activity-list { flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:0; }
+    .activity-list::-webkit-scrollbar { width:3px; }
+    .activity-list::-webkit-scrollbar-thumb { background:#e2e8f0;border-radius:3px; }
+    .activity-item { display:flex;gap:12px;padding-bottom:14px;position:relative; }
+    .activity-item:not(:last-child)::after { content:'';position:absolute;left:14px;top:30px;bottom:0;width:1px;background:#f1f5f9; }
+    .activity-dot { width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0; }
+    .activity-dot.green { background:rgba(16,185,129,.1);color:#10b981; }
+    .activity-dot.blue { background:rgba(59,130,246,.1);color:#3b82f6; }
+    .activity-dot.orange { background:rgba(245,158,11,.1);color:#f59e0b; }
+    .activity-dot.purple { background:rgba(139,92,246,.1);color:#8b5cf6; }
+    .activity-text { font-size:13px;color:#374151;line-height:1.5; }
+    .activity-text strong { color:#1e293b; }
+    .activity-time { font-size:11px;color:#94a3b8;margin-top:2px; }
+
+    /* ── DATA TABLE ──────────────────────────────────────────── */
+    .table-card { background:#fff;border-radius:14px;padding:0;border:1px solid #e2e8f0;overflow:hidden;margin-bottom:22px; }
+    .table-card-header { padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f1f5f9;flex-wrap:wrap;gap:10px; }
+    .table-card-title { font-size:14px;font-weight:700;color:#1e293b; }
+    .table-toolbar { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+    .table-search { display:flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:6px 12px;font-size:12.5px;color:#94a3b8; }
+    .table-search input { border:none;background:transparent;outline:none;width:130px;font-family:inherit;font-size:12.5px;color:#334155; }
+    .table-filter-btn { display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;font-size:12.5px;font-weight:600;color:#64748b;cursor:pointer;transition:.15s; }
+    .table-filter-btn:hover { border-color:var(--ind);color:var(--ind); }
+    .data-table { width:100%;border-collapse:collapse; }
+    .data-table thead tr { background:#f8fafc; }
+    .data-table th { padding:10px 16px;text-align:left;font-size:11.5px;font-weight:700;color:#64748b;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid #e2e8f0;white-space:nowrap;cursor:pointer;user-select:none; }
+    .data-table th:hover { color:var(--ind); }
+    .data-table th .sort-icon { font-size:12px;opacity:.4;margin-left:4px; }
+    .data-table td { padding:11px 16px;font-size:13px;color:#374151;border-bottom:1px solid #f1f5f9;vertical-align:middle; }
+    .data-table tr:last-child td { border-bottom:none; }
+    .data-table tr:hover td { background:#fafbfc; }
+    .td-primary { font-weight:700;color:#1e293b; }
+    .status-badge { display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:11.5px;font-weight:600; }
+    .status-badge::before { content:'';width:6px;height:6px;border-radius:50%;display:inline-block; }
+    .status-active  { background:rgba(16,185,129,.1);color:#10b981; }  .status-active::before { background:#10b981; }
+    .status-pending { background:rgba(245,158,11,.1);color:#f59e0b; }  .status-pending::before { background:#f59e0b; }
+    .status-closed  { background:rgba(100,116,139,.1);color:#64748b; } .status-closed::before { background:#94a3b8; }
+    .status-critical{ background:rgba(239,68,68,.1);color:#ef4444; }   .status-critical::before { background:#ef4444; }
+    .row-action-btn { width:28px;height:28px;border-radius:7px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:14px;color:#64748b;transition:.15s;margin-left:3px; }
+    .row-action-btn:hover { background:var(--ind-light);color:var(--ind);border-color:var(--ind); }
+    .table-pagination { padding:12px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #f1f5f9;flex-wrap:wrap;gap:8px; }
+    .table-pagination span { font-size:12.5px;color:#64748b; }
+    .page-btns { display:flex;gap:4px; }
+    .page-btn { width:30px;height:30px;border-radius:7px;border:1px solid #e2e8f0;background:#fff;font-size:12.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#64748b;transition:.15s;font-family:inherit; }
+    .page-btn.active { background:var(--ind);color:#fff;border-color:var(--ind); }
+    .page-btn:hover:not(.active) { border-color:var(--ind);color:var(--ind); }
+
+    /* ── MINI STATS ──────────────────────────────────────────── */
+    .mini-stats { display:flex;flex-direction:column;gap:12px;height:100%; }
+    .mini-stat-item { padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e9ecf0; }
+    .mini-stat-label { font-size:11.5px;color:#94a3b8;font-weight:600;margin-bottom:4px; }
+    .mini-stat-val { font-size:20px;font-weight:800;color:#1e293b; }
+    .mini-stat-bar { height:4px;background:#e2e8f0;border-radius:2px;margin-top:8px;overflow:hidden; }
+    .mini-stat-fill { height:100%;background:var(--ind);border-radius:2px; }
+
+    /* ── FAB BUTTON ──────────────────────────────────────────── */
+    .fab-btn { position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:var(--ind);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 6px 24px rgba(var(--ind-rgb),.45);z-index:7000;transition:.25s; }
+    .fab-btn:hover { transform:scale(1.1);box-shadow:0 8px 32px rgba(var(--ind-rgb),.55); }
+    .fab-menu { position:fixed;bottom:90px;right:28px;display:flex;flex-direction:column;gap:10px;z-index:7001;display:none; }
+    .fab-menu.open { display:flex; }
+    .fab-menu-item { display:flex;align-items:center;gap:10px;justify-content:flex-end; }
+    .fab-menu-label { background:#1e293b;color:#fff;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:8px;white-space:nowrap; }
+    .fab-mini-btn { width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:.2s; }
+    .fab-mini-btn:hover { transform:scale(1.08); }
+
+    /* ── ANALYTICS TAB ───────────────────────────────────────── */
+    .analytics-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px; }
+    @media(max-width:700px){ .analytics-grid { grid-template-columns:1fr; } }
+    .insight-card { background:#fff;border-radius:14px;padding:20px;border:1px solid #e2e8f0; }
+    .insight-title { font-size:14px;font-weight:700;color:#1e293b;margin-bottom:16px; }
+    .progress-row { display:flex;align-items:center;gap:12px;margin-bottom:12px; }
+    .progress-label { font-size:13px;color:#374151;font-weight:600;min-width:120px; }
+    .progress-track { flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden; }
+    .progress-fill { height:100%;border-radius:4px;background:var(--ind); }
+    .progress-pct { font-size:12px;font-weight:700;color:#64748b;min-width:36px;text-align:right; }
+
+    /* ── MOBILE ──────────────────────────────────────────────── */
+    @media(max-width:768px){
+      .erp-sidebar { transform:translateX(-100%); }
+      .erp-sidebar.mobile-open { transform:translateX(0); }
+      .erp-main { margin-left:0 !important; }
+      .topbar-search-wrap { display:none; }
+      .page-actions .btn-erp-outline { display:none; }
+      .ns-nav-links { display:none; }
+      .kpi-grid { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NOVASTACK MAIN NAVBAR ─────────────────────────────── -->
+  <nav class="ns-main-nav" id="nsMainNav">
+    <a class="ns-logo" href="../Home section/home.html">
+      <img src="../Home section/logo.png" alt="NovaStackhub">
+      <span class="ns-logo-text">NovaStackhub</span>
+    </a>
+    <div class="ns-nav-links">
+      <a class="ns-nav-link" href="../Home section/home.html"><i class="ti ti-home"></i>Home</a>
+      <a class="ns-nav-link" href="../About section/about.html"><i class="ti ti-info-circle"></i>About Us</a>
+      <a class="ns-nav-link" href="../Home section/home.html#services"><i class="ti ti-briefcase"></i>Services</a>
+      <!-- Industries dropdown -->
+      <div class="ns-nav-dropdown" id="nsIndDropdown">
+        <button class="ns-dropdown-btn" onclick="toggleNsDropdown()" type="button">
+          <i class="ti ti-building-skyscraper"></i>Industries<i class="ti ti-chevron-down" style="font-size:12px;"></i>
+        </button>
+        <div class="ns-dropdown-menu ns-ind-menu" id="nsIndMenu">
+          <div class="ns-dropdown-label"><i class="ti ti-grid-dots"></i>40 Industries We Serve</div>
+          <div class="ns-ind-grid" id="nsIndGrid"><!-- populated by JS --></div>
+        </div>
+      </div>
+    </div>
+    <a class="ns-cta" href="../Home section/home.html#cta">CONTACT US &rarr;</a>
+  </nav>
+
+  <!-- INDUSTRY CHOICE MODAL -->
+  <div class="modal fade" id="industryChoiceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:480px;">
+      <div class="modal-content" style="background:#0d1f2d;border:1px solid #1a3050;border-radius:18px;overflow:hidden;">
+        <div class="modal-header" style="background:#080f17;border-bottom:1px solid #1a3050;padding:20px 24px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div id="modalIndIconWrap" style="width:46px;height:46px;border-radius:12px;background:rgba(0,200,255,.1);display:flex;align-items:center;justify-content:center;font-size:22px;color:#00c8ff;"></div>
+            <div>
+              <h5 class="modal-title mb-0" style="color:#fff;font-weight:800;font-size:17px;" id="modalIndTitle">Industry Name</h5>
+              <small style="color:rgba(255,255,255,.45);font-size:12px;">Choose what you'd like to explore</small>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="padding:28px 24px;">
+          <p style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:22px;text-align:center;">
+            What would you like to check for <strong style="color:#00c8ff;" id="modalIndNameInline">this industry</strong>?
+          </p>
+          <div class="row g-3">
+            <div class="col-6">
+              <a id="choiceWebsiteBtn" href="#" title="Demo Website" style="text-decoration:none;">
+                <div class="erp-choice-card">
+                  <div class="erp-choice-icon"><i class="ti ti-world-www"></i></div>
+                  <h6 style="color:#fff;font-weight:700;margin-bottom:6px;">Demo Website</h6>
+                  <p style="color:rgba(255,255,255,.45);font-size:12.5px;line-height:1.5;margin:0;">Full sample website — homepage, about, services &amp; contact</p>
+                  <div style="margin-top:14px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#00c8ff;">Explore <i class="ti ti-arrow-right"></i></div>
+                </div>
+              </a>
+            </div>
+            <div class="col-6">
+              <a id="choiceErpBtn" href="#" title="ERP System Demo" style="text-decoration:none;">
+                <div class="erp-choice-card erp-choice-card--accent">
+                  <div class="erp-choice-icon"><i class="ti ti-layout-dashboard"></i></div>
+                  <h6 style="color:#fff;font-weight:700;margin-bottom:6px;">ERP System Demo</h6>
+                  <p style="color:rgba(255,255,255,.45);font-size:12.5px;line-height:1.5;margin:0;">Live ERP dashboard with modules, charts &amp; dummy data</p>
+                  <div style="margin-top:14px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#00c8ff;">Launch ERP <i class="ti ti-arrow-right"></i></div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <p style="text-align:center;margin-top:18px;font-size:12px;color:rgba(255,255,255,.3);"><i class="ti ti-info-circle me-1"></i>Powered by <strong style="color:rgba(255,255,255,.5);">NovaStackhub ERP Platform</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .erp-choice-card { background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px 16px;cursor:pointer;transition:all .25s;height:100%;display:flex;flex-direction:column; }
+    .erp-choice-card:hover { background:rgba(0,200,255,.07);border-color:rgba(0,200,255,.35);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.3); }
+    .erp-choice-card--accent { background:rgba(0,200,255,.06);border-color:rgba(0,200,255,.2); }
+    .erp-choice-card--accent:hover { background:rgba(0,200,255,.12);border-color:#00c8ff; }
+    .erp-choice-icon { width:46px;height:46px;border-radius:12px;background:rgba(0,200,255,.1);display:flex;align-items:center;justify-content:center;font-size:22px;color:#00c8ff;margin-bottom:14px; }
+  </style>
+
+  <!-- DEMO BANNER -->
+  <div class="demo-banner">
+    <span class="badge-demo">ERP DEMO</span>
+    <span id="bannerText">Industry ERP System — NovaStackhub</span>
+    <a href="../Home section/home.html">← Main Site</a>
+    <a href="demo-website.html" id="bannerWebsiteLink">View Website Demo</a>
+  </div>
+
+  <!-- ERP TOPBAR -->
+  <div class="erp-topbar">
+    <button class="topbar-toggle" id="sidebarToggle" onclick="toggleSidebar()" type="button">
+      <i class="ti ti-menu-2"></i>
+    </button>
+    <div class="topbar-breadcrumb">
+      <div class="ind-icon" id="topbarIndIcon"><i class="ti ti-briefcase"></i></div>
+      <span id="topbarIndustry">ERP</span>
+      <i class="ti ti-chevron-right"></i>
+      <strong id="topbarModule">Dashboard</strong>
+    </div>
+    <span class="topbar-datetime" id="topbarDatetime"></span>
+    <div class="topbar-right">
+      <div class="topbar-search-wrap" onclick="openSearch()">
+        <i class="ti ti-search" style="color:#94a3b8;"></i>
+        <span>Search modules, records...</span>
+      </div>
+      <button class="topbar-icon-btn" title="Notifications" onclick="toggleNotifDrawer()" type="button">
+        <i class="ti ti-bell"></i>
+        <span class="topbar-notif-dot"></span>
+      </button>
+      <a class="topbar-icon-btn" href="demo-website.html" id="topbarWebLink" title="View Website Demo">
+        <i class="ti ti-world"></i>
+      </a>
+      <div class="topbar-profile" onclick="toggleProfileDropdown()" id="topbarProfile">
+        <div class="topbar-avatar" id="topbarAvatar">AD</div>
+        <div>
+          <div class="topbar-user-name">Admin User</div>
+          <div class="topbar-user-role" id="topbarRole">ERP Administrator</div>
+        </div>
+        <i class="ti ti-chevron-down" style="font-size:12px;color:#94a3b8;"></i>
+        <!-- Profile dropdown -->
+        <div class="profile-dropdown" id="profileDropdown">
+          <div class="profile-header">
+            <div class="profile-header-name">Admin User</div>
+            <div class="profile-header-email">admin@novastackhub.com</div>
+          </div>
+          <a class="profile-item" href="#" onclick="return false;"><i class="ti ti-user"></i>My Profile</a>
+          <a class="profile-item" href="#" onclick="return false;"><i class="ti ti-settings"></i>Settings</a>
+          <a class="profile-item" href="#" onclick="return false;"><i class="ti ti-help-circle"></i>Help & Support</a>
+          <div class="profile-divider"></div>
+          <a class="profile-item profile-logout" href="../Home section/home.html"><i class="ti ti-logout"></i>Exit ERP Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION DRAWER -->
+  <div class="notif-overlay" id="notifOverlay" onclick="toggleNotifDrawer()"></div>
+  <div class="notif-drawer" id="notifDrawer">
+    <div class="notif-drawer-header">
+      <div>
+        <div class="notif-drawer-title">Notifications <span class="notif-badge" id="notifCount">5</span></div>
+        <div style="font-size:12px;color:#94a3b8;margin-top:2px;">5 unread notifications</div>
+      </div>
+      <button class="notif-close" onclick="toggleNotifDrawer()" type="button"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="notif-list" id="notifList"><!-- populated by JS --></div>
+  </div>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="searchOverlay" onclick="closeSearchOnBg(event)">
+    <div class="search-box" id="searchBox">
+      <div class="search-input-wrap">
+        <i class="ti ti-search"></i>
+        <input type="text" id="searchInput" placeholder="Search modules, records, reports..." oninput="filterSearch(this.value)" autofocus>
+        <button type="button" onclick="closeSearch()" style="border:none;background:none;font-size:12px;color:#94a3b8;cursor:pointer;">ESC</button>
+      </div>
+      <div class="search-results" id="searchResults"><!-- populated by JS --></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="erp-sidebar" id="erpSidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon" id="sidebarBrandIcon"><i class="ti ti-briefcase"></i></div>
+      <div class="sidebar-brand-text">
+        <div class="sidebar-brand-name" id="sidebarBrandName">Industry ERP</div>
+        <div class="sidebar-brand-sub">NOVASTACK HUB</div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Main Menu</div>
+      <ul class="sidebar-nav" id="sidebarNav"></ul>
+    </div>
+    <div class="sidebar-section" style="margin-top:auto;">
+      <div class="sidebar-section-label">System</div>
+      <ul class="sidebar-nav">
+        <li><a href="#" onclick="openSearch();return false;"><i class="ti ti-search"></i><span>Global Search</span></a></li>
+        <li><a href="#" onclick="return false;"><i class="ti ti-settings"></i><span>Settings</span></a></li>
+        <li><a href="../Home section/home.html"><i class="ti ti-home"></i><span>Main Website</span></a></li>
+        <li><a href="demo-website.html" id="sidebarWebLink"><i class="ti ti-world"></i><span>Industry Website</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">AD</div>
+        <div>
+          <div class="sidebar-user-name">Admin User</div>
+          <div class="sidebar-user-role">Super Admin</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="erp-main" id="erpMain"></main>
+
+  <!-- FAB BUTTON -->
+  <div class="fab-menu" id="fabMenu">
+    <div class="fab-menu-item"><span class="fab-menu-label">New Report</span><button class="fab-mini-btn" style="background:#8b5cf6;" type="button" onclick="void(0)"><i class="ti ti-report-analytics"></i></button></div>
+    <div class="fab-menu-item"><span class="fab-menu-label">New Purchase Order</span><button class="fab-mini-btn" style="background:#f59e0b;" type="button" onclick="void(0)"><i class="ti ti-truck-loading"></i></button></div>
+    <div class="fab-menu-item"><span class="fab-menu-label">New Record</span><button class="fab-mini-btn" style="background:#10b981;" type="button" onclick="void(0)"><i class="ti ti-plus"></i></button></div>
+  </div>
+  <button class="fab-btn" id="fabBtn" onclick="toggleFab()" type="button"><i class="ti ti-plus"></i></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="industries-data.js"></script>
+  <script>
+  (function () {
+
+    /* ── params + industry ──────────────────────────────────── */
+    var params = new URLSearchParams(window.location.search);
+    var slug   = params.get('industry') || 'retail-and-e-commerce';
+    var ind    = getIndustry(slug);
+    var activeModuleName = null;
+    var activeTab = 'overview';
+    var chartInstance = null;
+    var chartInstance2 = null;
+    var fabOpen = false;
+    var profileOpen = false;
+    var notifOpen = false;
+
+    if (!ind) {
+      document.body.innerHTML = '<div style="text-align:center;padding:80px 20px;font-family:sans-serif;">' +
+        '<h2>Industry not found</h2><p><a href="../Home section/home.html">← Back</a></p></div>';
+      return;
+    }
+
+    /* ── colours ───────────────────────────────────────────── */
+    function hexToRgb(hex) {
+      hex = hex.replace('#','');
+      if (hex.length===3) hex = hex.split('').map(function(c){return c+c;}).join('');
+      var n = parseInt(hex,16);
+      return [(n>>16)&255,(n>>8)&255,n&255].join(',');
+    }
+    function shadeColor(hex, pct) {
+      var f=parseInt(hex.slice(1),16),t=pct<0?0:255,p=pct<0?pct*-1:pct;
+      var R=f>>16,G=f>>8&0xFF,B=f&0xFF;
+      return '#'+(0x1000000+(Math.round((t-R)*p/100)+R)*0x10000+(Math.round((t-G)*p/100)+G)*0x100+(Math.round((t-B)*p/100)+B)).toString(16).slice(1);
+    }
+    var root = document.documentElement;
+    root.style.setProperty('--ind', ind.color);
+    root.style.setProperty('--ind-dark', shadeColor(ind.color,-20));
+    root.style.setProperty('--ind-rgb', hexToRgb(ind.color));
+    root.style.setProperty('--ind-light', 'rgba('+hexToRgb(ind.color)+',0.10)');
+
+    /* ── page meta ─────────────────────────────────────────── */
+    document.title = ind.name + ' ERP — NovaStackhub';
+    document.getElementById('bannerText').textContent = ind.name + ' ERP System — NovaStackhub Demo';
+    document.getElementById('bannerWebsiteLink').href = 'demo-website.html?industry=' + ind.slug;
+    document.getElementById('sidebarWebLink').href   = 'demo-website.html?industry=' + ind.slug;
+    document.getElementById('topbarWebLink').href    = 'demo-website.html?industry=' + ind.slug;
+    document.getElementById('sidebarBrandIcon').innerHTML = '<i class="' + ind.icon + '"></i>';
+    document.getElementById('sidebarBrandName').textContent = ind.name.split(' ')[0] + ' ERP';
+    document.getElementById('topbarIndustry').textContent  = ind.name;
+    document.getElementById('topbarIndIcon').innerHTML     = '<i class="' + ind.icon + '"></i>';
+    document.getElementById('topbarRole').textContent      = ind.name + ' Admin';
+    document.getElementById('topbarWebLink').href          = 'demo-website.html?industry=' + ind.slug;
+
+    /* ── datetime clock ────────────────────────────────────── */
+    function updateClock() {
+      var now = new Date();
+      var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var h=now.getHours(),m=now.getMinutes(),s=now.getSeconds();
+      var ampm=h>=12?'PM':'AM'; h=h%12||12;
+      var pad=function(v){return v<10?'0'+v:String(v);};
+      document.getElementById('topbarDatetime').textContent =
+        days[now.getDay()]+', '+months[now.getMonth()]+' '+now.getDate()+' '+now.getFullYear()+
+        '  •  '+pad(h)+':'+pad(m)+':'+pad(s)+' '+ampm;
+    }
+    updateClock(); setInterval(updateClock,1000);
+
+    /* ── dummy data helpers ────────────────────────────────── */
+    var R = function(min,max){ return Math.floor(Math.random()*(max-min+1))+min; };
+    var fmt = function(n){ return n>=1000000?'$'+(n/1000000).toFixed(2)+'M':n>=1000?'$'+(n/1000).toFixed(1)+'K':'$'+n; };
+    var num = function(n){ return n>=1000000?(n/1000000).toFixed(1)+'M':n>=1000?(n/1000).toFixed(0)+'K':String(n); };
+    var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var curMonth=new Date().getMonth();
+    var labels12=[]; for(var m=0;m<12;m++) labels12.push(MONTHS[(curMonth-11+m+12)%12]);
+    var labels6 =[]; for(var m=0;m<6;m++)  labels6.push(MONTHS[(curMonth-5+m+12)%12]);
+    var labels3 =[]; for(var m=0;m<3;m++)  labels3.push(MONTHS[(curMonth-2+m+12)%12]);
+
+    function randSeries(base,variance,count){
+      var arr=[],val=base;
+      for(var i=0;i<count;i++){val+=R(-variance,variance);if(val<base*.4)val=base*.4;arr.push(Math.round(val));}
+      return arr;
+    }
+
+    /* ── notification data ─────────────────────────────────── */
+    var notifications = [
+      { icon:'green', iconClass:'ti ti-check-circle', title:'Inventory Synced', desc:'All stock levels updated from warehouse feed.', time:'2 mins ago', unread:true },
+      { icon:'blue',  iconClass:'ti ti-chart-bar',    title:'Monthly Report Ready', desc:'The '+ind.name+' performance report is available.', time:'18 mins ago', unread:true },
+      { icon:'orange',iconClass:'ti ti-alert-triangle',title:'Low Stock Alert', desc:'12 SKUs have fallen below reorder threshold.', time:'1 hour ago', unread:true },
+      { icon:'blue',  iconClass:'ti ti-user-plus',    title:'New User Added',  desc:'John Smith was added as a Sales Manager.', time:'3 hours ago', unread:true },
+      { icon:'green', iconClass:'ti ti-coin',          title:'Payment Received', desc:'Invoice #INV-2024-089 marked as paid.', time:'5 hours ago', unread:true },
+      { icon:'orange',iconClass:'ti ti-clock',         title:'Task Overdue',   desc:'Q2 purchase reconciliation is 2 days late.', time:'Yesterday', unread:false },
+      { icon:'green', iconClass:'ti ti-database',      title:'Backup Complete', desc:'Daily system backup completed successfully.', time:'Yesterday', unread:false },
+    ];
+    document.getElementById('notifList').innerHTML = notifications.map(function(n){
+      return '<div class="notif-item'+(n.unread?' unread':'')+'">' +
+        '<div class="notif-icon '+n.icon+'"><i class="'+n.iconClass+'"></i></div>' +
+        '<div><div class="notif-title">'+n.title+'</div>' +
+        '<div class="notif-desc">'+n.desc+'</div>' +
+        '<div class="notif-time">'+n.time+'</div></div></div>';
+    }).join('');
+
+    /* ── build sidebar nav ─────────────────────────────────── */
+    var nav = document.getElementById('sidebarNav');
+    ind.modules.forEach(function(mod,i){
+      var li=document.createElement('li');
+      var a=document.createElement('a');
+      a.href='javascript:void(0)';
+      a.innerHTML='<i class="'+mod.icon+'"></i><span>'+mod.name+'</span>';
+      if(i===0){a.classList.add('active');activeModuleName=mod.name;}
+      a.addEventListener('click',function(){
+        nav.querySelectorAll('a').forEach(function(el){el.classList.remove('active');});
+        a.classList.add('active');
+        activeModuleName=mod.name;
+        document.getElementById('topbarModule').textContent=mod.name;
+        activeTab='overview';
+        renderModule(mod.name,mod.icon,i);
+      });
+      li.appendChild(a);
+      nav.appendChild(li);
+    });
+
+    /* ── populate NS Industries grid in top navbar ─────────── */
+    var nsGrid = document.getElementById('nsIndGrid');
+    INDUSTRIES.forEach(function(industry){
+      var a=document.createElement('a');
+      a.className='ns-ind-item ind-link';
+      a.href='javascript:void(0)';
+      a.setAttribute('data-ind-slug',industry.slug);
+      a.setAttribute('data-ind-name',industry.name);
+      a.setAttribute('data-ind-icon',industry.icon);
+      a.innerHTML='<i class="'+industry.icon+'"></i>'+industry.name;
+      nsGrid.appendChild(a);
+    });
+
+    /* ── industries choice modal ───────────────────────────── */
+    var choiceModal = new bootstrap.Modal(document.getElementById('industryChoiceModal'),{backdrop:true,keyboard:true});
+    document.querySelectorAll('.ind-link').forEach(function(link){
+      link.addEventListener('click',function(e){
+        e.preventDefault();
+        var s=link.getAttribute('data-ind-slug');
+        var n=link.getAttribute('data-ind-name').replace(/&amp;/g,'&');
+        var ic=link.getAttribute('data-ind-icon');
+        document.getElementById('modalIndIconWrap').innerHTML='<i class="'+ic+'"></i>';
+        document.getElementById('modalIndTitle').textContent=n;
+        document.getElementById('modalIndNameInline').textContent=n;
+        document.getElementById('choiceWebsiteBtn').href='demo-website.html?industry='+s;
+        document.getElementById('choiceErpBtn').href='demo-erp.html?industry='+s;
+        document.getElementById('nsIndMenu').classList.remove('open');
+        choiceModal.show();
+      });
+    });
+
+    /* ── module data ───────────────────────────────────────── */
+    var moduleData = {
+      'Dashboard': {
+        kpis:[
+          {label:'Total Revenue',value:fmt(R(800000,1500000)),trend:'+'+R(8,22)+'%',dir:'up',icon:'ti ti-cash'},
+          {label:'Active Users',value:num(R(1200,4000)),trend:'+'+R(3,12)+'%',dir:'up',icon:'ti ti-users'},
+          {label:'Open Tasks',value:R(80,200),trend:'-'+R(5,15)+'%',dir:'down',icon:'ti ti-clipboard-list'},
+          {label:'Monthly Growth',value:R(14,32)+'%',trend:'+'+R(2,6)+'% vs last',dir:'up',icon:'ti ti-chart-line'},
+        ],
+        chartTitle:'Revenue Overview',chartSub:'Last 12 months',chartType:'line',
+        chartBase:85000,chartVariance:20000,chartLabel:'Revenue ($)',
+        miniTitle:'Quick Stats',
+        minis:[{label:'New Customers',val:num(R(80,300)),pct:R(40,90)},{label:'Conversion Rate',val:R(12,38)+'%',pct:R(30,75)},{label:'Avg Deal Size',val:fmt(R(1200,8000)),pct:R(50,80)}],
+        tableTitle:'Recent Activity',cols:['#','Activity','User','Date','Status'],
+        rows:[['Dashboard viewed','Admin User','Today','active'],['Report generated','John Smith','Today','active'],['User added','Admin User','Yesterday','active'],['Backup completed','System','Yesterday','active'],['Config updated','Jane Doe','-2 days','closed'],['Alert cleared','Admin User','-2 days','closed']]
+      },
+      'Inventory': {
+        kpis:[
+          {label:'Total SKUs',value:num(R(2000,8000)),trend:'+'+R(1,5)+'% added',dir:'up',icon:'ti ti-packages'},
+          {label:'Low Stock',value:R(40,200),trend:'Reorder needed',dir:'down',icon:'ti ti-alert-triangle'},
+          {label:'Stock Value',value:fmt(R(500000,3000000)),trend:'On-hand total',dir:'flat',icon:'ti ti-wallet'},
+          {label:'Turnover Rate',value:R(4,14)+'x',trend:'Annual rate',dir:'up',icon:'ti ti-rotate-clockwise'},
+        ],
+        chartTitle:'Stock Movement',chartSub:'Units in vs out — last 12 months',chartType:'bar',
+        chartBase:1200,chartVariance:400,chartLabel:'Units',
+        miniTitle:'By Category',
+        minis:[{label:'Raw Materials',val:num(R(500,2000)),pct:R(30,80)},{label:'Finished Goods',val:num(R(300,1500)),pct:R(40,85)},{label:'Consumables',val:num(R(100,600)),pct:R(20,60)}],
+        tableTitle:'Recent Stock Movements',cols:['Item Code','Item Name','Category','Qty Change','Remaining','Status'],
+        rows:genInventoryRows()
+      },
+      'Sales': {
+        kpis:[
+          {label:"Today's Sales",value:fmt(R(8000,40000)),trend:'+'+R(5,18)+'% vs yesterday',dir:'up',icon:'ti ti-shopping-cart'},
+          {label:'Monthly Revenue',value:fmt(R(150000,600000)),trend:'+'+R(8,25)+'% vs last month',dir:'up',icon:'ti ti-cash'},
+          {label:'Pending Orders',value:R(20,150),trend:R(2,8)+' overdue',dir:'down',icon:'ti ti-clock'},
+          {label:'Avg Order Value',value:fmt(R(200,1500)),trend:'+'+R(2,10)+'%',dir:'up',icon:'ti ti-receipt'},
+        ],
+        chartTitle:'Sales Trend',chartSub:'Revenue — last 12 months',chartType:'line',
+        chartBase:25000,chartVariance:8000,chartLabel:'Revenue ($)',
+        miniTitle:'Top Channels',
+        minis:[{label:'Direct',val:R(30,55)+'%',pct:R(40,80)},{label:'Online',val:R(20,40)+'%',pct:R(30,70)},{label:'Resellers',val:R(10,25)+'%',pct:R(20,50)}],
+        tableTitle:'Recent Orders',cols:['Order ID','Customer','Date','Amount','Items','Status'],
+        rows:genSalesRows()
+      },
+      'Purchase': {
+        kpis:[
+          {label:'Open POs',value:R(15,80),trend:R(2,5)+' awaiting approval',dir:'flat',icon:'ti ti-file-invoice'},
+          {label:'Monthly Spend',value:fmt(R(80000,400000)),trend:'-'+R(2,10)+'% vs budget',dir:'down',icon:'ti ti-truck-loading'},
+          {label:'Suppliers',value:R(30,200),trend:R(2,8)+' new this month',dir:'up',icon:'ti ti-building-store'},
+          {label:'On-Time Delivery',value:R(85,99)+'%',trend:'+'+R(1,4)+'%',dir:'up',icon:'ti ti-truck-delivery'},
+        ],
+        chartTitle:'Purchase Spend',chartSub:'Monthly spend — last 12 months',chartType:'bar',
+        chartBase:45000,chartVariance:12000,chartLabel:'Spend ($)',
+        miniTitle:'By Category',
+        minis:[{label:'Raw Materials',val:fmt(R(20000,100000)),pct:R(50,80)},{label:'Services',val:fmt(R(5000,30000)),pct:R(20,50)},{label:'Equipment',val:fmt(R(2000,20000)),pct:R(15,40)}],
+        tableTitle:'Recent Purchase Orders',cols:['PO Number','Supplier','Date','Amount','Items','Status'],
+        rows:genPurchaseRows()
+      },
+      'Accounting': {
+        kpis:[
+          {label:'Total Revenue',value:fmt(R(500000,2000000)),trend:'+'+R(10,20)+'% YTD',dir:'up',icon:'ti ti-cash'},
+          {label:'Outstanding AR',value:fmt(R(30000,200000)),trend:R(5,15)+' invoices',dir:'flat',icon:'ti ti-file-invoice'},
+          {label:'Net Profit',value:fmt(R(50000,400000)),trend:R(15,35)+'% margin',dir:'up',icon:'ti ti-chart-bar'},
+          {label:'Overdue AP',value:fmt(R(5000,50000)),trend:R(2,8)+' bills',dir:'down',icon:'ti ti-alert-circle'},
+        ],
+        chartTitle:'P&L Overview',chartSub:'Revenue vs Expenses — last 12 months',chartType:'bar',
+        chartBase:60000,chartVariance:15000,chartLabel:'Amount ($)',
+        miniTitle:'Balance Sheet',
+        minis:[{label:'Total Assets',val:fmt(R(500000,2000000)),pct:R(60,90)},{label:'Total Liabilities',val:fmt(R(100000,500000)),pct:R(20,50)},{label:'Equity',val:fmt(R(200000,900000)),pct:R(40,70)}],
+        tableTitle:'Recent Transactions',cols:['Ref #','Description','Account','Date','Debit','Credit'],
+        rows:genAccountingRows()
+      },
+      'Reports': {
+        kpis:[
+          {label:'Reports Generated',value:R(120,800),trend:R(10,40)+' today',dir:'up',icon:'ti ti-report-analytics'},
+          {label:'Scheduled Reports',value:R(8,40),trend:R(2,5)+' pending',dir:'flat',icon:'ti ti-calendar-event'},
+          {label:'Avg Report Time',value:R(2,8)+'s',trend:'Fast processing',dir:'up',icon:'ti ti-clock'},
+          {label:'Data Coverage',value:'100%',trend:'All modules synced',dir:'up',icon:'ti ti-database'},
+        ],
+        chartTitle:'Report Generation Trend',chartSub:'Reports per month',chartType:'bar',
+        chartBase:60,chartVariance:20,chartLabel:'Reports',
+        miniTitle:'Report Types',
+        minis:[{label:'Financial',val:R(20,50)+'%',pct:R(40,80)},{label:'Operational',val:R(25,45)+'%',pct:R(35,75)},{label:'Compliance',val:R(10,25)+'%',pct:R(20,50)}],
+        tableTitle:'Recent Reports',cols:['Report','Type','Generated By','Date','Records','Status'],
+        rows:genReportRows()
+      },
+    };
+
+    function genInventoryRows(){
+      var items=['RAW-001','PRD-042','PKG-007','FIN-018','CON-033','RAW-055','PRD-061','FIN-073','PKG-089','CON-092'];
+      var names=['Steel Rod','Finished Product A','Packaging Box L','Component B','Lubricant Oil','Copper Wire','Assembly Unit','End Product C','Shrink Wrap','Cleaning Agent'];
+      var cats=['Raw Material','Finished','Packaging','Component','Consumable','Raw Material','Assembly','Finished','Packaging','Consumable'];
+      var stts=['active','active','pending','active','critical','active','pending','active','active','closed'];
+      return items.map(function(c,i){var qty=R(-200,500);return [c,names[i],cats[i],(qty>=0?'+':'')+qty,R(100,5000),stts[i]];});
+    }
+    function genSalesRows(){
+      var custs=['Apex Corp','Blue Ocean Ltd','City Traders','Delta Inc','EcoMart','FreshGoods Co','Global Retail','Horizon Ltd','Infinity Shop','JetBuy'];
+      var stts=['active','active','pending','active','active','pending','closed','active','closed','critical'];
+      return custs.map(function(c,i){return ['ORD-'+String(1000+i),c,MONTHS[R(0,11)]+' '+R(1,28),fmt(R(500,15000)),R(1,20),stts[i]];});
+    }
+    function genPurchaseRows(){
+      var sups=['Alpha Supplies','Beta Materials','Gamma Parts','Delta Corp','Epsilon Ltd','Zeta Group','Eta Traders','Theta Inc','Iota Co','Kappa Store'];
+      var stts=['active','pending','active','active','closed','pending','active','closed','active','pending'];
+      return sups.map(function(s,i){return ['PO-'+String(2000+i),s,MONTHS[R(0,11)]+' '+R(1,28),fmt(R(5000,80000)),R(1,15),stts[i]];});
+    }
+    function genAccountingRows(){
+      var descs=['Sales Revenue','Rent Expense','Salary Payable','Utility Bill','Equipment Purchase','Insurance Premium','Tax Payment','Loan Interest','Inventory Purchase','Maintenance'];
+      var accs=['Revenue','Operating Exp','Payroll','Utilities','Fixed Assets','Insurance','Tax','Finance','COGS','Admin'];
+      return descs.map(function(d,i){var isDebit=i%2===0;return ['JE-'+String(3000+i),d,accs[i],MONTHS[R(0,11)]+' '+R(1,28),isDebit?fmt(R(2000,50000)):'-',isDebit?'-':fmt(R(2000,50000)),isDebit?'active':'closed'];});
+    }
+    function genReportRows(){
+      var rpts=['Monthly Sales','P&L Statement','Inventory Aging','Customer Analysis','Vendor Performance','Payroll Summary','Tax Filing','Cash Flow','Budget vs Actual','KPI Dashboard'];
+      var types=['Financial','Financial','Operational','Sales','Purchasing','HR','Compliance','Financial','Financial','Operational'];
+      var stts=['active','active','active','active','closed','active','closed','active','active','active'];
+      return rpts.map(function(r,i){return [r,types[i],'Admin User',MONTHS[R(0,11)]+' '+R(1,28),R(50,5000),stts[i]];});
+    }
+    function genericRows(modName){
+      var stts=['active','active','pending','closed','active','critical','active','pending','active','closed'];
+      var cats=['Type A','Type B','Type C','Type D','Type E'];
+      var rows=[];
+      for(var i=0;i<10;i++) rows.push(['REC-'+String(4000+i),modName+' Record '+(i+1),cats[i%cats.length],MONTHS[R(0,11)]+' '+R(1,28),fmt(R(500,50000)),stts[i]]);
+      return rows;
+    }
+    function genericModuleData(modName,modIcon){
+      var base=R(50,500);
+      return {
+        kpis:[
+          {label:'Total Records',value:num(R(200,5000)),trend:'+'+R(5,20)+'% this month',dir:'up',icon:modIcon},
+          {label:'Active Entries',value:num(R(100,3000)),trend:R(60,90)+'% of total',dir:'up',icon:'ti ti-check-circle'},
+          {label:'Pending Actions',value:R(10,80),trend:R(1,5)+' urgent',dir:'down',icon:'ti ti-clock'},
+          {label:'This Month',value:num(R(20,300)),trend:'+'+R(3,15)+'%',dir:'up',icon:'ti ti-calendar'},
+        ],
+        chartTitle:modName+' Activity',chartSub:'Monthly trend',chartType:'line',
+        chartBase:base,chartVariance:Math.round(base*.25),chartLabel:'Count',
+        miniTitle:'Summary',
+        minis:[{label:'Completed',val:R(60,90)+'%',pct:R(60,90)},{label:'In Progress',val:R(10,30)+'%',pct:R(20,50)},{label:'On Hold',val:R(2,10)+'%',pct:R(5,20)}],
+        tableTitle:'Recent '+modName+' Records',cols:['ID','Name','Category','Date','Value','Status'],
+        rows:genericRows(modName)
+      };
+    }
+
+    /* ── render chart helper ──────────────────────────────── */
+    function drawChart(canvasId, data, chartType, chartLabel, period) {
+      if(chartInstance){chartInstance.destroy();chartInstance=null;}
+      var ctx=document.getElementById(canvasId);
+      if(!ctx) return;
+      var labels = period==='3M'?labels3:period==='6M'?labels6:labels12;
+      var seriesLen = period==='3M'?3:period==='6M'?6:12;
+      var base=data.chartBase,variance=data.chartVariance;
+      var seriesData=randSeries(base,variance,seriesLen);
+      var gradient=ctx.getContext('2d').createLinearGradient(0,0,0,200);
+      gradient.addColorStop(0,'rgba('+hexToRgb(ind.color)+',.35)');
+      gradient.addColorStop(1,'rgba('+hexToRgb(ind.color)+',.00)');
+      chartInstance=new Chart(ctx,{
+        type:chartType==='bar'?'bar':'line',
+        data:{labels:labels,datasets:[{label:chartLabel,data:seriesData,borderColor:ind.color,
+          backgroundColor:chartType==='bar'?'rgba('+hexToRgb(ind.color)+',.7)':gradient,
+          fill:chartType!=='bar',tension:.4,borderWidth:2,pointRadius:3,
+          pointBackgroundColor:ind.color,borderRadius:chartType==='bar'?6:0}]},
+        options:{responsive:true,maintainAspectRatio:false,
+          plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+          scales:{x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:11},color:'#94a3b8'}},
+            y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:11},color:'#94a3b8',
+              callback:function(v){return v>=1000?(v/1000).toFixed(0)+'K':v;}}}}}
+      });
+    }
+
+    function drawChart2(canvasId, base, variance, len, label, color2) {
+      if(chartInstance2){chartInstance2.destroy();chartInstance2=null;}
+      var ctx=document.getElementById(canvasId);
+      if(!ctx) return;
+      var c2=color2||shadeColor(ind.color,30);
+      var labels=len===3?labels3:len===6?labels6:labels12;
+      var seriesData=randSeries(base,variance,len);
+      chartInstance2=new Chart(ctx,{
+        type:'bar',
+        data:{labels:labels,datasets:[{label:label,data:seriesData,backgroundColor:'rgba('+hexToRgb(c2)+',.7)',borderRadius:5}]},
+        options:{responsive:true,maintainAspectRatio:false,
+          plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+          scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#94a3b8'}},
+            y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10},color:'#94a3b8',
+              callback:function(v){return v>=1000?(v/1000).toFixed(0)+'K':v;}}}}}
+      });
+    }
+
+    /* ── build table HTML ─────────────────────────────────── */
+    var statusMap={active:'status-active',pending:'status-pending',closed:'status-closed',critical:'status-critical'};
+    var statusLabel={active:'Active',pending:'Pending',closed:'Closed',critical:'Critical'};
+    function buildTable(data){
+      var colsHtml=data.cols.map(function(c){return '<th>'+c+' <i class="ti ti-selector sort-icon"></i></th>';}).join('')+'<th>Status</th><th>Actions</th>';
+      var rowsHtml=data.rows.map(function(row){
+        var status=row[row.length-1];
+        var cells=row.slice(0,row.length-1).map(function(c,ci){
+          return '<td'+(ci===0?' class="td-primary"':'')+'>'+c+'</td>';
+        }).join('');
+        return '<tr>'+cells+'<td><span class="status-badge '+(statusMap[status]||'status-active')+'">'+(statusLabel[status]||'Active')+'</span></td>' +
+          '<td><button class="row-action-btn" title="View" type="button"><i class="ti ti-eye"></i></button>' +
+          '<button class="row-action-btn" title="Edit" type="button"><i class="ti ti-edit"></i></button>' +
+          '<button class="row-action-btn" title="Delete" type="button"><i class="ti ti-trash"></i></button></td></tr>';
+      }).join('');
+      return '<div style="overflow-x:auto;"><table class="data-table"><thead><tr>'+colsHtml+'</tr></thead><tbody>'+rowsHtml+'</tbody></table></div>' +
+        '<div class="table-pagination"><span>Showing 1–'+data.rows.length+' of '+R(data.rows.length,200)+' records</span>' +
+        '<div class="page-btns"><button class="page-btn" type="button"><i class="ti ti-chevron-left" style="font-size:12px;"></i></button>' +
+        '<button class="page-btn active" type="button">1</button><button class="page-btn" type="button">2</button><button class="page-btn" type="button">3</button>' +
+        '<button class="page-btn" type="button"><i class="ti ti-chevron-right" style="font-size:12px;"></i></button></div></div>';
+    }
+
+    /* ── activity timeline items (dashboard) ──────────────── */
+    var activityColors=['green','blue','orange','purple','green','blue'];
+    var activityIcons=['ti ti-check-circle','ti ti-shopping-cart','ti ti-alert-triangle','ti ti-user-plus','ti ti-coin','ti ti-chart-bar'];
+    var activityTexts=[
+      '<strong>New order</strong> #ORD-2874 created by Sarah M.',
+      '<strong>Report generated</strong> — Monthly Sales Summary',
+      '<strong>Low stock alert</strong> for 5 items in Warehouse B',
+      '<strong>User John Smith</strong> logged into the system',
+      '<strong>Payment received</strong> for Invoice #INV-089',
+      '<strong>KPI Dashboard</strong> updated with latest data',
+    ];
+    var activityTimes=['Just now','5 mins ago','22 mins ago','1 hour ago','2 hours ago','3 hours ago'];
+    function buildActivityTimeline(){
+      return '<div class="activity-list">'+activityTimes.map(function(_,i){
+        return '<div class="activity-item">' +
+          '<div class="activity-dot '+activityColors[i]+'"><i class="'+activityIcons[i]+'" style="font-size:14px;"></i></div>' +
+          '<div><div class="activity-text">'+activityTexts[i]+'</div>' +
+          '<div class="activity-time">'+activityTimes[i]+'</div></div></div>';
+      }).join('')+'</div>';
+    }
+
+    /* ── main render function ─────────────────────────────── */
+    function renderModule(modName, modIcon, idx) {
+      var data = moduleData[modName] || genericModuleData(modName, modIcon||'ti ti-database');
+      var main = document.getElementById('erpMain');
+      var isDashboard = (modName === 'Dashboard');
+      var currentPeriod = '12M';
+
+      /* KPI HTML */
+      var kpiHtml=data.kpis.map(function(k){
+        return '<div class="kpi-card"><div class="kpi-card-accent"></div>' +
+          '<div class="kpi-icon"><i class="'+k.icon+'"></i></div>' +
+          '<div class="kpi-label">'+k.label+'</div>' +
+          '<div class="kpi-value">'+k.value+'</div>' +
+          '<span class="kpi-trend '+k.dir+'"><i class="ti ti-trending-'+(k.dir==='up'?'up':k.dir==='down'?'down':'flat')+'" style="font-size:12px;"></i>'+k.trend+'</span></div>';
+      }).join('');
+
+      /* mini stats HTML */
+      var miniHtml='<div class="mini-stats">' +
+        '<div style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:4px;">'+data.miniTitle+'</div>' +
+        data.minis.map(function(m){
+          return '<div class="mini-stat-item"><div class="mini-stat-label">'+m.label+'</div>' +
+            '<div class="mini-stat-val">'+m.val+'</div>' +
+            '<div class="mini-stat-bar"><div class="mini-stat-fill" style="width:'+m.pct+'%"></div></div></div>';
+        }).join('') +
+        '<div style="margin-top:auto;"><button class="btn-erp-primary" style="width:100%;justify-content:center;" type="button"><i class="ti ti-download"></i> Export</button></div></div>';
+
+      /* quick modules grid (dashboard only) */
+      var quickModulesHtml = isDashboard ? '<div class="quick-modules-grid">'+
+        ind.modules.map(function(m,i){
+          return '<div class="quick-mod-card'+(i===0?' active':'')+'" onclick="switchToModule(\''+m.name+'\',\''+m.icon+'\','+i+')" style="cursor:pointer;">' +
+            '<div class="quick-mod-icon"><i class="'+m.icon+'"></i></div>' +
+            '<div class="quick-mod-name">'+m.name+'</div></div>';
+        }).join('')+'</div>' : '';
+
+      /* welcome card (dashboard only) */
+      var hour=new Date().getHours();
+      var greet=hour<12?'Good Morning':'hour<17?Good Afternoon':'Good Evening';
+      greet=hour<12?'Good Morning':hour<17?'Good Afternoon':'Good Evening';
+      var welcomeHtml = isDashboard ?
+        '<div class="welcome-card">' +
+          '<div><div class="welcome-greeting">'+greet+', Admin!</div>' +
+          '<div class="welcome-sub">'+ind.name+' ERP — '+new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+'</div></div>' +
+          '<div class="welcome-modules-pill"><i class="'+ind.icon+'" style="font-size:20px;"></i><span>'+ind.modules.length+' Modules Active</span></div>' +
+        '</div>' : '';
+
+      /* chart + sidebar area */
+      var chartAreaHtml =
+        '<div class="charts-row">' +
+          '<div class="chart-card">' +
+            '<div class="chart-card-header">' +
+              '<div><div class="chart-card-title">'+data.chartTitle+'</div><div class="chart-card-sub">'+data.chartSub+'</div></div>' +
+              '<div class="chart-period-btns">' +
+                '<button class="chart-period-btn" type="button" onclick="changePeriod(this,\'3M\')">3M</button>' +
+                '<button class="chart-period-btn" type="button" onclick="changePeriod(this,\'6M\')">6M</button>' +
+                '<button class="chart-period-btn active" type="button" onclick="changePeriod(this,\'12M\')">12M</button>' +
+              '</div>' +
+            '</div>' +
+            '<div style="height:220px;"><canvas id="mainChart"></canvas></div>' +
+          '</div>' +
+          (isDashboard ?
+            '<div class="activity-card"><div class="activity-title"><i class="ti ti-activity" style="color:var(--ind);margin-right:6px;"></i>Live Activity</div>'+buildActivityTimeline()+'</div>' :
+            '<div class="chart-card" style="display:flex;flex-direction:column;">'+miniHtml+'</div>'
+          ) +
+        '</div>';
+
+      /* overview tab */
+      var overviewHtml = welcomeHtml + quickModulesHtml +
+        '<div class="kpi-grid">'+kpiHtml+'</div>' + chartAreaHtml +
+        (isDashboard ?
+          '<div class="charts-row" style="grid-template-columns:1fr 1fr;">' +
+            '<div class="chart-card" style="display:flex;flex-direction:column;">'+miniHtml+'</div>' +
+            '<div class="chart-card"><div class="chart-card-header"><div class="chart-card-title">This Month Highlights</div></div>' +
+            '<div style="height:200px;"><canvas id="chart2"></canvas></div></div>' +
+          '</div>' : ''
+        );
+
+      /* records tab */
+      var recordsHtml =
+        '<div class="table-card">' +
+          '<div class="table-card-header">' +
+            '<div class="table-card-title">'+data.tableTitle+'</div>' +
+            '<div class="table-toolbar">' +
+              '<div class="table-search"><i class="ti ti-search" style="font-size:14px;color:#94a3b8;"></i><input type="text" placeholder="Search records..."></div>' +
+              '<button class="table-filter-btn" type="button"><i class="ti ti-filter"></i>Filter</button>' +
+              '<button class="btn-erp-primary" type="button"><i class="ti ti-plus"></i>Add New</button>' +
+            '</div>' +
+          '</div>' +
+          buildTable(data) +
+        '</div>';
+
+      /* analytics tab */
+      var analyticsHtml =
+        '<div class="analytics-grid">' +
+          '<div class="insight-card">' +
+            '<div class="insight-title"><i class="ti ti-chart-pie" style="color:var(--ind);margin-right:6px;"></i>Performance by Category</div>' +
+            data.minis.map(function(m){
+              return '<div class="progress-row"><div class="progress-label">'+m.label+'</div>' +
+                '<div class="progress-track"><div class="progress-fill" style="width:'+m.pct+'%;"></div></div>' +
+                '<div class="progress-pct">'+m.pct+'%</div></div>';
+            }).join('') +
+          '</div>' +
+          '<div class="insight-card">' +
+            '<div class="insight-title"><i class="ti ti-trending-up" style="color:var(--ind);margin-right:6px;"></i>Trend Chart</div>' +
+            '<div style="height:160px;"><canvas id="analyticsChart"></canvas></div>' +
+          '</div>' +
+          '<div class="insight-card">' +
+            '<div class="insight-title"><i class="ti ti-list-check" style="color:var(--ind);margin-right:6px;"></i>Key Metrics</div>' +
+            data.kpis.map(function(k){
+              return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f1f5f9;">' +
+                '<div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;border-radius:7px;background:var(--ind-light);display:flex;align-items:center;justify-content:center;"><i class="'+k.icon+'" style="color:var(--ind);font-size:14px;"></i></div>' +
+                '<span style="font-size:13px;color:#374151;">'+k.label+'</span></div>' +
+                '<span style="font-size:14px;font-weight:800;color:#1e293b;">'+k.value+'</span></div>';
+            }).join('') +
+          '</div>' +
+          '<div class="insight-card">' +
+            '<div class="insight-title"><i class="ti ti-target" style="color:var(--ind);margin-right:6px;"></i>Module Goals</div>' +
+            ['Target Achievement','Data Completeness','System Utilization','User Adoption'].map(function(label){
+              var pct=R(55,98);
+              return '<div class="progress-row"><div class="progress-label">'+label+'</div>' +
+                '<div class="progress-track"><div class="progress-fill" style="width:'+pct+'%;"></div></div>' +
+                '<div class="progress-pct">'+pct+'%</div></div>';
+            }).join('') +
+          '</div>' +
+        '</div>';
+
+      /* assemble page */
+      main.innerHTML =
+        '<div class="page-header">' +
+          '<div class="page-header-top">' +
+            '<div><div class="page-title">'+modName+'</div><div class="page-subtitle">'+ind.name+' ERP — '+modName+' Module</div></div>' +
+            '<div class="page-actions">' +
+              '<button class="btn-erp-outline" type="button"><i class="ti ti-download"></i> Export</button>' +
+              '<button class="btn-erp-primary" type="button"><i class="ti ti-plus"></i> New Record</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="module-tabs">' +
+          '<button class="module-tab'+(activeTab==='overview'?' active':'')+'" type="button" onclick="switchTab(\'overview\')"><i class="ti ti-layout-dashboard"></i>Overview</button>' +
+          '<button class="module-tab'+(activeTab==='records'?' active':'')+'" type="button" onclick="switchTab(\'records\')"><i class="ti ti-table"></i>Records</button>' +
+          '<button class="module-tab'+(activeTab==='analytics'?' active':'')+'" type="button" onclick="switchTab(\'analytics\')"><i class="ti ti-chart-bar"></i>Analytics</button>' +
+        '</div>' +
+        '<div id="tabOverview" class="tab-panel'+(activeTab==='overview'?' active':'')+'">' + overviewHtml + '</div>' +
+        '<div id="tabRecords"  class="tab-panel'+(activeTab==='records'?' active':'')+'">' + recordsHtml  + '</div>' +
+        '<div id="tabAnalytics"class="tab-panel'+(activeTab==='analytics'?' active':'')+'">' + analyticsHtml+ '</div>';
+
+      /* draw main chart */
+      setTimeout(function(){
+        drawChart('mainChart', data, data.chartType, data.chartLabel, '12M');
+        if(isDashboard) drawChart2('chart2', data.chartBase, data.chartVariance, 6, 'Activity', shadeColor(ind.color,20));
+        if(activeTab==='analytics') drawChart2('analyticsChart', data.chartBase, data.chartVariance, 12, data.chartLabel);
+      }, 80);
+
+      /* store data ref for period buttons */
+      window.__currentModData = data;
+    }
+
+    /* ── tab switch ────────────────────────────────────────── */
+    window.switchTab = function(tab) {
+      activeTab = tab;
+      document.querySelectorAll('.module-tab').forEach(function(el){el.classList.remove('active');});
+      document.querySelectorAll('.tab-panel').forEach(function(el){el.classList.remove('active');});
+      var tabEl = document.querySelector('.module-tab[onclick*="\''+tab+'\'"]');
+      if(tabEl) tabEl.classList.add('active');
+      var panelEl = document.getElementById('tab'+tab.charAt(0).toUpperCase()+tab.slice(1));
+      if(panelEl) panelEl.classList.add('active');
+      if(tab==='analytics'){
+        setTimeout(function(){drawChart2('analyticsChart',window.__currentModData.chartBase,window.__currentModData.chartVariance,12,window.__currentModData.chartLabel);},80);
+      }
+    };
+
+    /* ── period button handler ─────────────────────────────── */
+    window.changePeriod = function(btn, period) {
+      document.querySelectorAll('.chart-period-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      if(window.__currentModData) drawChart('mainChart',window.__currentModData,window.__currentModData.chartType,window.__currentModData.chartLabel,period);
+    };
+
+    /* ── switch module from quick grid ────────────────────── */
+    window.switchToModule = function(modName, modIcon, idx) {
+      var navLinks = document.querySelectorAll('#sidebarNav li a');
+      navLinks.forEach(function(a){a.classList.remove('active');});
+      if(navLinks[idx]) navLinks[idx].classList.add('active');
+      activeModuleName = modName;
+      document.getElementById('topbarModule').textContent = modName;
+      activeTab = 'overview';
+      renderModule(modName, modIcon, idx);
+    };
+
+    /* ── sidebar toggle ────────────────────────────────────── */
+    window.toggleSidebar = function() {
+      var sb=document.getElementById('erpSidebar');
+      var main=document.getElementById('erpMain');
+      if(window.innerWidth<=768){sb.classList.toggle('mobile-open');}
+      else{sb.classList.toggle('collapsed');main.classList.toggle('expanded');}
+    };
+
+    /* ── profile dropdown ──────────────────────────────────── */
+    window.toggleProfileDropdown = function() {
+      profileOpen=!profileOpen;
+      document.getElementById('profileDropdown').classList.toggle('open',profileOpen);
+    };
+    document.addEventListener('click',function(e){
+      var profile=document.getElementById('topbarProfile');
+      if(profileOpen && !profile.contains(e.target)){profileOpen=false;document.getElementById('profileDropdown').classList.remove('open');}
+    });
+
+    /* ── notification drawer ───────────────────────────────── */
+    window.toggleNotifDrawer = function() {
+      notifOpen=!notifOpen;
+      document.getElementById('notifDrawer').classList.toggle('open',notifOpen);
+      document.getElementById('notifOverlay').classList.toggle('open',notifOpen);
+    };
+
+    /* ── search overlay ────────────────────────────────────── */
+    var searchItems = ind.modules.map(function(m){return {name:m.name,icon:m.icon,type:'Module'};}).concat([
+      {name:'New Report',icon:'ti ti-report-analytics',type:'Action'},
+      {name:'Add New Record',icon:'ti ti-plus',type:'Action'},
+      {name:'Export Data',icon:'ti ti-download',type:'Action'},
+      {name:'User Settings',icon:'ti ti-settings',type:'Settings'},
+      {name:'Help & Support',icon:'ti ti-help-circle',type:'Support'},
+    ]);
+    function renderSearchResults(query) {
+      var filtered = query ? searchItems.filter(function(i){return i.name.toLowerCase().indexOf(query.toLowerCase())>=0;}) : searchItems.slice(0,8);
+      document.getElementById('searchResults').innerHTML = filtered.length ? filtered.map(function(i){
+        return '<div class="search-result-item" onclick="void(0)">' +
+          '<div class="search-result-icon"><i class="'+i.icon+'"></i></div>' +
+          '<div><div class="search-result-label">'+i.name+'</div><div class="search-result-sub">'+i.type+'</div></div></div>';
+      }).join('') : '<div style="padding:20px;text-align:center;color:#94a3b8;font-size:13px;">No results found for "'+query+'"</div>';
+    }
+    window.openSearch = function() {
+      document.getElementById('searchOverlay').classList.add('open');
+      renderSearchResults('');
+      setTimeout(function(){var inp=document.getElementById('searchInput');if(inp)inp.focus();},100);
+    };
+    window.closeSearch = function() { document.getElementById('searchOverlay').classList.remove('open'); document.getElementById('searchInput').value=''; };
+    window.filterSearch = function(v) { renderSearchResults(v); };
+    window.closeSearchOnBg = function(e) { if(e.target.id==='searchOverlay') closeSearch(); };
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSearch();if(notifOpen)toggleNotifDrawer();}});
+
+    /* ── FAB ───────────────────────────────────────────────── */
+    window.toggleFab = function() {
+      fabOpen=!fabOpen;
+      document.getElementById('fabMenu').classList.toggle('open',fabOpen);
+      document.getElementById('fabBtn').innerHTML=fabOpen?'<i class="ti ti-x"></i>':'<i class="ti ti-plus"></i>';
+    };
+
+    /* ── NS dropdown (top navbar Industries) ────────────────── */
+    window.toggleNsDropdown = function() {
+      document.getElementById('nsIndMenu').classList.toggle('open');
+    };
+    document.addEventListener('click',function(e){
+      var dd=document.getElementById('nsIndDropdown');
+      if(!dd.contains(e.target)) document.getElementById('nsIndMenu').classList.remove('open');
+    });
+
+    /* ── initial render ────────────────────────────────────── */
+    var firstMod = ind.modules[0];
+    renderModule(firstMod.name, firstMod.icon, 0);
+    document.getElementById('topbarModule').textContent = firstMod.name;
+
+  }());
+  </script>
+</body>
+</html>
