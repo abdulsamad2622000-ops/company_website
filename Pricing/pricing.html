@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — NovaStackhub</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../Home section/assets/css/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.2.0/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="../Home section/assets/css/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="../Home section/home.css">
+  <style>
+    :root { --bg-card2: #0f1e2e; }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    .pricing-hero {
+      background: linear-gradient(135deg, #0b1a26 0%, #0d1f2d 50%, #091520 100%);
+      padding: 110px 0 70px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .pricing-hero::before {
+      content: '';
+      position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,200,255,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .pricing-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,200,255,.1);
+      border: 1px solid rgba(0,200,255,.2);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 12px; font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .pricing-hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800; line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .pricing-hero h1 span { color: var(--cyan); }
+    .pricing-hero p {
+      font-size: 1.05rem; color: var(--text-muted); max-width: 560px; margin: 0 auto 30px;
+      line-height: 1.7;
+    }
+    .hero-badge-row {
+      display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .hero-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(0,200,255,.06); border: 1px solid rgba(0,200,255,.14);
+      border-radius: 50px; padding: 7px 18px;
+      font-size: 12.5px; font-weight: 600; color: #cde8ff;
+    }
+    .hero-badge i { color: var(--cyan); font-size: 14px; }
+
+    /* ── TABS ─────────────────────────────────────────── */
+    .pricing-tabs-wrap {
+      background: var(--bg-dark);
+      padding: 50px 0 0;
+      position: sticky; top: 65px; z-index: 100;
+    }
+    .pricing-tabs {
+      display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px; padding: 6px;
+      max-width: 700px; margin: 0 auto;
+    }
+    .ptab {
+      flex: 1; min-width: 130px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 18px;
+      border-radius: 10px;
+      border: none; background: transparent;
+      color: rgba(255,255,255,.5);
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all .25s;
+      font-family: var(--font-head);
+    }
+    .ptab i { font-size: 16px; }
+    .ptab:hover { color: rgba(255,255,255,.85); background: rgba(255,255,255,.06); }
+    .ptab.active {
+      background: linear-gradient(135deg, rgba(0,200,255,.2), rgba(0,150,200,.15));
+      color: var(--cyan);
+      box-shadow: 0 0 0 1px rgba(0,200,255,.25);
+    }
+
+    /* ── PRICING SECTION ─────────────────────────────── */
+    .pricing-section { padding: 60px 0 80px; display: none; }
+    .pricing-section.active { display: block; }
+
+    .section-head { text-align: center; margin-bottom: 50px; }
+    .section-label {
+      display: inline-block;
+      background: rgba(0,200,255,.1); border: 1px solid rgba(0,200,255,.2);
+      border-radius: 50px; padding: 5px 16px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--cyan);
+      margin-bottom: 14px;
+    }
+    .section-head h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; margin-bottom: 12px;
+    }
+    .section-head h2 span { color: var(--cyan); }
+    .section-head p { color: var(--text-muted); font-size: .97rem; max-width: 500px; margin: 0 auto; }
+
+    /* Toggle monthly/yearly */
+    .billing-toggle {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      margin-bottom: 40px;
+    }
+    .billing-toggle span { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.5); }
+    .billing-toggle span.active { color: #fff; }
+    .toggle-switch {
+      position: relative; width: 52px; height: 28px;
+      display: inline-block; cursor: pointer;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0; border-radius: 28px;
+      background: rgba(0,200,255,.2); border: 1px solid rgba(0,200,255,.3);
+      transition: .3s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute;
+      width: 20px; height: 20px; border-radius: 50%;
+      left: 3px; top: 3px;
+      background: var(--cyan);
+      transition: .3s; box-shadow: 0 0 8px rgba(0,200,255,.5);
+    }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
+    .save-badge {
+      background: linear-gradient(135deg, #00c8ff, #0090cc);
+      color: #000; font-size: 10px; font-weight: 800;
+      padding: 3px 8px; border-radius: 50px; letter-spacing: .5px;
+    }
+
+    /* ── CARDS ─────────────────────────────────────────── */
+    .pricing-cards { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+
+    .p-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 20px;
+      padding: 34px 30px;
+      flex: 1; min-width: 240px; max-width: 300px;
+      position: relative; overflow: hidden;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      cursor: default;
+    }
+    .p-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(0,200,255,.3), transparent);
+      transition: opacity .3s;
+    }
+    .p-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(0,0,0,.4), 0 0 30px rgba(0,200,255,.12);
+      border-color: rgba(0,200,255,.25);
+    }
+    .p-card:hover::before { opacity: 1; background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+
+    /* Featured card */
+    .p-card.featured {
+      background: linear-gradient(145deg, #0e2640, #132d4a);
+      border-color: rgba(0,200,255,.35);
+      box-shadow: 0 8px 40px rgba(0,200,255,.15);
+      transform: scale(1.04);
+    }
+    .p-card.featured::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); opacity: 1; }
+    .p-card.featured:hover {
+      transform: scale(1.04) translateY(-8px);
+      box-shadow: 0 28px 70px rgba(0,0,0,.4), 0 0 50px rgba(0,200,255,.22);
+    }
+
+    .badge-popular {
+      position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-dark));
+      color: #000; font-size: 10px; font-weight: 800;
+      padding: 5px 20px; border-radius: 0 0 12px 12px;
+      letter-spacing: 1px; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge-best {
+      position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000; font-size: 10px; font-weight: 800;
+      padding: 5px 20px; border-radius: 0 0 12px 12px;
+      letter-spacing: 1px; text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .card-tier {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--cyan);
+      margin-bottom: 6px;
+    }
+    .card-name {
+      font-family: var(--font-head);
+      font-size: 1.55rem; font-weight: 800;
+      margin-bottom: 4px; color: #fff;
+    }
+    .card-subtitle {
+      font-size: 12px; color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+    .card-divider {
+      border: none; border-top: 1px solid rgba(255,255,255,.07);
+      margin: 20px 0;
+    }
+
+    /* Price */
+    .card-price { margin-bottom: 8px; }
+    .price-currency {
+      font-size: 1.1rem; font-weight: 700; color: var(--cyan);
+      vertical-align: top; line-height: 2.2;
+    }
+    .price-amount {
+      font-family: var(--font-head);
+      font-size: 2.8rem; font-weight: 800; color: #fff;
+      line-height: 1;
+    }
+    .price-period { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .price-yearly { font-size: 12px; color: var(--cyan); font-weight: 600; margin-bottom: 4px; }
+    .price-custom {
+      font-family: var(--font-head);
+      font-size: 1.9rem; font-weight: 800; color: var(--cyan);
+    }
+    .price-note { font-size: 12px; color: var(--text-muted); }
+
+    /* Features list */
+    .features-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .feat-list { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-direction: column; gap: 10px; }
+    .feat-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: rgba(255,255,255,.82); line-height: 1.4;
+    }
+    .feat-list li .fi {
+      width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+      background: rgba(0,200,255,.15);
+    }
+    .feat-list li .fi i { font-size: 10px; color: var(--cyan); }
+    .feat-list li.neg .fi { background: rgba(255,255,255,.06); }
+    .feat-list li.neg .fi i { color: rgba(255,255,255,.25); }
+    .feat-list li.neg span { color: rgba(255,255,255,.35); }
+
+    .also-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* CTA button */
+    .card-cta {
+      display: block; width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      font-weight: 700; font-size: 13.5px;
+      text-align: center; text-decoration: none;
+      transition: all .25s; cursor: pointer; border: none;
+      font-family: var(--font-head); letter-spacing: .3px;
+    }
+    .card-cta.outline {
+      background: transparent;
+      border: 1px solid rgba(0,200,255,.3);
+      color: var(--cyan);
+    }
+    .card-cta.outline:hover {
+      background: rgba(0,200,255,.1);
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+    }
+    .card-cta.solid {
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-dark));
+      color: #000;
+      box-shadow: 0 4px 20px rgba(0,200,255,.3);
+    }
+    .card-cta.solid:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,200,255,.5);
+    }
+    .card-cta.ghost {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.7);
+    }
+    .card-cta.ghost:hover {
+      background: rgba(255,255,255,.09);
+      color: #fff;
+    }
+
+    /* ── MAINTENANCE NOTE ─────────────────────────────── */
+    .maintenance-note {
+      font-size: 11.5px; color: var(--text-muted);
+      margin-top: 10px; text-align: center;
+    }
+    .maintenance-note span { color: var(--cyan); font-weight: 600; }
+
+    /* ── ENTERPRISE BANNER ─────────────────────────────── */
+    .enterprise-banner {
+      background: linear-gradient(135deg, rgba(0,200,255,.07), rgba(0,100,170,.1));
+      border: 1px solid rgba(0,200,255,.2);
+      border-radius: 20px;
+      padding: 36px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-top: 50px;
+    }
+    .enterprise-banner h3 {
+      font-family: var(--font-head); font-size: 1.5rem; font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .enterprise-banner h3 span { color: var(--cyan); }
+    .enterprise-banner p { color: var(--text-muted); font-size: .9rem; margin: 0; }
+    .enterprise-features {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px;
+    }
+    .e-feat {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(0,200,255,.08); border: 1px solid rgba(0,200,255,.15);
+      border-radius: 50px; padding: 5px 14px;
+      font-size: 12px; font-weight: 600; color: rgba(255,255,255,.8);
+    }
+    .e-feat i { color: var(--cyan); font-size: 12px; }
+    .enterprise-cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-dark));
+      color: #000; font-weight: 800; font-size: 14px;
+      padding: 14px 32px; border-radius: 12px;
+      text-decoration: none; white-space: nowrap;
+      box-shadow: 0 4px 24px rgba(0,200,255,.35);
+      transition: all .25s; font-family: var(--font-head);
+    }
+    .enterprise-cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 36px rgba(0,200,255,.5);
+      color: #000;
+    }
+
+    /* ── COMPARE TABLE ─────────────────────────────────── */
+    .compare-section { padding: 30px 0 80px; }
+    .compare-section h3 {
+      font-family: var(--font-head); font-size: 1.3rem; font-weight: 800;
+      text-align: center; margin-bottom: 28px;
+    }
+    .compare-table {
+      background: var(--bg-card); border-radius: 16px;
+      overflow: hidden; border: 1px solid rgba(255,255,255,.06);
+    }
+    .compare-table table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      background: rgba(0,200,255,.06); padding: 16px 20px;
+      font-size: 12px; font-weight: 700; color: rgba(255,255,255,.6);
+      letter-spacing: .5px; text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .compare-table th.plan-col { color: var(--cyan); }
+    .compare-table td {
+      padding: 13px 20px;
+      font-size: 13.5px; color: rgba(255,255,255,.75);
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: rgba(255,255,255,.02); }
+    .compare-table td.feat-name { color: rgba(255,255,255,.5); font-size: 12.5px; }
+    .compare-table .chk { color: var(--cyan); font-size: 16px; }
+    .compare-table .xmk { color: rgba(255,255,255,.2); font-size: 14px; }
+    .compare-table td.hl { color: var(--cyan); font-weight: 700; }
+
+    /* ── CTA STRIP ─────────────────────────────────────── */
+    .cta-strip {
+      background: linear-gradient(135deg, #0b1a26 0%, #071320 100%);
+      border-top: 1px solid rgba(0,200,255,.08);
+      border-bottom: 1px solid rgba(0,200,255,.08);
+      padding: 80px 0;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-strip::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(0,200,255,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-strip h2 {
+      font-family: var(--font-head); font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; margin-bottom: 14px;
+    }
+    .cta-strip h2 span { color: var(--cyan); }
+    .cta-strip p { color: var(--text-muted); font-size: .97rem; margin-bottom: 34px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta-btn-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--cyan), var(--cyan-dark));
+      color: #000; font-weight: 800; font-size: 14px;
+      padding: 14px 36px; border-radius: 12px; text-decoration: none;
+      box-shadow: 0 4px 24px rgba(0,200,255,.35); transition: all .25s;
+      font-family: var(--font-head);
+    }
+    .btn-cta-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 36px rgba(0,200,255,.5); color: #000; }
+    .btn-cta-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; border: 1px solid rgba(0,200,255,.35);
+      color: var(--cyan); font-weight: 700; font-size: 14px;
+      padding: 13px 30px; border-radius: 12px; text-decoration: none;
+      transition: all .25s; font-family: var(--font-head);
+    }
+    .btn-cta-outline:hover { background: rgba(0,200,255,.1); border-color: var(--cyan); transform: translateY(-2px); }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: #070f18;
+      border-top: 1px solid rgba(0,200,255,.07);
+      padding: 40px 0 24px;
+      text-align: center;
+    }
+    .footer-brand { font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: #fff; margin-bottom: 8px; }
+    .footer-brand span { color: var(--cyan); }
+    footer p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 6px; }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin: 14px 0; }
+    .footer-links a { font-size: 12.5px; color: var(--text-muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--cyan); }
+
+    /* ── SCROLL PROGRESS ─────────────────────────────────── */
+    #scrollProgress {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--cyan), #0072ff);
+      z-index: 9998; transition: width .1s;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .p-card.featured { transform: scale(1); }
+      .p-card.featured:hover { transform: translateY(-8px); }
+      .enterprise-banner { flex-direction: column; text-align: center; }
+      .enterprise-features { justify-content: center; }
+      .ptab { min-width: auto; padding: 9px 12px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Scroll Progress Bar -->
+<div id="scrollProgress"></div>
+
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-ring">
+        <svg width="96" height="96" viewBox="0 0 96 96">
+            <defs>
+                <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#00c8ff" />
+                    <stop offset="100%" stop-color="#00c8ff" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+            <circle cx="48" cy="48" r="43" fill="none" stroke="#1a2e42" stroke-width="3" />
+            <path d="M 48 5 A 43 43 0 0 1 91 48" fill="none" stroke="url(#rg)" stroke-width="3"
+                stroke-linecap="round" />
+        </svg>
+        <div class="loader-logo">
+            <img src="../Home section/logo.png" alt="NovaStackhub Logo" style="height: 75px; width: 75px; object-fit: contain;">
+        </div>
+    </div>
+</div>
+
+<!-- TOP BAR -->
+<div id="topbar">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="d-flex gap-4 flex-wrap">
+                <span><i class="bi bi-geo-alt me-1"></i>55 Main Street, Karachi, Pakistan</span>
+                <a href="https://infonovastackhub.com"><i class="bi bi-envelope me-1"></i>infonovastackhub@gmail.com</a>
+                <a href="tel:+11234568899"><i class="bi bi-telephone me-1"></i>+1 (123) 456 889</a>
+            </div>
+            <div class="d-flex gap-3 align-items-center">
+                <a href="#">Help</a><a href="#">Support</a><a href="#">FAQs</a>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+                <a href="#"><i class="bi bi-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+
+    <a class="navbar-brand" href="../Home section/home.html">
+      <img src="../Home section/logo.png" alt="NovaStackhub Logo"
+        style="height:60px;width:auto;object-fit:contain;margin-right:10px;">
+      <span class="brand-text">NovaStackhub</span>
+    </a>
+
+    <button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse" data-bs-target="#navMenu"
+      aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="../Home section/home.html#hero"><i class="ti ti-home me-1"></i>Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../About section/about.html"><i class="ti ti-info-circle me-1"></i>About Us</a>
+        </li>
+
+        <!-- SERVICES -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="../Home section/home.html#services" data-bs-toggle="dropdown">
+            <i class="ti ti-briefcase me-1"></i>Services
+          </a>
+          <ul class="dropdown-menu mega-menu">
+            <div class="mega-cols">
+              <div class="mega-col">
+                <li><h6 class="dropdown-header">💻 Software Development</h6></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=custom-software-development"><i class="ti ti-code"></i>Custom Software Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=erp-development"><i class="ti ti-building-factory"></i>ERP Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=crm-development"><i class="ti ti-users"></i>CRM Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=saas-product-development"><i class="ti ti-cloud"></i>SaaS Product Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=mvp-development"><i class="ti ti-rocket"></i>MVP Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=enterprise-software"><i class="ti ti-server"></i>Enterprise Software</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=business-process-automation"><i class="ti ti-robot"></i>Business Process Automation</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><h6 class="dropdown-header">🎨 Design</h6></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=ui-ux-design"><i class="ti ti-palette"></i>UI/UX Design</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=mobile-app-ui-ux"><i class="ti ti-device-mobile"></i>Mobile App UI/UX</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=accessibility-services"><i class="ti ti-accessible"></i>Accessibility Services</a></li>
+              </div>
+              <div class="mega-col">
+                <li><h6 class="dropdown-header">🌐 Web &amp; E-Commerce</h6></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=web-application-development"><i class="ti ti-world"></i>Web Application Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=frontend-development"><i class="ti ti-layout"></i>Frontend Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=backend-development"><i class="ti ti-database"></i>Backend Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=e-commerce-solutions"><i class="ti ti-shopping-cart"></i>E-Commerce Solutions</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=api-development-integration"><i class="ti ti-api"></i>API Development &amp; Integration</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><h6 class="dropdown-header">☁️ Cloud &amp; IT Ops</h6></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=cloud-solutions"><i class="ti ti-cloud-upload"></i>Cloud Solutions</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=devops-services"><i class="ti ti-settings"></i>DevOps Services</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=cybersecurity"><i class="ti ti-shield-lock"></i>Cybersecurity</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=infrastructure-design"><i class="ti ti-topology-star"></i>Infrastructure Design</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=it-consulting"><i class="ti ti-headset"></i>IT Consulting</a></li>
+              </div>
+              <div class="mega-col">
+                <li><h6 class="dropdown-header">📱 Mobile Apps</h6></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=android-app-development"><i class="ti ti-brand-android"></i>Android App Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=ios-app-development"><i class="ti ti-brand-apple"></i>iOS App Development</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=cross-platform-flutter-rn"><i class="ti ti-devices"></i>Cross-Platform (Flutter/RN)</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=enterprise-mobile-apps"><i class="ti ti-building"></i>Enterprise Mobile Apps</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=on-demand-service-apps"><i class="ti ti-truck-delivery"></i>On-Demand Service Apps</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=fintech-banking-apps"><i class="ti ti-coin"></i>FinTech &amp; Banking Apps</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=healthcare-mobile-apps"><i class="ti ti-heart-rate-monitor"></i>Healthcare Mobile Apps</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><h6 class="dropdown-header">🔧 Support &amp; Quality</h6></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=maintenance-support"><i class="ti ti-tool"></i>Maintenance &amp; Support</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=qa-testing"><i class="ti ti-checkup-list"></i>QA &amp; Testing</a></li>
+                <li><a class="dropdown-item" href="../Services/service-detail.html?service=app-store-deployment"><i class="ti ti-brand-google-play"></i>App Store Deployment</a></li>
+              </div>
+            </div>
+          </ul>
+        </li>
+
+        <!-- INDUSTRIES -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="../Home section/home.html#industries" data-bs-toggle="dropdown">
+            <i class="ti ti-building-skyscraper me-1"></i>Industries
+          </a>
+          <ul class="dropdown-menu industries-mega">
+            <div class="mega-top-label"><i class="ti ti-grid-dots"></i>40 Industries We Serve</div>
+            <div class="ind-grid">
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="retail-and-e-commerce" data-ind-name="Retail &amp; E-Commerce" data-ind-icon="ti ti-shopping-bag"><i class="ti ti-shopping-bag"></i>Retail &amp; E-Commerce</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="healthcare-and-medical" data-ind-name="Healthcare &amp; Medical" data-ind-icon="ti ti-stethoscope"><i class="ti ti-stethoscope"></i>Healthcare &amp; Medical</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="real-estate-and-property" data-ind-name="Real Estate &amp; Property" data-ind-icon="ti ti-home"><i class="ti ti-home"></i>Real Estate &amp; Property</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="finance-and-banking" data-ind-name="Finance &amp; Banking" data-ind-icon="ti ti-building-bank"><i class="ti ti-building-bank"></i>Finance &amp; Banking</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="education-and-e-learning" data-ind-name="Education &amp; E-Learning" data-ind-icon="ti ti-school"><i class="ti ti-school"></i>Education &amp; E-Learning</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="manufacturing-and-production" data-ind-name="Manufacturing &amp; Production" data-ind-icon="ti ti-tools"><i class="ti ti-tools"></i>Manufacturing &amp; Production</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="logistics-and-supply-chain" data-ind-name="Logistics &amp; Supply Chain" data-ind-icon="ti ti-truck"><i class="ti ti-truck"></i>Logistics &amp; Supply Chain</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="restaurant-and-food" data-ind-name="Restaurant &amp; Food" data-ind-icon="ti ti-chef-hat"><i class="ti ti-chef-hat"></i>Restaurant &amp; Food</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="gold-and-jewelry-trading" data-ind-name="Gold &amp; Jewelry Trading" data-ind-icon="ti ti-diamond"><i class="ti ti-diamond"></i>Gold &amp; Jewelry Trading</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="hotel-and-hospitality" data-ind-name="Hotel &amp; Hospitality" data-ind-icon="ti ti-bed"><i class="ti ti-bed"></i>Hotel &amp; Hospitality</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="construction-and-engineering" data-ind-name="Construction &amp; Engineering" data-ind-icon="ti ti-crane"><i class="ti ti-crane"></i>Construction &amp; Engineering</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="hr-and-recruitment" data-ind-name="HR &amp; Recruitment" data-ind-icon="ti ti-users"><i class="ti ti-users"></i>HR &amp; Recruitment</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="legal-and-law-firms" data-ind-name="Legal &amp; Law Firms" data-ind-icon="ti ti-gavel"><i class="ti ti-gavel"></i>Legal &amp; Law Firms</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="non-profit-and-ngo" data-ind-name="Non-Profit &amp; NGO" data-ind-icon="ti ti-heart"><i class="ti ti-heart"></i>Non-Profit &amp; NGO</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="government-and-public-sector" data-ind-name="Government &amp; Public Sector" data-ind-icon="ti ti-building"><i class="ti ti-building"></i>Government &amp; Public Sector</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="insurance" data-ind-name="Insurance" data-ind-icon="ti ti-shield"><i class="ti ti-shield"></i>Insurance</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="automotive" data-ind-name="Automotive" data-ind-icon="ti ti-car"><i class="ti ti-car"></i>Automotive</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="agriculture-and-farming" data-ind-name="Agriculture &amp; Farming" data-ind-icon="ti ti-plant"><i class="ti ti-plant"></i>Agriculture &amp; Farming</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="fitness-and-wellness" data-ind-name="Fitness &amp; Wellness" data-ind-icon="ti ti-barbell"><i class="ti ti-barbell"></i>Fitness &amp; Wellness</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="media-and-entertainment" data-ind-name="Media &amp; Entertainment" data-ind-icon="ti ti-movie"><i class="ti ti-movie"></i>Media &amp; Entertainment</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="telecom-and-it" data-ind-name="Telecom &amp; IT" data-ind-icon="ti ti-wifi"><i class="ti ti-wifi"></i>Telecom &amp; IT</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="oil-and-gas" data-ind-name="Oil &amp; Gas" data-ind-icon="ti ti-flame"><i class="ti ti-flame"></i>Oil &amp; Gas</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="textile-and-apparel" data-ind-name="Textile &amp; Apparel" data-ind-icon="ti ti-shirt"><i class="ti ti-shirt"></i>Textile &amp; Apparel</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="pharmacy-and-drug-store" data-ind-name="Pharmacy &amp; Drug Store" data-ind-icon="ti ti-pill"><i class="ti ti-pill"></i>Pharmacy &amp; Drug Store</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="beauty-and-salon" data-ind-name="Beauty &amp; Salon" data-ind-icon="ti ti-sparkles"><i class="ti ti-sparkles"></i>Beauty &amp; Salon</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="travel-and-tourism" data-ind-name="Travel &amp; Tourism" data-ind-icon="ti ti-plane"><i class="ti ti-plane"></i>Travel &amp; Tourism</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="event-management" data-ind-name="Event Management" data-ind-icon="ti ti-confetti"><i class="ti ti-confetti"></i>Event Management</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="security-and-surveillance" data-ind-name="Security &amp; Surveillance" data-ind-icon="ti ti-camera"><i class="ti ti-camera"></i>Security &amp; Surveillance</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="printing-and-publishing" data-ind-name="Printing &amp; Publishing" data-ind-icon="ti ti-printer"><i class="ti ti-printer"></i>Printing &amp; Publishing</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="interior-design-and-architecture" data-ind-name="Interior Design &amp; Architecture" data-ind-icon="ti ti-ruler"><i class="ti ti-ruler"></i>Interior Design &amp; Architecture</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="accounting-and-tax-firms" data-ind-name="Accounting &amp; Tax Firms" data-ind-icon="ti ti-calculator"><i class="ti ti-calculator"></i>Accounting &amp; Tax Firms</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="wholesale-and-distribution" data-ind-name="Wholesale &amp; Distribution" data-ind-icon="ti ti-package"><i class="ti ti-package"></i>Wholesale &amp; Distribution</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="import-and-export" data-ind-name="Import &amp; Export" data-ind-icon="ti ti-ship"><i class="ti ti-ship"></i>Import &amp; Export</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="courier-and-delivery" data-ind-name="Courier &amp; Delivery" data-ind-icon="ti ti-bike"><i class="ti ti-bike"></i>Courier &amp; Delivery</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="supermarket-and-grocery" data-ind-name="Supermarket &amp; Grocery" data-ind-icon="ti ti-basket"><i class="ti ti-basket"></i>Supermarket &amp; Grocery</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="gym-and-sports" data-ind-name="Gym &amp; Sports" data-ind-icon="ti ti-run"><i class="ti ti-run"></i>Gym &amp; Sports</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="clinic-and-diagnostic-labs" data-ind-name="Clinic &amp; Diagnostic Labs" data-ind-icon="ti ti-microscope"><i class="ti ti-microscope"></i>Clinic &amp; Diagnostic Labs</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="school-and-university" data-ind-name="School &amp; University" data-ind-icon="ti ti-certificate"><i class="ti ti-certificate"></i>School &amp; University</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="car-rental-and-fleet" data-ind-name="Car Rental &amp; Fleet" data-ind-icon="ti ti-steering-wheel"><i class="ti ti-steering-wheel"></i>Car Rental &amp; Fleet</a></li>
+              <li><a class="dropdown-item ind-link" href="javascript:void(0)" data-ind-slug="charity-and-social-welfare" data-ind-name="Charity &amp; Social Welfare" data-ind-icon="ti ti-hand-heart"><i class="ti ti-hand-heart"></i>Charity &amp; Social Welfare</a></li>
+            </div>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../Home section/home.html#case-studio"><i class="ti ti-report-analytics me-1"></i>Case Studio</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" href="pricing.html"><i class="bi bi-tag me-1"></i>Pricing</a>
+        </li>
+
+      </ul>
+      <a href="../Home section/home.html#cta" class="btn-quote nav-link px-4">CONTACT US &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="pricing-hero">
+  <div class="container">
+    <div class="eyebrow" data-aos="fade-down">
+      <i class="bi bi-tag-fill"></i> Transparent Pricing
+    </div>
+    <h1 data-aos="fade-up" data-aos-delay="80">
+      Simple, <span>Honest</span> Pricing<br>For Every Business
+    </h1>
+    <p data-aos="fade-up" data-aos-delay="150">
+      No hidden fees. No surprises. Choose the plan that fits your business and scale whenever you're ready.
+    </p>
+    <div class="hero-badge-row" data-aos="fade-up" data-aos-delay="220">
+      <div class="hero-badge"><i class="bi bi-shield-check"></i> No Hidden Fees</div>
+      <div class="hero-badge"><i class="bi bi-arrow-up-circle"></i> Scale Anytime</div>
+      <div class="hero-badge"><i class="bi bi-headset"></i> Dedicated Support</div>
+      <div class="hero-badge"><i class="bi bi-patch-check"></i> Made for Pakistan</div>
+    </div>
+  </div>
+</section>
+
+<!-- TABS -->
+<div class="pricing-tabs-wrap">
+  <div class="container">
+    <div class="pricing-tabs" data-aos="fade-up">
+      <button class="ptab active" onclick="switchTab('erp')" id="tab-erp">
+        <i class="bi bi-grid"></i> ERP Software
+      </button>
+      <button class="ptab" onclick="switchTab('web')" id="tab-web">
+        <i class="bi bi-globe"></i> Websites
+      </button>
+      <button class="ptab" onclick="switchTab('ecom')" id="tab-ecom">
+        <i class="bi bi-cart"></i> E-Commerce
+      </button>
+      <button class="ptab" onclick="switchTab('soft')" id="tab-soft">
+        <i class="bi bi-code-slash"></i> Custom Software
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  ERP SECTION                               -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="pricing-section active" id="sec-erp">
+  <div class="container">
+    <div class="section-head" data-aos="fade-up">
+      <div class="section-label">ERP Software</div>
+      <h2>NovaERP <span>Packages</span></h2>
+      <p>Pakistan's smart ERP for every business size. Fully local, fully customizable.</p>
+    </div>
+
+    <!-- Billing toggle -->
+    <div class="billing-toggle" data-aos="fade-up" data-aos-delay="60">
+      <span class="active" id="lbl-monthly">Monthly</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="billingToggle" onchange="toggleBilling()">
+        <span class="toggle-slider"></span>
+      </label>
+      <span id="lbl-yearly">Yearly</span>
+      <span class="save-badge">SAVE 17%</span>
+    </div>
+
+    <div class="pricing-cards" data-aos="fade-up" data-aos-delay="100">
+
+      <!-- Starter -->
+      <div class="p-card">
+        <div class="card-tier">Starter</div>
+        <div class="card-name">Starter</div>
+        <div class="card-subtitle">For Small Businesses</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount erp-monthly" data-monthly="4,999" data-yearly="41,658">4,999</span>
+        </div>
+        <div class="price-period erp-monthly-label">per month</div>
+        <div class="price-yearly erp-yearly-label" style="display:none;">PKR 49,999 / year</div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Sales Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Purchase Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Inventory Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Customer Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Supplier Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Basic Reports</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Up to 3 Users</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Email Support</span></li>
+          <li class="neg"><div class="fi"><i class="bi bi-x"></i></div><span>Customization Not Included</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta outline">Get Started</a>
+      </div>
+
+      <!-- Business -->
+      <div class="p-card">
+        <div class="card-tier">Business</div>
+        <div class="card-name">Business</div>
+        <div class="card-subtitle">For Growing Businesses</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount erp-monthly" data-monthly="9,999" data-yearly="83,325">9,999</span>
+        </div>
+        <div class="price-period erp-monthly-label">per month</div>
+        <div class="price-yearly erp-yearly-label" style="display:none;">PKR 99,999 / year</div>
+        <hr class="card-divider">
+        <div class="also-label">Everything in Starter, plus</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Accounting Module</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>CRM Module</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Expense Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Advanced Reports</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Up to 10 Users</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>User Roles &amp; Permissions</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>WhatsApp Support</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Minor Customizations Included</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta outline">Get Started</a>
+      </div>
+
+      <!-- Professional (MOST POPULAR) -->
+      <div class="p-card featured">
+        <div class="badge-popular">Most Popular</div>
+        <div class="card-tier" style="margin-top:18px;">Professional</div>
+        <div class="card-name">Professional</div>
+        <div class="card-subtitle">For Distributors &amp; Medium Enterprises</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount erp-monthly" data-monthly="19,999" data-yearly="166,658">19,999</span>
+        </div>
+        <div class="price-period erp-monthly-label">per month</div>
+        <div class="price-yearly erp-yearly-label" style="display:none;">PKR 199,999 / year</div>
+        <hr class="card-divider">
+        <div class="also-label">Everything in Business, plus</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>HR &amp; Payroll Module</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Multi-Warehouse Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Multi-Branch Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Up to 25 Users</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Approval Workflows</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Advanced Analytics &amp; Dashboards</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Priority Support</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Advanced Customizations Included</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta solid">Get Started</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="p-card">
+        <div class="card-tier">Enterprise</div>
+        <div class="card-name">Enterprise</div>
+        <div class="card-subtitle">For Large Enterprises &amp; Organizations</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <div class="price-custom">From PKR 49,999</div>
+        </div>
+        <div class="price-period">per month</div>
+        <div class="price-yearly" style="margin-top:4px;">PKR 499,999 / year</div>
+        <hr class="card-divider">
+        <div class="features-label">The Full Suite</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Unlimited Users</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Full ERP Suite</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Custom Modules Development</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>API Integrations</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Mobile Application Access</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Dedicated Server Option</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Dedicated Account Manager</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Fully Customized ERP Solution</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta ghost">Contact Sales</a>
+      </div>
+
+    </div><!-- /pricing-cards -->
+
+    <!-- Compare table -->
+    <div class="compare-section" data-aos="fade-up">
+      <h3>Plan Comparison</h3>
+      <div class="compare-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th class="plan-col">Starter</th>
+              <th class="plan-col">Business</th>
+              <th class="plan-col">Professional</th>
+              <th class="plan-col">Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="feat-name">Users</td><td>3</td><td>10</td><td>25</td><td class="hl">Unlimited</td></tr>
+            <tr><td class="feat-name">Sales Management</td><td><i class="bi bi-check-lg chk"></i></td><td><i class="bi bi-check-lg chk"></i></td><td><i class="bi bi-check-lg chk"></i></td><td><i class="bi bi-check-lg chk"></i></td></tr>
+            <tr><td class="feat-name">Accounting</td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-check-lg chk"></i></td><td><i class="bi bi-check-lg chk"></i></td><td><i class="bi bi-check-lg chk"></i></td></tr>
+            <tr><td class="feat-name">CRM Module</td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-check-lg chk"></i></td><td><i class="bi bi-check-lg chk"></i></td><td><i class="bi bi-check-lg chk"></i></td></tr>
+            <tr><td class="feat-name">HR &amp; Payroll</td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-check-lg chk"></i></td><td><i class="bi bi-check-lg chk"></i></td></tr>
+            <tr><td class="feat-name">Multi-Branch</td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-check-lg chk"></i></td><td><i class="bi bi-check-lg chk"></i></td></tr>
+            <tr><td class="feat-name">API Integrations</td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-check-lg chk"></i></td></tr>
+            <tr><td class="feat-name">Custom Modules</td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-x xmk"></i></td><td><i class="bi bi-check-lg chk"></i></td></tr>
+            <tr><td class="feat-name">Support</td><td>Email</td><td>WhatsApp</td><td class="hl">Priority</td><td class="hl">Dedicated Manager</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  WEBSITE SECTION                           -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="pricing-section" id="sec-web">
+  <div class="container">
+    <div class="section-head" data-aos="fade-up">
+      <div class="section-label">Web Development</div>
+      <h2>Website <span>Packages</span></h2>
+      <p>Professional websites built to convert visitors into clients.</p>
+    </div>
+
+    <div class="pricing-cards" data-aos="fade-up" data-aos-delay="100">
+
+      <!-- Basic -->
+      <div class="p-card">
+        <div class="card-tier">Basic</div>
+        <div class="card-name">Basic Website</div>
+        <div class="card-subtitle">For Small Businesses &amp; Startups</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount">79,999</span>
+        </div>
+        <div class="price-period">one time payment</div>
+        <div class="maintenance-note">Optional Maintenance: <span>PKR 4,999 / mo</span></div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>5 Pages</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Responsive Design</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Contact Form</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Content Updates</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Minor Changes</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Hosting Support</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta outline">Get Started</a>
+      </div>
+
+      <!-- Business -->
+      <div class="p-card">
+        <div class="card-tier">Business</div>
+        <div class="card-name">Business Website</div>
+        <div class="card-subtitle">For Growing Businesses</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount">199,999</span>
+        </div>
+        <div class="price-period">one time payment</div>
+        <div class="maintenance-note">Optional Maintenance: <span>PKR 9,999 / mo</span></div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>15 Pages</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>CMS Integration</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>SEO Setup</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Everything in Basic Maintenance</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>SEO Updates</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>CMS Support</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta outline">Get Started</a>
+      </div>
+
+      <!-- Corporate (BEST VALUE) -->
+      <div class="p-card featured">
+        <div class="badge-best">Best Value</div>
+        <div class="card-tier" style="margin-top:18px;">Corporate</div>
+        <div class="card-name">Corporate Website</div>
+        <div class="card-subtitle">For Large Enterprises &amp; Organizations</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount">499,999+</span>
+        </div>
+        <div class="price-period">one time payment</div>
+        <div class="maintenance-note">Optional Maintenance: <span>PKR 19,999 / mo</span></div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Unlimited Pages</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Custom Design</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Integrations</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Priority Support</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Custom Changes</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Performance Monitoring</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta solid">Get Quote</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  E-COMMERCE SECTION                        -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="pricing-section" id="sec-ecom">
+  <div class="container">
+    <div class="section-head" data-aos="fade-up">
+      <div class="section-label">Online Store</div>
+      <h2>E-Commerce <span>Packages</span></h2>
+      <p>Launch and scale your online store with everything you need out of the box.</p>
+    </div>
+
+    <div class="pricing-cards" data-aos="fade-up" data-aos-delay="100">
+
+      <!-- Starter Store -->
+      <div class="p-card">
+        <div class="card-tier">Starter</div>
+        <div class="card-name">Starter Store</div>
+        <div class="card-subtitle">For New Online Businesses</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount">11,000</span>
+        </div>
+        <div class="price-period">per month</div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>100 Products</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Order Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Payment Gateway</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta outline">Get Started</a>
+      </div>
+
+      <!-- Growth Store (MOST POPULAR) -->
+      <div class="p-card featured">
+        <div class="badge-popular">Most Popular</div>
+        <div class="card-tier" style="margin-top:18px;">Growth</div>
+        <div class="card-name">Growth Store</div>
+        <div class="card-subtitle">For Scaling Businesses</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount">28,000</span>
+        </div>
+        <div class="price-period">per month</div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Unlimited Products</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Inventory Management</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Marketing Tools</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta solid">Get Started</a>
+      </div>
+
+      <!-- Enterprise Store -->
+      <div class="p-card">
+        <div class="card-tier">Enterprise</div>
+        <div class="card-name">Enterprise Store</div>
+        <div class="card-subtitle">For Large Scale Operations</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <div class="price-custom">Custom Quote</div>
+        </div>
+        <div class="price-note">contact us for pricing</div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Multi Vendor</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>ERP Integration</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Advanced Analytics</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta ghost">Contact Sales</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  CUSTOM SOFTWARE SECTION                   -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="pricing-section" id="sec-soft">
+  <div class="container">
+    <div class="section-head" data-aos="fade-up">
+      <div class="section-label">Software Development</div>
+      <h2>Custom Software <span>Packages</span></h2>
+      <p>End-to-end development tailored to your business — from MVP to enterprise systems.</p>
+    </div>
+
+    <div class="pricing-cards" data-aos="fade-up" data-aos-delay="100">
+
+      <!-- Starter Project -->
+      <div class="p-card">
+        <div class="card-tier">Starter</div>
+        <div class="card-name">Starter Project</div>
+        <div class="card-subtitle">For Startups &amp; Small Businesses</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount">278,000</span>
+        </div>
+        <div class="price-period">starting from</div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>MVP Development</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Single Module</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Basic Integrations</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>3 Months Support</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta outline">Get Quote</a>
+      </div>
+
+      <!-- Business Project (MOST POPULAR) -->
+      <div class="p-card featured">
+        <div class="badge-popular">Most Popular</div>
+        <div class="card-tier" style="margin-top:18px;">Business</div>
+        <div class="card-name">Business Project</div>
+        <div class="card-subtitle">For Growing Enterprises</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount">834,000</span>
+        </div>
+        <div class="price-period">starting from</div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Multi Module System</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>API Development</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Custom Design</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>6 Months Support</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta solid">Get Quote</a>
+      </div>
+
+      <!-- Enterprise Project -->
+      <div class="p-card">
+        <div class="card-tier">Enterprise</div>
+        <div class="card-name">Enterprise Project</div>
+        <div class="card-subtitle">For Large Enterprises &amp; Organizations</div>
+        <hr class="card-divider">
+        <div class="card-price">
+          <span class="price-currency">PKR</span>
+          <span class="price-amount">2,780,000+</span>
+        </div>
+        <div class="price-period">starting from</div>
+        <hr class="card-divider">
+        <div class="features-label">What's Included</div>
+        <ul class="feat-list">
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Full Custom Solution</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Dedicated Team</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>Advanced Integrations</span></li>
+          <li><div class="fi"><i class="bi bi-check-lg"></i></div><span>12 Months Support</span></li>
+        </ul>
+        <a href="../Home section/home.html#cta" class="card-cta ghost">Contact Sales</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ENTERPRISE BANNER -->
+<section style="padding: 0 0 80px;">
+  <div class="container">
+    <div class="enterprise-banner" data-aos="fade-up">
+      <div>
+        <h3>Need a <span>Custom</span> Solution?</h3>
+        <p>Talk to our team — we'll build exactly what your business needs, at the right scale.</p>
+        <div class="enterprise-features">
+          <div class="e-feat"><i class="bi bi-people"></i> Dedicated Team</div>
+          <div class="e-feat"><i class="bi bi-puzzle"></i> Custom Modules</div>
+          <div class="e-feat"><i class="bi bi-phone"></i> Mobile App Access</div>
+          <div class="e-feat"><i class="bi bi-hdd-network"></i> API Integrations</div>
+          <div class="e-feat"><i class="bi bi-server"></i> Dedicated Server</div>
+        </div>
+      </div>
+      <a href="../Home section/home.html#cta" class="enterprise-cta-btn">
+        <i class="bi bi-chat-dots"></i> Talk to Sales
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <div class="container" style="position:relative;z-index:1;">
+    <h2 data-aos="fade-up">Ready to <span>Get Started?</span></h2>
+    <p data-aos="fade-up" data-aos-delay="80">Book a free consultation and we'll help you choose the right package for your business.</p>
+    <div class="cta-btn-row" data-aos="fade-up" data-aos-delay="160">
+      <a href="../Home section/home.html#cta" class="btn-cta-primary">
+        <i class="bi bi-calendar-check"></i> Book Free Consultation
+      </a>
+      <a href="tel:+11234568899" class="btn-cta-outline">
+        <i class="bi bi-telephone"></i> Call Us Now
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-brand">NovaStack<span>hub</span></div>
+    <p>Pakistan's trusted software partner for ERP, web, and mobile solutions.</p>
+    <div class="footer-links">
+      <a href="../Home section/home.html">Home</a>
+      <a href="../About section/about.html">About</a>
+      <a href="../Home section/home.html#services">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="../Home section/home.html#cta">Contact</a>
+    </div>
+    <p style="margin-top:16px;">&copy; 2025 NovaStackhub. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Industry Choice Modal -->
+<div class="modal fade" id="industryChoiceModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content" style="background:#0d1f2d;border:1px solid #1a3050;border-radius:16px;overflow:hidden;">
+      <div class="modal-header" style="background:linear-gradient(135deg,#0a1628,#0f3460);border-bottom:1px solid #1a3050;padding:20px 24px;">
+        <div class="d-flex align-items-center gap-3">
+          <div id="modalIndIconWrap" style="width:44px;height:44px;border-radius:11px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:21px;color:#00c8ff;"></div>
+          <div>
+            <h5 class="modal-title mb-0" style="color:#fff;font-weight:800;font-size:17px;" id="modalIndTitle">Industry Name</h5>
+            <small style="color:rgba(255,255,255,.45);font-size:12px;">Choose what you'd like to explore</small>
+          </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="padding:28px 24px;">
+        <p style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:22px;text-align:center;">
+          What would you like to check for <strong style="color:#00c8ff;" id="modalIndNameInline">this industry</strong>?
+        </p>
+        <div class="row g-3">
+          <div class="col-6">
+            <a id="choiceWebsiteBtn" href="#" style="text-decoration:none;">
+              <div class="ind-choice-card" id="websiteChoiceCard">
+                <div class="ind-choice-icon" style="color:#00c8ff;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <h6 style="color:#fff;font-weight:700;margin-bottom:6px;">Demo Website</h6>
+                <p style="color:rgba(255,255,255,.45);font-size:12.5px;line-height:1.5;margin:0;">Full sample website — homepage, about, services &amp; contact</p>
+                <div style="margin-top:14px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#00c8ff;">Explore <i class="ti ti-arrow-right" style="font-size:13px;"></i></div>
+              </div>
+            </a>
+          </div>
+          <div class="col-6">
+            <a id="choiceErpBtn" href="#" style="text-decoration:none;">
+              <div class="ind-choice-card ind-choice-card--accent" id="erpChoiceCard">
+                <div class="ind-choice-icon" id="erpChoiceIcon" style="color:#00c8ff;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                </div>
+                <h6 style="color:#fff;font-weight:700;margin-bottom:6px;">ERP System Demo</h6>
+                <p style="color:rgba(255,255,255,.45);font-size:12.5px;line-height:1.5;margin:0;">Live ERP dashboard with modules, charts &amp; dummy data</p>
+                <div style="margin-top:14px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#00c8ff;">Launch ERP <i class="ti ti-arrow-right" style="font-size:13px;"></i></div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <p style="text-align:center;margin-top:18px;font-size:12px;color:rgba(255,255,255,.3);">
+          <i class="ti ti-info-circle me-1"></i>Powered by <strong style="color:rgba(255,255,255,.5);">NovaStackhub ERP Platform</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ind-choice-card {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px; padding: 20px 16px; height: 100%;
+    transition: background .2s, border-color .2s, transform .2s;
+  }
+  .ind-choice-card:hover { background: rgba(255,255,255,.07); border-color: rgba(0,200,255,.2); transform: translateY(-2px); }
+  .ind-choice-card--accent { background: rgba(0,200,255,.04); border-color: rgba(0,200,255,.12); }
+  .ind-choice-card--accent:hover { background: rgba(0,200,255,.12); border-color: #00c8ff; }
+  .ind-choice-icon { width: 46px; height: 46px; border-radius: 12px; background: rgba(0,200,255,.1); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../Home section/assets/js/aos.js"></script>
+<script>
+  /* AOS */
+  AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 60 });
+
+  /* Loader */
+  window.addEventListener('load', () => {
+    setTimeout(() => document.getElementById('loader').classList.add('hidden'), 900);
+  });
+
+  /* Scroll progress */
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+
+  /* Tab switching */
+  const tabs = { erp: 'sec-erp', web: 'sec-web', ecom: 'sec-ecom', soft: 'sec-soft' };
+  function switchTab(id) {
+    Object.keys(tabs).forEach(k => {
+      document.getElementById('tab-' + k).classList.remove('active');
+      document.getElementById(tabs[k]).classList.remove('active');
+    });
+    document.getElementById('tab-' + id).classList.add('active');
+    document.getElementById(tabs[id]).classList.add('active');
+    AOS.refresh();
+    // Smooth scroll to tabs
+    document.querySelector('.pricing-tabs-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* Billing toggle (ERP monthly/yearly) */
+  function toggleBilling() {
+    const isYearly = document.getElementById('billingToggle').checked;
+    document.getElementById('lbl-monthly').classList.toggle('active', !isYearly);
+    document.getElementById('lbl-yearly').classList.toggle('active', isYearly);
+    document.querySelectorAll('.erp-monthly-label').forEach(el => el.style.display = isYearly ? 'none' : 'block');
+    document.querySelectorAll('.erp-yearly-label').forEach(el => el.style.display = isYearly ? 'block' : 'none');
+    document.querySelectorAll('.erp-monthly').forEach(el => {
+      el.textContent = isYearly
+        ? (el.dataset.yearly || el.textContent)
+        : (el.dataset.monthly || el.textContent);
+    });
+  }
+
+  /* Card hover glow effect */
+  document.querySelectorAll('.p-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mx', x + 'px');
+      card.style.setProperty('--my', y + 'px');
+    });
+  });
+</script>
+
+<script>
+(function () {
+  var choiceModal = new bootstrap.Modal(document.getElementById('industryChoiceModal'), { backdrop: true, keyboard: true });
+  document.querySelectorAll('.ind-link').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var slug = link.getAttribute('data-ind-slug');
+      var name = link.getAttribute('data-ind-name').replace(/&amp;/g, '&');
+      var icon = link.getAttribute('data-ind-icon');
+      document.getElementById('modalIndIconWrap').innerHTML = '<i class="' + icon + '"></i>';
+      document.getElementById('modalIndTitle').textContent = name;
+      document.getElementById('modalIndNameInline').textContent = name;
+      document.getElementById('choiceWebsiteBtn').href = '../Industries/demo-website.html?industry=' + slug;
+      document.getElementById('choiceErpBtn').href     = '../Industries/demo-erp.html?industry='    + slug;
+      var openDdMenu = document.querySelector('.dropdown-menu.show');
+      if (openDdMenu) {
+        var ddToggle = openDdMenu.previousElementSibling;
+        if (ddToggle) { bootstrap.Dropdown.getOrCreateInstance(ddToggle).hide(); }
+      }
+      choiceModal.show();
+    });
+  });
+}());
+</script>
+</body>
+</html>

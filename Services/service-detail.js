@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════════════════════
+﻿/* ═══════════════════════════════════════════════════════════
    SERVICE DETAIL PAGE — service-detail.js
    Reads ?service=slug from URL → populates the page
 ═══════════════════════════════════════════════════════════ */
@@ -20,7 +20,7 @@ const SERVICES = {
   'custom-software-development': {
     name: 'Custom Software Development',
     category: 'Software Development',
-    icon: 'ti ti-code',
+    icon: 'bi bi-code-slash',
     tagline: 'Software built exactly the way your business works.',
     description: 'We design and develop fully tailored software solutions from scratch — no templates, no compromises. Whether you need an internal tool, a client-facing platform, or a complex enterprise system, we engineer it around your exact workflows, goals, and growth plans. Our team handles everything from architecture to deployment and ongoing support.',
     features: [
@@ -34,9 +34,9 @@ const SERVICES = {
       'Post-launch support & maintenance',
     ],
     benefits: [
-      { icon: 'ti ti-building-skyscraper', title: 'Enterprises', desc: 'Digitize complex workflows and replace legacy systems' },
-      { icon: 'ti ti-rocket', title: 'Startups', desc: 'Build your core product with the right architecture' },
-      { icon: 'ti ti-briefcase', title: 'SMBs', desc: 'Replace spreadsheets and manual processes with automation' },
+      { icon: 'bi bi-buildings', title: 'Enterprises', desc: 'Digitize complex workflows and replace legacy systems' },
+      { icon: 'bi bi-rocket', title: 'Startups', desc: 'Build your core product with the right architecture' },
+      { icon: 'bi bi-briefcase', title: 'SMBs', desc: 'Replace spreadsheets and manual processes with automation' },
     ],
     whyUs: [
       'Battle-tested development process with 150+ delivered projects',
@@ -50,7 +50,7 @@ const SERVICES = {
   'erp-development': {
     name: 'ERP Development',
     category: 'Software Development',
-    icon: 'ti ti-building-factory',
+    icon: 'bi bi-building',
     tagline: 'One system to run your entire business.',
     description: 'We build custom ERP (Enterprise Resource Planning) systems that connect every department in your company — from inventory and procurement to HR, payroll, accounting, and sales. Unlike off-the-shelf ERP software, our solutions are engineered specifically for your business model, industry, and scale.',
     features: [
@@ -64,9 +64,9 @@ const SERVICES = {
       'Real-time dashboards & analytics',
     ],
     benefits: [
-      { icon: 'ti ti-tools', title: 'Manufacturers', desc: 'Manage production, materials, and workforce in one place' },
-      { icon: 'ti ti-truck', title: 'Distributors', desc: 'Streamline procurement, stock, and delivery operations' },
-      { icon: 'ti ti-building', title: 'Enterprises', desc: 'Eliminate data silos and unify all business units' },
+      { icon: 'bi bi-tools', title: 'Manufacturers', desc: 'Manage production, materials, and workforce in one place' },
+      { icon: 'bi bi-truck-front', title: 'Distributors', desc: 'Streamline procurement, stock, and delivery operations' },
+      { icon: 'bi bi-building', title: 'Enterprises', desc: 'Eliminate data silos and unify all business units' },
     ],
     whyUs: [
       'ERP experts with 10+ years of domain experience',
@@ -80,7 +80,7 @@ const SERVICES = {
   'crm-development': {
     name: 'CRM Development',
     category: 'Software Development',
-    icon: 'ti ti-users',
+    icon: 'bi bi-people',
     tagline: 'Know your customers. Grow your sales.',
     description: 'We build custom CRM (Customer Relationship Management) platforms tailored to your sales pipeline, customer journey, and team structure. Manage leads, automate follow-ups, track deals, and get real-time insights into your sales performance — all in one place built exactly for how you work.',
     features: [
@@ -94,9 +94,9 @@ const SERVICES = {
       'Integration with email, WhatsApp & calls',
     ],
     benefits: [
-      { icon: 'ti ti-chart-bar', title: 'Sales Teams', desc: 'Close more deals with organised pipelines and automations' },
-      { icon: 'ti ti-headset', title: 'Support Teams', desc: 'Track customer issues and reduce resolution time' },
-      { icon: 'ti ti-building', title: 'Businesses', desc: 'Centralise all customer data and eliminate manual tracking' },
+      { icon: 'bi bi-bar-chart', title: 'Sales Teams', desc: 'Close more deals with organised pipelines and automations' },
+      { icon: 'bi bi-headset', title: 'Support Teams', desc: 'Track customer issues and reduce resolution time' },
+      { icon: 'bi bi-building', title: 'Businesses', desc: 'Centralise all customer data and eliminate manual tracking' },
     ],
     whyUs: [
       'Fully custom — not a reskinned Salesforce or HubSpot',
@@ -110,7 +110,7 @@ const SERVICES = {
   'saas-product-development': {
     name: 'SaaS Product Development',
     category: 'Software Development',
-    icon: 'ti ti-cloud',
+    icon: 'bi bi-cloud',
     tagline: 'Build your SaaS. Scale without limits.',
     description: 'We design and develop multi-tenant SaaS (Software as a Service) products from concept to launch. Whether you are building a B2B platform, a marketplace, or a subscription tool, we architect it for scalability, security, and reliability — ready to handle thousands of users from day one.',
     features: [
@@ -124,9 +124,9 @@ const SERVICES = {
       'White-label & reseller support',
     ],
     benefits: [
-      { icon: 'ti ti-rocket', title: 'Startups', desc: 'Launch fast with a production-grade SaaS MVP' },
-      { icon: 'ti ti-building', title: 'Businesses', desc: 'Productise internal tools and sell them as a service' },
-      { icon: 'ti ti-chart-line', title: 'Entrepreneurs', desc: 'Turn your idea into recurring revenue' },
+      { icon: 'bi bi-rocket', title: 'Startups', desc: 'Launch fast with a production-grade SaaS MVP' },
+      { icon: 'bi bi-building', title: 'Businesses', desc: 'Productise internal tools and sell them as a service' },
+      { icon: 'bi bi-graph-up', title: 'Entrepreneurs', desc: 'Turn your idea into recurring revenue' },
     ],
     whyUs: [
       'SaaS-native architecture from day one — no refactoring needed later',
@@ -140,7 +140,7 @@ const SERVICES = {
   'mvp-development': {
     name: 'MVP Development',
     category: 'Software Development',
-    icon: 'ti ti-rocket',
+    icon: 'bi bi-rocket',
     tagline: 'Validate your idea fast. Build smart.',
     description: 'We help startups and entrepreneurs go from idea to a working, user-tested Minimum Viable Product in the shortest time possible. Our MVP process focuses on the core features that matter most — cutting scope without cutting quality — so you can launch, learn, and iterate confidently.',
     features: [
@@ -154,9 +154,9 @@ const SERVICES = {
       'Iteration roadmap post-launch',
     ],
     benefits: [
-      { icon: 'ti ti-bulb', title: 'Founders', desc: 'Validate product-market fit before full investment' },
-      { icon: 'ti ti-chart-pie', title: 'Investors', desc: 'Get a working demo to present to investors and partners' },
-      { icon: 'ti ti-users', title: 'Innovators', desc: 'Gather real user feedback to shape the final product' },
+      { icon: 'bi bi-lightbulb', title: 'Founders', desc: 'Validate product-market fit before full investment' },
+      { icon: 'bi bi-pie-chart', title: 'Investors', desc: 'Get a working demo to present to investors and partners' },
+      { icon: 'bi bi-people', title: 'Innovators', desc: 'Gather real user feedback to shape the final product' },
     ],
     whyUs: [
       '4–8 week average delivery from kickoff to live MVP',
@@ -170,7 +170,7 @@ const SERVICES = {
   'enterprise-software': {
     name: 'Enterprise Software',
     category: 'Software Development',
-    icon: 'ti ti-server',
+    icon: 'bi bi-server',
     tagline: 'Mission-critical software. Enterprise grade.',
     description: 'We build robust, secure, and highly scalable software systems designed for large enterprises with complex operational requirements. From multi-department platforms to high-volume transaction systems, our enterprise solutions handle the demands of real business at scale.',
     features: [
@@ -184,9 +184,9 @@ const SERVICES = {
       'SLA-backed 24/7 monitoring',
     ],
     benefits: [
-      { icon: 'ti ti-building-skyscraper', title: 'Large Enterprises', desc: 'Unify operations across departments and geographies' },
-      { icon: 'ti ti-shield', title: 'Regulated Industries', desc: 'Meet compliance requirements with built-in audit tools' },
-      { icon: 'ti ti-users', title: 'Large Teams', desc: 'Support thousands of concurrent users without slowdown' },
+      { icon: 'bi bi-buildings', title: 'Large Enterprises', desc: 'Unify operations across departments and geographies' },
+      { icon: 'bi bi-shield', title: 'Regulated Industries', desc: 'Meet compliance requirements with built-in audit tools' },
+      { icon: 'bi bi-people', title: 'Large Teams', desc: 'Support thousands of concurrent users without slowdown' },
     ],
     whyUs: [
       'Fortune 500-class engineering practices',
@@ -200,7 +200,7 @@ const SERVICES = {
   'business-process-automation': {
     name: 'Business Process Automation',
     category: 'Software Development',
-    icon: 'ti ti-robot',
+    icon: 'bi bi-cpu',
     tagline: 'Automate the routine. Focus on what matters.',
     description: 'We help businesses identify, design, and implement automation for repetitive and time-consuming processes. From document workflows and approvals to data entry, reporting, and communication — we replace manual work with smart, reliable automation that runs 24/7.',
     features: [
@@ -214,9 +214,9 @@ const SERVICES = {
       'Error alerts & monitoring dashboards',
     ],
     benefits: [
-      { icon: 'ti ti-clock', title: 'Operations Teams', desc: 'Save hours of manual work every day' },
-      { icon: 'ti ti-coin', title: 'Finance Teams', desc: 'Automate invoicing, reconciliation, and reporting' },
-      { icon: 'ti ti-users', title: 'HR Teams', desc: 'Streamline onboarding, leave approval, and payroll' },
+      { icon: 'bi bi-clock', title: 'Operations Teams', desc: 'Save hours of manual work every day' },
+      { icon: 'bi bi-coin', title: 'Finance Teams', desc: 'Automate invoicing, reconciliation, and reporting' },
+      { icon: 'bi bi-people', title: 'HR Teams', desc: 'Streamline onboarding, leave approval, and payroll' },
     ],
     whyUs: [
       'Automation-first mindset — we identify savings you haven\'t thought of',
@@ -231,7 +231,7 @@ const SERVICES = {
   'ui-ux-design': {
     name: 'UI/UX Design',
     category: 'Design',
-    icon: 'ti ti-palette',
+    icon: 'bi bi-palette',
     tagline: 'Design that users love. Interfaces that convert.',
     description: 'We create beautiful, intuitive user interfaces and experiences grounded in real user research. From wireframes and user flows to pixel-perfect UI designs and interactive prototypes, we deliver designs that feel natural, look stunning, and drive measurable results for your business.',
     features: [
@@ -245,9 +245,9 @@ const SERVICES = {
       'Developer handoff with specs & assets',
     ],
     benefits: [
-      { icon: 'ti ti-rocket', title: 'Startups', desc: 'Launch with a polished product that wins users from day one' },
-      { icon: 'ti ti-building', title: 'Businesses', desc: 'Redesign to reduce churn and increase user satisfaction' },
-      { icon: 'ti ti-device-mobile', title: 'App Owners', desc: 'Improve onboarding flows and in-app conversion rates' },
+      { icon: 'bi bi-rocket', title: 'Startups', desc: 'Launch with a polished product that wins users from day one' },
+      { icon: 'bi bi-building', title: 'Businesses', desc: 'Redesign to reduce churn and increase user satisfaction' },
+      { icon: 'bi bi-phone', title: 'App Owners', desc: 'Improve onboarding flows and in-app conversion rates' },
     ],
     whyUs: [
       'Research-backed — every design decision has a reason',
@@ -261,7 +261,7 @@ const SERVICES = {
   'mobile-app-ui-ux': {
     name: 'Mobile App UI/UX',
     category: 'Design',
-    icon: 'ti ti-device-mobile',
+    icon: 'bi bi-phone',
     tagline: 'Mobile experiences users can\'t put down.',
     description: 'We specialise in designing mobile-first user interfaces that feel native, intuitive, and delightful on both iOS and Android. From onboarding flows and gesture-based interactions to dark mode and micro-animations, every detail is crafted to maximise engagement and retention.',
     features: [
@@ -275,9 +275,9 @@ const SERVICES = {
       'App Store screenshot & marketing assets',
     ],
     benefits: [
-      { icon: 'ti ti-brand-android', title: 'Android Teams', desc: 'Material Design 3 compliant UI with platform best practices' },
-      { icon: 'ti ti-brand-apple', title: 'iOS Teams', desc: 'Human Interface Guidelines-aligned design for App Store approval' },
-      { icon: 'ti ti-users', title: 'Product Teams', desc: 'Improve session time and user retention with better UX' },
+      { icon: 'bi bi-android2', title: 'Android Teams', desc: 'Material Design 3 compliant UI with platform best practices' },
+      { icon: 'bi bi-apple', title: 'iOS Teams', desc: 'Human Interface Guidelines-aligned design for App Store approval' },
+      { icon: 'bi bi-people', title: 'Product Teams', desc: 'Improve session time and user retention with better UX' },
     ],
     whyUs: [
       'Specialists in both iOS HIG and Material Design guidelines',
@@ -291,7 +291,7 @@ const SERVICES = {
   'accessibility-services': {
     name: 'Accessibility Services',
     category: 'Design',
-    icon: 'ti ti-accessible',
+    icon: 'bi bi-universal-access',
     tagline: 'Digital products for everyone. No exceptions.',
     description: 'We audit, redesign, and rebuild digital products to meet WCAG 2.1 accessibility standards — ensuring your website or app is usable by people with visual, auditory, motor, and cognitive disabilities. Accessible products reach more users, reduce legal risk, and demonstrate genuine care for inclusivity.',
     features: [
@@ -305,9 +305,9 @@ const SERVICES = {
       'Accessibility certification report',
     ],
     benefits: [
-      { icon: 'ti ti-building-skyscraper', title: 'Enterprises', desc: 'Meet ADA, EN 301 549, and WCAG legal requirements' },
-      { icon: 'ti ti-school', title: 'EdTech & Gov', desc: 'Mandatory compliance for public and educational platforms' },
-      { icon: 'ti ti-heart', title: 'Inclusive Brands', desc: 'Reach the 1.3 billion people worldwide with disabilities' },
+      { icon: 'bi bi-buildings', title: 'Enterprises', desc: 'Meet ADA, EN 301 549, and WCAG legal requirements' },
+      { icon: 'bi bi-mortarboard', title: 'EdTech & Gov', desc: 'Mandatory compliance for public and educational platforms' },
+      { icon: 'bi bi-heart', title: 'Inclusive Brands', desc: 'Reach the 1.3 billion people worldwide with disabilities' },
     ],
     whyUs: [
       'Certified accessibility auditors on the team',
@@ -322,7 +322,7 @@ const SERVICES = {
   'web-application-development': {
     name: 'Web Application Development',
     category: 'Web & E-Commerce',
-    icon: 'ti ti-world',
+    icon: 'bi bi-globe',
     tagline: 'Full-stack web apps built to perform at scale.',
     description: 'We build powerful, full-stack web applications using modern technologies like React, Next.js, Node.js, and Django. From single-page applications and customer portals to multi-user SaaS platforms and internal tools, we architect for performance, security, and long-term maintainability.',
     features: [
@@ -336,9 +336,9 @@ const SERVICES = {
       'CI/CD pipeline & cloud deployment',
     ],
     benefits: [
-      { icon: 'ti ti-building', title: 'Businesses', desc: 'Replace manual processes with intelligent web tools' },
-      { icon: 'ti ti-rocket', title: 'Startups', desc: 'Launch your web product with a production-ready codebase' },
-      { icon: 'ti ti-school', title: 'Institutions', desc: 'Build portals, dashboards, and management platforms' },
+      { icon: 'bi bi-building', title: 'Businesses', desc: 'Replace manual processes with intelligent web tools' },
+      { icon: 'bi bi-rocket', title: 'Startups', desc: 'Launch your web product with a production-ready codebase' },
+      { icon: 'bi bi-mortarboard', title: 'Institutions', desc: 'Build portals, dashboards, and management platforms' },
     ],
     whyUs: [
       'Full-stack team — no outsourcing or freelancers',
@@ -352,7 +352,7 @@ const SERVICES = {
   'frontend-development': {
     name: 'Frontend Development',
     category: 'Web & E-Commerce',
-    icon: 'ti ti-layout',
+    icon: 'bi bi-layout-text-window',
     tagline: 'Pixel-perfect. Lightning fast. Fully responsive.',
     description: 'We build beautiful, high-performance frontend interfaces using React, Vue, Angular, and plain HTML/CSS. From converting Figma designs to live code to building complex interactive UIs, our frontend developers produce clean, accessible, and blazing-fast interfaces across all devices.',
     features: [
@@ -366,9 +366,9 @@ const SERVICES = {
       'Core Web Vitals & performance optimisation',
     ],
     benefits: [
-      { icon: 'ti ti-palette', title: 'Designers', desc: 'Turn your designs into pixel-perfect living interfaces' },
-      { icon: 'ti ti-building', title: 'Companies', desc: 'Upgrade your UI without touching backend code' },
-      { icon: 'ti ti-rocket', title: 'Product Teams', desc: 'Ship frontend features faster with our specialist team' },
+      { icon: 'bi bi-palette', title: 'Designers', desc: 'Turn your designs into pixel-perfect living interfaces' },
+      { icon: 'bi bi-building', title: 'Companies', desc: 'Upgrade your UI without touching backend code' },
+      { icon: 'bi bi-rocket', title: 'Product Teams', desc: 'Ship frontend features faster with our specialist team' },
     ],
     whyUs: [
       'Semantic, accessible HTML5 as default',
@@ -382,7 +382,7 @@ const SERVICES = {
   'backend-development': {
     name: 'Backend Development',
     category: 'Web & E-Commerce',
-    icon: 'ti ti-database',
+    icon: 'bi bi-database',
     tagline: 'The engine that powers your product.',
     description: 'We build secure, scalable, and high-performance backend systems using Node.js, Python (Django/FastAPI), PHP (Laravel), and .NET. From REST and GraphQL APIs to microservices, databases, and cloud infrastructure, we engineer the server-side foundation your product depends on.',
     features: [
@@ -396,9 +396,9 @@ const SERVICES = {
       'API documentation (Swagger/OpenAPI)',
     ],
     benefits: [
-      { icon: 'ti ti-code', title: 'Frontend Teams', desc: 'Get a reliable, documented API to build on quickly' },
-      { icon: 'ti ti-building', title: 'Businesses', desc: 'Migrate from legacy systems to modern scalable backends' },
-      { icon: 'ti ti-rocket', title: 'Startups', desc: 'Launch with an architecture that handles 10x growth' },
+      { icon: 'bi bi-code-slash', title: 'Frontend Teams', desc: 'Get a reliable, documented API to build on quickly' },
+      { icon: 'bi bi-building', title: 'Businesses', desc: 'Migrate from legacy systems to modern scalable backends' },
+      { icon: 'bi bi-rocket', title: 'Startups', desc: 'Launch with an architecture that handles 10x growth' },
     ],
     whyUs: [
       'API-first, documentation-first development process',
@@ -412,7 +412,7 @@ const SERVICES = {
   'e-commerce-solutions': {
     name: 'E-Commerce Solutions',
     category: 'Web & E-Commerce',
-    icon: 'ti ti-shopping-cart',
+    icon: 'bi bi-cart',
     tagline: 'Your online store. Fully custom. High converting.',
     description: 'We design and build fully custom e-commerce stores that are fast, secure, and built to convert visitors into customers. Whether you are starting fresh, migrating from Shopify, or need a complex multi-vendor marketplace, we engineer an online store built exactly for your products and customers.',
     features: [
@@ -426,9 +426,9 @@ const SERVICES = {
       'Inventory management & low-stock alerts',
     ],
     benefits: [
-      { icon: 'ti ti-shopping-bag', title: 'Retailers', desc: 'Sell online with a store that reflects your brand' },
-      { icon: 'ti ti-building', title: 'Wholesalers', desc: 'B2B e-commerce with bulk ordering and trade pricing' },
-      { icon: 'ti ti-globe', title: 'Global Sellers', desc: 'Multi-currency, multi-language store for international sales' },
+      { icon: 'bi bi-bag', title: 'Retailers', desc: 'Sell online with a store that reflects your brand' },
+      { icon: 'bi bi-building', title: 'Wholesalers', desc: 'B2B e-commerce with bulk ordering and trade pricing' },
+      { icon: 'bi bi-globe', title: 'Global Sellers', desc: 'Multi-currency, multi-language store for international sales' },
     ],
     whyUs: [
       'Custom-built — no Shopify fees or template limitations',
@@ -442,7 +442,7 @@ const SERVICES = {
   'api-development-integration': {
     name: 'API Development & Integration',
     category: 'Web & E-Commerce',
-    icon: 'ti ti-api',
+    icon: 'bi bi-hdd-network',
     tagline: 'Connect everything. Automate everything.',
     description: 'We design, build, and integrate APIs that connect your systems, tools, and third-party services seamlessly. Whether you need a custom REST/GraphQL API, a webhook integration, or to connect multiple SaaS platforms, we make your tech stack work as one unified system.',
     features: [
@@ -456,9 +456,9 @@ const SERVICES = {
       'Swagger / OpenAPI documentation',
     ],
     benefits: [
-      { icon: 'ti ti-plug', title: 'Businesses', desc: 'Connect your existing tools without manual data transfer' },
-      { icon: 'ti ti-code', title: 'Developers', desc: 'Get a clean, documented API to build products on top of' },
-      { icon: 'ti ti-building', title: 'Enterprises', desc: 'Integrate legacy systems with modern cloud services' },
+      { icon: 'bi bi-plug', title: 'Businesses', desc: 'Connect your existing tools without manual data transfer' },
+      { icon: 'bi bi-code-slash', title: 'Developers', desc: 'Get a clean, documented API to build products on top of' },
+      { icon: 'bi bi-building', title: 'Enterprises', desc: 'Integrate legacy systems with modern cloud services' },
     ],
     whyUs: [
       'Postman collection and Swagger docs delivered with every API',
@@ -473,7 +473,7 @@ const SERVICES = {
   'cloud-solutions': {
     name: 'Cloud Solutions',
     category: 'Cloud & IT Ops',
-    icon: 'ti ti-cloud-upload',
+    icon: 'bi bi-cloud-upload',
     tagline: 'Move to the cloud. Scale without limits.',
     description: 'We help businesses migrate to, optimise, and manage cloud infrastructure on AWS, Google Cloud, and Microsoft Azure. Whether you are moving from on-premises servers, optimising costs, or architecting a cloud-native system, we design solutions that are scalable, secure, and cost-efficient.',
     features: [
@@ -487,9 +487,9 @@ const SERVICES = {
       '24/7 monitoring & incident response',
     ],
     benefits: [
-      { icon: 'ti ti-building', title: 'Enterprises', desc: 'Migrate legacy infrastructure to modern cloud without downtime' },
-      { icon: 'ti ti-rocket', title: 'Startups', desc: 'Launch on scalable cloud from day one' },
-      { icon: 'ti ti-coin', title: 'Cost-Conscious Teams', desc: 'Reduce cloud bills with proper sizing and reserved instances' },
+      { icon: 'bi bi-building', title: 'Enterprises', desc: 'Migrate legacy infrastructure to modern cloud without downtime' },
+      { icon: 'bi bi-rocket', title: 'Startups', desc: 'Launch on scalable cloud from day one' },
+      { icon: 'bi bi-coin', title: 'Cost-Conscious Teams', desc: 'Reduce cloud bills with proper sizing and reserved instances' },
     ],
     whyUs: [
       'AWS, GCP, and Azure certified cloud engineers',
@@ -503,7 +503,7 @@ const SERVICES = {
   'devops-services': {
     name: 'DevOps Services',
     category: 'Cloud & IT Ops',
-    icon: 'ti ti-settings',
+    icon: 'bi bi-gear',
     tagline: 'Ship faster. Deploy confidently. Zero downtime.',
     description: 'We implement DevOps culture, tools, and practices that let your team ship software faster with higher quality and confidence. From CI/CD pipelines and containerisation with Docker/Kubernetes to infrastructure automation and monitoring, we eliminate the gap between development and operations.',
     features: [
@@ -517,9 +517,9 @@ const SERVICES = {
       'Incident management & runbooks',
     ],
     benefits: [
-      { icon: 'ti ti-code', title: 'Dev Teams', desc: 'Deploy to production in minutes instead of days' },
-      { icon: 'ti ti-building', title: 'CTOs', desc: 'Increase release frequency with zero-downtime deployments' },
-      { icon: 'ti ti-chart-line', title: 'Scaling Teams', desc: 'Build the operational foundation for rapid growth' },
+      { icon: 'bi bi-code-slash', title: 'Dev Teams', desc: 'Deploy to production in minutes instead of days' },
+      { icon: 'bi bi-building', title: 'CTOs', desc: 'Increase release frequency with zero-downtime deployments' },
+      { icon: 'bi bi-graph-up', title: 'Scaling Teams', desc: 'Build the operational foundation for rapid growth' },
     ],
     whyUs: [
       'Kubernetes-certified engineers with production experience',
@@ -533,7 +533,7 @@ const SERVICES = {
   'cybersecurity': {
     name: 'Cybersecurity',
     category: 'Cloud & IT Ops',
-    icon: 'ti ti-shield-lock',
+    icon: 'bi bi-shield-lock',
     tagline: 'Protect what matters before it\'s too late.',
     description: 'We provide comprehensive cybersecurity services including penetration testing, vulnerability assessments, security audits, and implementation of security controls. Our team identifies risks in your infrastructure, applications, and processes before attackers do — and fixes them.',
     features: [
@@ -547,9 +547,9 @@ const SERVICES = {
       'Security compliance audit (ISO 27001, GDPR)',
     ],
     benefits: [
-      { icon: 'ti ti-building', title: 'Enterprises', desc: 'Protect customer data and avoid costly breaches' },
-      { icon: 'ti ti-shopping-cart', title: 'E-Commerce', desc: 'PCI-DSS compliance and payment security hardening' },
-      { icon: 'ti ti-heart', title: 'Healthcare', desc: 'HIPAA-compliant security controls and data protection' },
+      { icon: 'bi bi-building', title: 'Enterprises', desc: 'Protect customer data and avoid costly breaches' },
+      { icon: 'bi bi-cart', title: 'E-Commerce', desc: 'PCI-DSS compliance and payment security hardening' },
+      { icon: 'bi bi-heart', title: 'Healthcare', desc: 'HIPAA-compliant security controls and data protection' },
     ],
     whyUs: [
       'CEH and OSCP certified ethical hackers',
@@ -563,7 +563,7 @@ const SERVICES = {
   'infrastructure-design': {
     name: 'Infrastructure Design',
     category: 'Cloud & IT Ops',
-    icon: 'ti ti-topology-star',
+    icon: 'bi bi-diagram-3',
     tagline: 'Architecture built for scale, reliability, and speed.',
     description: 'We design scalable, fault-tolerant infrastructure architectures for modern applications. Whether you are planning a new system or rearchitecting an existing one, we create infrastructure blueprints that ensure high availability, optimal performance, and the ability to scale with your growth.',
     features: [
@@ -577,9 +577,9 @@ const SERVICES = {
       'Architecture diagrams & documentation',
     ],
     benefits: [
-      { icon: 'ti ti-building-skyscraper', title: 'Enterprises', desc: 'Design infrastructure that supports millions of users' },
-      { icon: 'ti ti-rocket', title: 'Growing Startups', desc: 'Prevent outages before they happen as you scale' },
-      { icon: 'ti ti-code', title: 'Dev Teams', desc: 'Get a clear infrastructure blueprint before you build' },
+      { icon: 'bi bi-buildings', title: 'Enterprises', desc: 'Design infrastructure that supports millions of users' },
+      { icon: 'bi bi-rocket', title: 'Growing Startups', desc: 'Prevent outages before they happen as you scale' },
+      { icon: 'bi bi-code-slash', title: 'Dev Teams', desc: 'Get a clear infrastructure blueprint before you build' },
     ],
     whyUs: [
       'Experience designing infrastructure for 1M+ user systems',
@@ -593,7 +593,7 @@ const SERVICES = {
   'it-consulting': {
     name: 'IT Consulting',
     category: 'Cloud & IT Ops',
-    icon: 'ti ti-headset',
+    icon: 'bi bi-headset',
     tagline: 'Strategic tech advice that moves your business forward.',
     description: 'Our IT consultants help businesses make smarter technology decisions. Whether you are choosing between software solutions, planning a digital transformation, evaluating vendors, or building a tech roadmap, we provide objective, experience-backed guidance that aligns your IT with your business goals.',
     features: [
@@ -607,9 +607,9 @@ const SERVICES = {
       'Tech due diligence for investors',
     ],
     benefits: [
-      { icon: 'ti ti-building', title: 'SMBs', desc: 'Get enterprise-level tech strategy without a full-time CTO' },
-      { icon: 'ti ti-building-skyscraper', title: 'Enterprises', desc: 'Align IT investments with business outcomes' },
-      { icon: 'ti ti-chart-line', title: 'Investors', desc: 'Tech due diligence reports before acquisition or funding' },
+      { icon: 'bi bi-building', title: 'SMBs', desc: 'Get enterprise-level tech strategy without a full-time CTO' },
+      { icon: 'bi bi-buildings', title: 'Enterprises', desc: 'Align IT investments with business outcomes' },
+      { icon: 'bi bi-graph-up', title: 'Investors', desc: 'Tech due diligence reports before acquisition or funding' },
     ],
     whyUs: [
       'Vendor-neutral advice — we have no referral bias',
@@ -624,7 +624,7 @@ const SERVICES = {
   'android-app-development': {
     name: 'Android App Development',
     category: 'Mobile Apps',
-    icon: 'ti ti-brand-android',
+    icon: 'bi bi-android2',
     tagline: 'Native Android apps. Fast. Reliable. Play Store-ready.',
     description: 'We build high-performance native Android applications using Kotlin and Jetpack Compose. From consumer apps to enterprise mobility solutions, our Android apps are optimised for speed, battery efficiency, and compatibility across the full range of Android devices and versions.',
     features: [
@@ -638,9 +638,9 @@ const SERVICES = {
       'ProGuard & security hardening',
     ],
     benefits: [
-      { icon: 'ti ti-users', title: 'Consumer Apps', desc: '2.5B+ Android users ready to download your app' },
-      { icon: 'ti ti-building', title: 'Enterprises', desc: 'Deploy custom apps on corporate Android device fleets' },
-      { icon: 'ti ti-shopping-bag', title: 'Retailers', desc: 'Point-of-sale and inventory apps for Android devices' },
+      { icon: 'bi bi-people', title: 'Consumer Apps', desc: '2.5B+ Android users ready to download your app' },
+      { icon: 'bi bi-building', title: 'Enterprises', desc: 'Deploy custom apps on corporate Android device fleets' },
+      { icon: 'bi bi-bag', title: 'Retailers', desc: 'Point-of-sale and inventory apps for Android devices' },
     ],
     whyUs: [
       'Kotlin-first development with modern Android architecture',
@@ -654,7 +654,7 @@ const SERVICES = {
   'ios-app-development': {
     name: 'iOS App Development',
     category: 'Mobile Apps',
-    icon: 'ti ti-brand-apple',
+    icon: 'bi bi-apple',
     tagline: 'Polished iOS apps. App Store approved. Users love them.',
     description: 'We build native iOS applications using Swift and SwiftUI that meet Apple\'s exacting quality standards. From elegant consumer apps to enterprise iPhone solutions, our iOS apps deliver the premium experience Apple users expect — and pass App Store review first time, every time.',
     features: [
@@ -668,9 +668,9 @@ const SERVICES = {
       'TestFlight beta distribution',
     ],
     benefits: [
-      { icon: 'ti ti-users', title: 'Consumer Apps', desc: 'Reach iPhone\'s premium user base with high purchasing power' },
-      { icon: 'ti ti-building', title: 'Enterprises', desc: 'Secure, managed iOS apps for corporate iPhone/iPad fleets' },
-      { icon: 'ti ti-heart', title: 'Healthcare', desc: 'HealthKit-integrated apps for patient monitoring and wellness' },
+      { icon: 'bi bi-people', title: 'Consumer Apps', desc: 'Reach iPhone\'s premium user base with high purchasing power' },
+      { icon: 'bi bi-building', title: 'Enterprises', desc: 'Secure, managed iOS apps for corporate iPhone/iPad fleets' },
+      { icon: 'bi bi-heart', title: 'Healthcare', desc: 'HealthKit-integrated apps for patient monitoring and wellness' },
     ],
     whyUs: [
       'Apple Developer Program membership and submission handled',
@@ -684,7 +684,7 @@ const SERVICES = {
   'cross-platform-flutter-rn': {
     name: 'Cross-Platform Apps (Flutter / RN)',
     category: 'Mobile Apps',
-    icon: 'ti ti-devices',
+    icon: 'bi bi-phone-landscape',
     tagline: 'One codebase. iOS and Android. No compromise.',
     description: 'We build cross-platform mobile apps using Flutter and React Native that look and perform like native apps on both iOS and Android. Get the best of both worlds — a single shared codebase that dramatically reduces development cost and time, without sacrificing user experience or performance.',
     features: [
@@ -698,9 +698,9 @@ const SERVICES = {
       'Automated CI/CD for both platforms',
     ],
     benefits: [
-      { icon: 'ti ti-coin', title: 'Cost-Conscious Teams', desc: 'Save 40–60% vs. building separate native apps' },
-      { icon: 'ti ti-rocket', title: 'Startups', desc: 'Ship to both platforms simultaneously and faster' },
-      { icon: 'ti ti-building', title: 'Businesses', desc: 'Maintain one codebase for consistent cross-platform features' },
+      { icon: 'bi bi-coin', title: 'Cost-Conscious Teams', desc: 'Save 40–60% vs. building separate native apps' },
+      { icon: 'bi bi-rocket', title: 'Startups', desc: 'Ship to both platforms simultaneously and faster' },
+      { icon: 'bi bi-building', title: 'Businesses', desc: 'Maintain one codebase for consistent cross-platform features' },
     ],
     whyUs: [
       'Flutter specialists — our preferred framework for best results',
@@ -714,7 +714,7 @@ const SERVICES = {
   'enterprise-mobile-apps': {
     name: 'Enterprise Mobile Apps',
     category: 'Mobile Apps',
-    icon: 'ti ti-building',
+    icon: 'bi bi-building',
     tagline: 'Enterprise-grade mobile. Secure. Scalable. Integrated.',
     description: 'We develop secure, scalable mobile applications built for enterprise environments. From field service apps and employee tools to customer portals, our enterprise mobile solutions integrate deeply with your backend systems, support MDM deployment, and meet your organisation\'s security requirements.',
     features: [
@@ -728,9 +728,9 @@ const SERVICES = {
       'Remote wipe & device policy enforcement',
     ],
     benefits: [
-      { icon: 'ti ti-building-skyscraper', title: 'Large Enterprises', desc: 'Deploy secure apps to thousands of employee devices' },
-      { icon: 'ti ti-tools', title: 'Field Service Teams', desc: 'Offline-capable apps for workers without reliable internet' },
-      { icon: 'ti ti-shield', title: 'Regulated Industries', desc: 'Compliance-ready mobile apps for banking, health, and legal' },
+      { icon: 'bi bi-buildings', title: 'Large Enterprises', desc: 'Deploy secure apps to thousands of employee devices' },
+      { icon: 'bi bi-tools', title: 'Field Service Teams', desc: 'Offline-capable apps for workers without reliable internet' },
+      { icon: 'bi bi-shield', title: 'Regulated Industries', desc: 'Compliance-ready mobile apps for banking, health, and legal' },
     ],
     whyUs: [
       'Experience with Microsoft Intune, MobileIron & Jamf MDM',
@@ -744,7 +744,7 @@ const SERVICES = {
   'on-demand-service-apps': {
     name: 'On-Demand Service Apps',
     category: 'Mobile Apps',
-    icon: 'ti ti-truck-delivery',
+    icon: 'bi bi-truck-front',
     tagline: 'Uber-style apps. Built for your business.',
     description: 'We build complete on-demand service platforms — like Uber, Lyft, or DoorDash — for any service vertical. Our solutions include separate apps for customers, service providers, and drivers, plus a powerful admin dashboard to manage everything in real time.',
     features: [
@@ -758,9 +758,9 @@ const SERVICES = {
       'Admin dashboard with live analytics',
     ],
     benefits: [
-      { icon: 'ti ti-truck', title: 'Delivery Services', desc: 'Food, grocery, package, and courier delivery platforms' },
-      { icon: 'ti ti-car', title: 'Ride-Hailing', desc: 'Full ride-sharing platform for taxi, shuttle, or rentals' },
-      { icon: 'ti ti-tools', title: 'Home Services', desc: 'On-demand plumbing, cleaning, repair booking apps' },
+      { icon: 'bi bi-truck-front', title: 'Delivery Services', desc: 'Food, grocery, package, and courier delivery platforms' },
+      { icon: 'bi bi-car-front', title: 'Ride-Hailing', desc: 'Full ride-sharing platform for taxi, shuttle, or rentals' },
+      { icon: 'bi bi-tools', title: 'Home Services', desc: 'On-demand plumbing, cleaning, repair booking apps' },
     ],
     whyUs: [
       'Complete 3-sided marketplace (customer + provider + admin)',
@@ -774,7 +774,7 @@ const SERVICES = {
   'fintech-banking-apps': {
     name: 'FinTech & Banking Apps',
     category: 'Mobile Apps',
-    icon: 'ti ti-coin',
+    icon: 'bi bi-coin',
     tagline: 'Secure financial apps. Compliance built in.',
     description: 'We develop highly secure, compliance-ready mobile applications for banks, fintech startups, payment companies, and investment platforms. From digital wallets and money transfer apps to trading platforms and micro-lending solutions, we build financial apps that users trust.',
     features: [
@@ -788,9 +788,9 @@ const SERVICES = {
       'KYC / AML verification flow',
     ],
     benefits: [
-      { icon: 'ti ti-building-bank', title: 'Banks & NBFIs', desc: 'Mobile banking apps with core banking system integration' },
-      { icon: 'ti ti-rocket', title: 'FinTech Startups', desc: 'Wallet, lending, or payments app with compliance baked in' },
-      { icon: 'ti ti-chart-line', title: 'Investment Platforms', desc: 'Trading, portfolio, and wealth management applications' },
+      { icon: 'bi bi-bank2', title: 'Banks & NBFIs', desc: 'Mobile banking apps with core banking system integration' },
+      { icon: 'bi bi-rocket', title: 'FinTech Startups', desc: 'Wallet, lending, or payments app with compliance baked in' },
+      { icon: 'bi bi-graph-up', title: 'Investment Platforms', desc: 'Trading, portfolio, and wealth management applications' },
     ],
     whyUs: [
       'Dedicated FinTech compliance team on board',
@@ -804,7 +804,7 @@ const SERVICES = {
   'healthcare-mobile-apps': {
     name: 'Healthcare Mobile Apps',
     category: 'Mobile Apps',
-    icon: 'ti ti-heart-rate-monitor',
+    icon: 'bi bi-heart-pulse',
     tagline: 'Healthcare apps that patients and providers trust.',
     description: 'We build HIPAA-compliant mobile applications for hospitals, clinics, telehealth providers, and healthtech startups. From patient portals and telemedicine apps to EHR integrations and remote monitoring solutions, we deliver healthcare technology that improves patient outcomes and clinical efficiency.',
     features: [
@@ -818,9 +818,9 @@ const SERVICES = {
       'Insurance claim & billing module',
     ],
     benefits: [
-      { icon: 'ti ti-stethoscope', title: 'Hospitals & Clinics', desc: 'Patient portals and clinical workflow mobile tools' },
-      { icon: 'ti ti-rocket', title: 'HealthTech Startups', desc: 'Telehealth and wellness platforms with full compliance' },
-      { icon: 'ti ti-heart', title: 'Patients', desc: 'Better health management with intuitive mobile tools' },
+      { icon: 'bi bi-heart-pulse', title: 'Hospitals & Clinics', desc: 'Patient portals and clinical workflow mobile tools' },
+      { icon: 'bi bi-rocket', title: 'HealthTech Startups', desc: 'Telehealth and wellness platforms with full compliance' },
+      { icon: 'bi bi-heart', title: 'Patients', desc: 'Better health management with intuitive mobile tools' },
     ],
     whyUs: [
       'HIPAA-certified development process',
@@ -835,7 +835,7 @@ const SERVICES = {
   'maintenance-support': {
     name: 'Maintenance & Support',
     category: 'Support & Quality',
-    icon: 'ti ti-tool',
+    icon: 'bi bi-wrench',
     tagline: 'Your product, always healthy. 24/7.',
     description: 'We provide comprehensive maintenance and support services to keep your web or mobile application running smoothly after launch. From proactive monitoring and bug fixes to performance tuning and security patches, we handle everything so you can focus on your business.',
     features: [
@@ -849,9 +849,9 @@ const SERVICES = {
       'Dedicated support ticket system',
     ],
     benefits: [
-      { icon: 'ti ti-building', title: 'Business Owners', desc: 'Sleep easy knowing your product is monitored 24/7' },
-      { icon: 'ti ti-code', title: 'Dev Teams', desc: 'Offload maintenance so your team can focus on features' },
-      { icon: 'ti ti-shopping-cart', title: 'E-Commerce', desc: 'Zero downtime means zero lost sales' },
+      { icon: 'bi bi-building', title: 'Business Owners', desc: 'Sleep easy knowing your product is monitored 24/7' },
+      { icon: 'bi bi-code-slash', title: 'Dev Teams', desc: 'Offload maintenance so your team can focus on features' },
+      { icon: 'bi bi-cart', title: 'E-Commerce', desc: 'Zero downtime means zero lost sales' },
     ],
     whyUs: [
       'Average response time under 2 hours for critical issues',
@@ -865,7 +865,7 @@ const SERVICES = {
   'qa-testing': {
     name: 'QA & Testing',
     category: 'Support & Quality',
-    icon: 'ti ti-checkup-list',
+    icon: 'bi bi-clipboard-check',
     tagline: 'Ship with confidence. Zero surprises.',
     description: 'We provide comprehensive quality assurance and testing services to ensure your software is bug-free, performant, and ready for real users. Our QA engineers combine manual testing with automated test suites to catch issues before they reach production — protecting your reputation and user experience.',
     features: [
@@ -879,9 +879,9 @@ const SERVICES = {
       'Bug reporting with detailed reproduction steps',
     ],
     benefits: [
-      { icon: 'ti ti-code', title: 'Dev Teams', desc: 'Catch regressions early with automated test coverage' },
-      { icon: 'ti ti-building', title: 'Product Managers', desc: 'Ship releases confidently with sign-off from QA specialists' },
-      { icon: 'ti ti-rocket', title: 'Startups', desc: 'Build quality in from the start — not bolted on later' },
+      { icon: 'bi bi-code-slash', title: 'Dev Teams', desc: 'Catch regressions early with automated test coverage' },
+      { icon: 'bi bi-building', title: 'Product Managers', desc: 'Ship releases confidently with sign-off from QA specialists' },
+      { icon: 'bi bi-rocket', title: 'Startups', desc: 'Build quality in from the start — not bolted on later' },
     ],
     whyUs: [
       'ISTQB-certified QA engineers',
@@ -895,7 +895,7 @@ const SERVICES = {
   'app-store-deployment': {
     name: 'App Store Deployment',
     category: 'Support & Quality',
-    icon: 'ti ti-brand-google-play',
+    icon: 'bi bi-google-play',
     tagline: 'Live on App Store and Play Store. Done right.',
     description: 'We handle the complete process of submitting, optimising, and managing your app on the Apple App Store and Google Play Store. From preparing store assets and metadata to navigating review guidelines and optimising for discoverability (ASO), we ensure your app launches successfully.',
     features: [
@@ -909,9 +909,9 @@ const SERVICES = {
       'Post-launch rating & review management',
     ],
     benefits: [
-      { icon: 'ti ti-rocket', title: 'First-Time Publishers', desc: 'Navigate the complex App Store review process stress-free' },
-      { icon: 'ti ti-building', title: 'Businesses', desc: 'Maximise downloads with professional ASO and store presence' },
-      { icon: 'ti ti-chart-line', title: 'Growth Teams', desc: 'Improve app ranking and organic discovery' },
+      { icon: 'bi bi-rocket', title: 'First-Time Publishers', desc: 'Navigate the complex App Store review process stress-free' },
+      { icon: 'bi bi-building', title: 'Businesses', desc: 'Maximise downloads with professional ASO and store presence' },
+      { icon: 'bi bi-graph-up', title: 'Growth Teams', desc: 'Improve app ranking and organic discovery' },
     ],
     whyUs: [
       '98% first-submission approval rate on both stores',
@@ -961,7 +961,7 @@ function loadService() {
   const fl = document.getElementById('featuresList');
   fl.innerHTML = svc.features.map(f => `
     <li>
-      <span class="sd-feat-dot"><i class="ti ti-check"></i></span>
+      <span class="sd-feat-dot"><i class="bi bi-check-lg"></i></span>
       ${f}
     </li>`).join('');
 
@@ -978,7 +978,7 @@ function loadService() {
   const wl = document.getElementById('whyList');
   wl.innerHTML = svc.whyUs.map(w => `
     <li>
-      <span class="sd-why-icon"><i class="ti ti-check"></i></span>
+      <span class="sd-why-icon"><i class="bi bi-check-lg"></i></span>
       ${w}
     </li>`).join('');
 
